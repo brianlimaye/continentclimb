@@ -1,0 +1,603 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B432F79424BC1F140062EDB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F79324BC1F140062EDB0 /* AppDelegate.swift */; };
+		B432F79624BC1F140062EDB0 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B432F79524BC1F140062EDB0 /* GameScene.sks */; };
+		B432F79824BC1F140062EDB0 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = B432F79724BC1F140062EDB0 /* Actions.sks */; };
+		B432F79A24BC1F140062EDB0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F79924BC1F140062EDB0 /* GameScene.swift */; };
+		B432F79C24BC1F140062EDB0 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F79B24BC1F140062EDB0 /* GameViewController.swift */; };
+		B432F79F24BC1F140062EDB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B432F79D24BC1F140062EDB0 /* Main.storyboard */; };
+		B432F7A124BC1F160062EDB0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B432F7A024BC1F160062EDB0 /* Assets.xcassets */; };
+		B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B432F7A224BC1F160062EDB0 /* LaunchScreen.storyboard */; };
+		B432F7AF24BC1F160062EDB0 /* continentclimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7AE24BC1F160062EDB0 /* continentclimbTests.swift */; };
+		B432F7BA24BC1F160062EDB0 /* continentclimbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7B924BC1F160062EDB0 /* continentclimbUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B432F7AB24BC1F160062EDB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B432F78824BC1F140062EDB0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B432F78F24BC1F140062EDB0;
+			remoteInfo = continentclimb;
+		};
+		B432F7B624BC1F160062EDB0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B432F78824BC1F140062EDB0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B432F78F24BC1F140062EDB0;
+			remoteInfo = continentclimb;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B432F79024BC1F140062EDB0 /* continentclimb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = continentclimb.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B432F79324BC1F140062EDB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B432F79524BC1F140062EDB0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		B432F79724BC1F140062EDB0 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		B432F79924BC1F140062EDB0 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		B432F79B24BC1F140062EDB0 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		B432F79E24BC1F140062EDB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B432F7A024BC1F160062EDB0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B432F7A324BC1F160062EDB0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B432F7A524BC1F160062EDB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B432F7AA24BC1F160062EDB0 /* continentclimbTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = continentclimbTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B432F7AE24BC1F160062EDB0 /* continentclimbTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = continentclimbTests.swift; sourceTree = "<group>"; };
+		B432F7B024BC1F160062EDB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B432F7B524BC1F160062EDB0 /* continentclimbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = continentclimbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B432F7B924BC1F160062EDB0 /* continentclimbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = continentclimbUITests.swift; sourceTree = "<group>"; };
+		B432F7BB24BC1F160062EDB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B432F78D24BC1F140062EDB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B432F7A724BC1F160062EDB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B432F7B224BC1F160062EDB0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B432F78724BC1F140062EDB0 = {
+			isa = PBXGroup;
+			children = (
+				B432F79224BC1F140062EDB0 /* continentclimb */,
+				B432F7AD24BC1F160062EDB0 /* continentclimbTests */,
+				B432F7B824BC1F160062EDB0 /* continentclimbUITests */,
+				B432F79124BC1F140062EDB0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B432F79124BC1F140062EDB0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B432F79024BC1F140062EDB0 /* continentclimb.app */,
+				B432F7AA24BC1F160062EDB0 /* continentclimbTests.xctest */,
+				B432F7B524BC1F160062EDB0 /* continentclimbUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B432F79224BC1F140062EDB0 /* continentclimb */ = {
+			isa = PBXGroup;
+			children = (
+				B432F79324BC1F140062EDB0 /* AppDelegate.swift */,
+				B432F79524BC1F140062EDB0 /* GameScene.sks */,
+				B432F79724BC1F140062EDB0 /* Actions.sks */,
+				B432F79924BC1F140062EDB0 /* GameScene.swift */,
+				B432F79B24BC1F140062EDB0 /* GameViewController.swift */,
+				B432F79D24BC1F140062EDB0 /* Main.storyboard */,
+				B432F7A024BC1F160062EDB0 /* Assets.xcassets */,
+				B432F7A224BC1F160062EDB0 /* LaunchScreen.storyboard */,
+				B432F7A524BC1F160062EDB0 /* Info.plist */,
+			);
+			path = continentclimb;
+			sourceTree = "<group>";
+		};
+		B432F7AD24BC1F160062EDB0 /* continentclimbTests */ = {
+			isa = PBXGroup;
+			children = (
+				B432F7AE24BC1F160062EDB0 /* continentclimbTests.swift */,
+				B432F7B024BC1F160062EDB0 /* Info.plist */,
+			);
+			path = continentclimbTests;
+			sourceTree = "<group>";
+		};
+		B432F7B824BC1F160062EDB0 /* continentclimbUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B432F7B924BC1F160062EDB0 /* continentclimbUITests.swift */,
+				B432F7BB24BC1F160062EDB0 /* Info.plist */,
+			);
+			path = continentclimbUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B432F78F24BC1F140062EDB0 /* continentclimb */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B432F7BE24BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimb" */;
+			buildPhases = (
+				B432F78C24BC1F140062EDB0 /* Sources */,
+				B432F78D24BC1F140062EDB0 /* Frameworks */,
+				B432F78E24BC1F140062EDB0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = continentclimb;
+			productName = continentclimb;
+			productReference = B432F79024BC1F140062EDB0 /* continentclimb.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B432F7A924BC1F160062EDB0 /* continentclimbTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B432F7C124BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimbTests" */;
+			buildPhases = (
+				B432F7A624BC1F160062EDB0 /* Sources */,
+				B432F7A724BC1F160062EDB0 /* Frameworks */,
+				B432F7A824BC1F160062EDB0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B432F7AC24BC1F160062EDB0 /* PBXTargetDependency */,
+			);
+			name = continentclimbTests;
+			productName = continentclimbTests;
+			productReference = B432F7AA24BC1F160062EDB0 /* continentclimbTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B432F7B424BC1F160062EDB0 /* continentclimbUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B432F7C424BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimbUITests" */;
+			buildPhases = (
+				B432F7B124BC1F160062EDB0 /* Sources */,
+				B432F7B224BC1F160062EDB0 /* Frameworks */,
+				B432F7B324BC1F160062EDB0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B432F7B724BC1F160062EDB0 /* PBXTargetDependency */,
+			);
+			name = continentclimbUITests;
+			productName = continentclimbUITests;
+			productReference = B432F7B524BC1F160062EDB0 /* continentclimbUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B432F78824BC1F140062EDB0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1150;
+				LastUpgradeCheck = 1150;
+				ORGANIZATIONNAME = "Brian Limaye";
+				TargetAttributes = {
+					B432F78F24BC1F140062EDB0 = {
+						CreatedOnToolsVersion = 11.5;
+					};
+					B432F7A924BC1F160062EDB0 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = B432F78F24BC1F140062EDB0;
+					};
+					B432F7B424BC1F160062EDB0 = {
+						CreatedOnToolsVersion = 11.5;
+						TestTargetID = B432F78F24BC1F140062EDB0;
+					};
+				};
+			};
+			buildConfigurationList = B432F78B24BC1F140062EDB0 /* Build configuration list for PBXProject "continentclimb" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B432F78724BC1F140062EDB0;
+			productRefGroup = B432F79124BC1F140062EDB0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B432F78F24BC1F140062EDB0 /* continentclimb */,
+				B432F7A924BC1F160062EDB0 /* continentclimbTests */,
+				B432F7B424BC1F160062EDB0 /* continentclimbUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B432F78E24BC1F140062EDB0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B432F79F24BC1F140062EDB0 /* Main.storyboard in Resources */,
+				B432F79624BC1F140062EDB0 /* GameScene.sks in Resources */,
+				B432F7A124BC1F160062EDB0 /* Assets.xcassets in Resources */,
+				B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */,
+				B432F79824BC1F140062EDB0 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B432F7A824BC1F160062EDB0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B432F7B324BC1F160062EDB0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B432F78C24BC1F140062EDB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B432F79A24BC1F140062EDB0 /* GameScene.swift in Sources */,
+				B432F79C24BC1F140062EDB0 /* GameViewController.swift in Sources */,
+				B432F79424BC1F140062EDB0 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B432F7A624BC1F160062EDB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B432F7AF24BC1F160062EDB0 /* continentclimbTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B432F7B124BC1F160062EDB0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B432F7BA24BC1F160062EDB0 /* continentclimbUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B432F7AC24BC1F160062EDB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B432F78F24BC1F140062EDB0 /* continentclimb */;
+			targetProxy = B432F7AB24BC1F160062EDB0 /* PBXContainerItemProxy */;
+		};
+		B432F7B724BC1F160062EDB0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B432F78F24BC1F140062EDB0 /* continentclimb */;
+			targetProxy = B432F7B624BC1F160062EDB0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B432F79D24BC1F140062EDB0 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B432F79E24BC1F140062EDB0 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B432F7A224BC1F160062EDB0 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B432F7A324BC1F160062EDB0 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B432F7BC24BC1F160062EDB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B432F7BD24BC1F160062EDB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B432F7BF24BC1F160062EDB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QEXVU7NBU9;
+				INFOPLIST_FILE = continentclimb/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B432F7C024BC1F160062EDB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QEXVU7NBU9;
+				INFOPLIST_FILE = continentclimb/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B432F7C224BC1F160062EDB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QEXVU7NBU9;
+				INFOPLIST_FILE = continentclimbTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimbTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/continentclimb.app/continentclimb";
+			};
+			name = Debug;
+		};
+		B432F7C324BC1F160062EDB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QEXVU7NBU9;
+				INFOPLIST_FILE = continentclimbTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimbTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/continentclimb.app/continentclimb";
+			};
+			name = Release;
+		};
+		B432F7C524BC1F160062EDB0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QEXVU7NBU9;
+				INFOPLIST_FILE = continentclimbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimbUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = continentclimb;
+			};
+			name = Debug;
+		};
+		B432F7C624BC1F160062EDB0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = QEXVU7NBU9;
+				INFOPLIST_FILE = continentclimbUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimbUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = continentclimb;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B432F78B24BC1F140062EDB0 /* Build configuration list for PBXProject "continentclimb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B432F7BC24BC1F160062EDB0 /* Debug */,
+				B432F7BD24BC1F160062EDB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B432F7BE24BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimb" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B432F7BF24BC1F160062EDB0 /* Debug */,
+				B432F7C024BC1F160062EDB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B432F7C124BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimbTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B432F7C224BC1F160062EDB0 /* Debug */,
+				B432F7C324BC1F160062EDB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B432F7C424BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimbUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B432F7C524BC1F160062EDB0 /* Debug */,
+				B432F7C624BC1F160062EDB0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B432F78824BC1F140062EDB0 /* Project object */;
+}
