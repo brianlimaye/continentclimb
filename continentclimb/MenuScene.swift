@@ -1,5 +1,5 @@
 //
-//  GameScene.swift
+//  MenuScene.swift
 //  continentclimb
 //
 //  Created by Brian Limaye on 7/13/20.
@@ -11,7 +11,7 @@ import SpriteKit
 import AVFoundation
 import StoreKit
 
-class GameScene: SKScene {
+class MenuScene: SKScene {
     
     override func didMove(to view: SKView) {
         
@@ -19,3 +19,4 @@ class GameScene: SKScene {
     }
     
 }
+

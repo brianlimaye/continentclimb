@@ -17,6 +17,37 @@
 		B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B432F7A224BC1F160062EDB0 /* LaunchScreen.storyboard */; };
 		B432F7AF24BC1F160062EDB0 /* continentclimbTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7AE24BC1F160062EDB0 /* continentclimbTests.swift */; };
 		B432F7BA24BC1F160062EDB0 /* continentclimbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7B924BC1F160062EDB0 /* continentclimbUITests.swift */; };
+		B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7C724BC268D0062EDB0 /* HomeScene.swift */; };
+		B432F7CA24BC269D0062EDB0 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7C924BC269D0062EDB0 /* MenuScene.swift */; };
+		B495822B24BC2D5A00BC1857 /* northamerica.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822824BC2D5A00BC1857 /* northamerica.png */; };
+		B495822C24BC2D5A00BC1857 /* southamerica.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822924BC2D5A00BC1857 /* southamerica.png */; };
+		B495822D24BC2D5A00BC1857 /* africa.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822A24BC2D5A00BC1857 /* africa.png */; };
+		B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822E24BC2E4600BC1857 /* bobby-8.png */; };
+		B495823F24BC2E4700BC1857 /* idle-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822F24BC2E4600BC1857 /* idle-1.png */; };
+		B495824024BC2E4700BC1857 /* bobby-10.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823024BC2E4600BC1857 /* bobby-10.png */; };
+		B495824124BC2E4700BC1857 /* bobby-14.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823124BC2E4600BC1857 /* bobby-14.png */; };
+		B495824224BC2E4700BC1857 /* bobby-11.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823224BC2E4600BC1857 /* bobby-11.png */; };
+		B495824324BC2E4700BC1857 /* bobby-13.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823324BC2E4600BC1857 /* bobby-13.png */; };
+		B495824424BC2E4700BC1857 /* bobby-15.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823424BC2E4600BC1857 /* bobby-15.png */; };
+		B495824524BC2E4700BC1857 /* bobby-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823524BC2E4600BC1857 /* bobby-7.png */; };
+		B495824624BC2E4700BC1857 /* idle-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823624BC2E4600BC1857 /* idle-3.png */; };
+		B495824724BC2E4700BC1857 /* idle-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823724BC2E4600BC1857 /* idle-4.png */; };
+		B495824824BC2E4700BC1857 /* bobby-5.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823824BC2E4600BC1857 /* bobby-5.png */; };
+		B495824924BC2E4700BC1857 /* bobby-12.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823924BC2E4600BC1857 /* bobby-12.png */; };
+		B495824A24BC2E4700BC1857 /* bobby-9.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823A24BC2E4600BC1857 /* bobby-9.png */; };
+		B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823B24BC2E4700BC1857 /* bobby-16.png */; };
+		B495824C24BC2E4700BC1857 /* idle-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823C24BC2E4700BC1857 /* idle-2.png */; };
+		B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823D24BC2E4700BC1857 /* bobby-6.png */; };
+		B495824F24BC30DB00BC1857 /* earth.png in Resources */ = {isa = PBXBuildFile; fileRef = B495824E24BC30DB00BC1857 /* earth.png */; };
+		B495825324BC3A1700BC1857 /* starry.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B495825224BC3A1700BC1857 /* starry.jpg */; };
+		B495825624BC3F6800BC1857 /* MaassslicerItalic.ps in Resources */ = {isa = PBXBuildFile; fileRef = B495825524BC3F6800BC1857 /* MaassslicerItalic.ps */; };
+		B495825D24BC437500BC1857 /* question-mark.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825724BC437500BC1857 /* question-mark.png */; };
+		B495825E24BC437500BC1857 /* home-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825824BC437500BC1857 /* home-icon.png */; };
+		B495825F24BC437500BC1857 /* like-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825924BC437500BC1857 /* like-icon.png */; };
+		B495826024BC437500BC1857 /* menu-icon.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825A24BC437500BC1857 /* menu-icon.png */; };
+		B495826124BC437500BC1857 /* volume-off.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825B24BC437500BC1857 /* volume-off.png */; };
+		B495826224BC437500BC1857 /* volume-on.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825C24BC437500BC1857 /* volume-on.png */; };
+		B495826424BC4BA300BC1857 /* BitPap.ps in Resources */ = {isa = PBXBuildFile; fileRef = B495826324BC4BA300BC1857 /* BitPap.ps */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,7 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B432F79024BC1F140062EDB0 /* continentclimb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = continentclimb.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B432F79024BC1F140062EDB0 /* Continent Climb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Continent Climb.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B432F79324BC1F140062EDB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B432F79524BC1F140062EDB0 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		B432F79724BC1F140062EDB0 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
@@ -53,6 +84,37 @@
 		B432F7B524BC1F160062EDB0 /* continentclimbUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = continentclimbUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B432F7B924BC1F160062EDB0 /* continentclimbUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = continentclimbUITests.swift; sourceTree = "<group>"; };
 		B432F7BB24BC1F160062EDB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B432F7C724BC268D0062EDB0 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
+		B432F7C924BC269D0062EDB0 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		B495822824BC2D5A00BC1857 /* northamerica.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = northamerica.png; sourceTree = "<group>"; };
+		B495822924BC2D5A00BC1857 /* southamerica.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = southamerica.png; sourceTree = "<group>"; };
+		B495822A24BC2D5A00BC1857 /* africa.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = africa.png; sourceTree = "<group>"; };
+		B495822E24BC2E4600BC1857 /* bobby-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-8.png"; sourceTree = "<group>"; };
+		B495822F24BC2E4600BC1857 /* idle-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idle-1.png"; sourceTree = "<group>"; };
+		B495823024BC2E4600BC1857 /* bobby-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-10.png"; sourceTree = "<group>"; };
+		B495823124BC2E4600BC1857 /* bobby-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-14.png"; sourceTree = "<group>"; };
+		B495823224BC2E4600BC1857 /* bobby-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-11.png"; sourceTree = "<group>"; };
+		B495823324BC2E4600BC1857 /* bobby-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-13.png"; sourceTree = "<group>"; };
+		B495823424BC2E4600BC1857 /* bobby-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-15.png"; sourceTree = "<group>"; };
+		B495823524BC2E4600BC1857 /* bobby-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-7.png"; sourceTree = "<group>"; };
+		B495823624BC2E4600BC1857 /* idle-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idle-3.png"; sourceTree = "<group>"; };
+		B495823724BC2E4600BC1857 /* idle-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idle-4.png"; sourceTree = "<group>"; };
+		B495823824BC2E4600BC1857 /* bobby-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-5.png"; sourceTree = "<group>"; };
+		B495823924BC2E4600BC1857 /* bobby-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-12.png"; sourceTree = "<group>"; };
+		B495823A24BC2E4600BC1857 /* bobby-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-9.png"; sourceTree = "<group>"; };
+		B495823B24BC2E4700BC1857 /* bobby-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-16.png"; sourceTree = "<group>"; };
+		B495823C24BC2E4700BC1857 /* idle-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idle-2.png"; sourceTree = "<group>"; };
+		B495823D24BC2E4700BC1857 /* bobby-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-6.png"; sourceTree = "<group>"; };
+		B495824E24BC30DB00BC1857 /* earth.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = earth.png; sourceTree = "<group>"; };
+		B495825224BC3A1700BC1857 /* starry.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = starry.jpg; sourceTree = "<group>"; };
+		B495825524BC3F6800BC1857 /* MaassslicerItalic.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaassslicerItalic.ps; sourceTree = "<group>"; };
+		B495825724BC437500BC1857 /* question-mark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "question-mark.png"; sourceTree = "<group>"; };
+		B495825824BC437500BC1857 /* home-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-icon.png"; sourceTree = "<group>"; };
+		B495825924BC437500BC1857 /* like-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "like-icon.png"; sourceTree = "<group>"; };
+		B495825A24BC437500BC1857 /* menu-icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "menu-icon.png"; sourceTree = "<group>"; };
+		B495825B24BC437500BC1857 /* volume-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-off.png"; sourceTree = "<group>"; };
+		B495825C24BC437500BC1857 /* volume-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-on.png"; sourceTree = "<group>"; };
+		B495826324BC4BA300BC1857 /* BitPap.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = BitPap.ps; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,7 +155,7 @@
 		B432F79124BC1F140062EDB0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B432F79024BC1F140062EDB0 /* continentclimb.app */,
+				B432F79024BC1F140062EDB0 /* Continent Climb.app */,
 				B432F7AA24BC1F160062EDB0 /* continentclimbTests.xctest */,
 				B432F7B524BC1F160062EDB0 /* continentclimbUITests.xctest */,
 			);
@@ -106,10 +168,15 @@
 				B432F79324BC1F140062EDB0 /* AppDelegate.swift */,
 				B432F79524BC1F140062EDB0 /* GameScene.sks */,
 				B432F79724BC1F140062EDB0 /* Actions.sks */,
+				B432F7C724BC268D0062EDB0 /* HomeScene.swift */,
+				B432F7C924BC269D0062EDB0 /* MenuScene.swift */,
 				B432F79924BC1F140062EDB0 /* GameScene.swift */,
 				B432F79B24BC1F140062EDB0 /* GameViewController.swift */,
 				B432F79D24BC1F140062EDB0 /* Main.storyboard */,
 				B432F7A024BC1F160062EDB0 /* Assets.xcassets */,
+				B495825424BC3E5F00BC1857 /* Fonts */,
+				B432F7CE24BC28E20062EDB0 /* Sounds */,
+				B432F7CB24BC28B40062EDB0 /* Images */,
 				B432F7A224BC1F160062EDB0 /* LaunchScreen.storyboard */,
 				B432F7A524BC1F160062EDB0 /* Info.plist */,
 			);
@@ -134,6 +201,56 @@
 			path = continentclimbUITests;
 			sourceTree = "<group>";
 		};
+		B432F7CB24BC28B40062EDB0 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				B495825824BC437500BC1857 /* home-icon.png */,
+				B495825924BC437500BC1857 /* like-icon.png */,
+				B495825A24BC437500BC1857 /* menu-icon.png */,
+				B495825724BC437500BC1857 /* question-mark.png */,
+				B495825B24BC437500BC1857 /* volume-off.png */,
+				B495825C24BC437500BC1857 /* volume-on.png */,
+				B495822824BC2D5A00BC1857 /* northamerica.png */,
+				B495822924BC2D5A00BC1857 /* southamerica.png */,
+				B495822A24BC2D5A00BC1857 /* africa.png */,
+				B495822F24BC2E4600BC1857 /* idle-1.png */,
+				B495823C24BC2E4700BC1857 /* idle-2.png */,
+				B495823624BC2E4600BC1857 /* idle-3.png */,
+				B495823724BC2E4600BC1857 /* idle-4.png */,
+				B495823824BC2E4600BC1857 /* bobby-5.png */,
+				B495823D24BC2E4700BC1857 /* bobby-6.png */,
+				B495823524BC2E4600BC1857 /* bobby-7.png */,
+				B495822E24BC2E4600BC1857 /* bobby-8.png */,
+				B495823A24BC2E4600BC1857 /* bobby-9.png */,
+				B495823024BC2E4600BC1857 /* bobby-10.png */,
+				B495823224BC2E4600BC1857 /* bobby-11.png */,
+				B495823924BC2E4600BC1857 /* bobby-12.png */,
+				B495823324BC2E4600BC1857 /* bobby-13.png */,
+				B495823124BC2E4600BC1857 /* bobby-14.png */,
+				B495823424BC2E4600BC1857 /* bobby-15.png */,
+				B495823B24BC2E4700BC1857 /* bobby-16.png */,
+				B495824E24BC30DB00BC1857 /* earth.png */,
+				B495825224BC3A1700BC1857 /* starry.jpg */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		B432F7CE24BC28E20062EDB0 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		B495825424BC3E5F00BC1857 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B495825524BC3F6800BC1857 /* MaassslicerItalic.ps */,
+				B495826324BC4BA300BC1857 /* BitPap.ps */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -151,7 +268,7 @@
 			);
 			name = continentclimb;
 			productName = continentclimb;
-			productReference = B432F79024BC1F140062EDB0 /* continentclimb.app */;
+			productReference = B432F79024BC1F140062EDB0 /* Continent Climb.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B432F7A924BC1F160062EDB0 /* continentclimbTests */ = {
@@ -238,11 +355,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B495824524BC2E4700BC1857 /* bobby-7.png in Resources */,
+				B495826124BC437500BC1857 /* volume-off.png in Resources */,
 				B432F79F24BC1F140062EDB0 /* Main.storyboard in Resources */,
+				B495825E24BC437500BC1857 /* home-icon.png in Resources */,
 				B432F79624BC1F140062EDB0 /* GameScene.sks in Resources */,
+				B495824324BC2E4700BC1857 /* bobby-13.png in Resources */,
 				B432F7A124BC1F160062EDB0 /* Assets.xcassets in Resources */,
+				B495824124BC2E4700BC1857 /* bobby-14.png in Resources */,
+				B495823F24BC2E4700BC1857 /* idle-1.png in Resources */,
+				B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */,
+				B495822D24BC2D5A00BC1857 /* africa.png in Resources */,
+				B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */,
+				B495824924BC2E4700BC1857 /* bobby-12.png in Resources */,
+				B495824224BC2E4700BC1857 /* bobby-11.png in Resources */,
+				B495825D24BC437500BC1857 /* question-mark.png in Resources */,
+				B495824624BC2E4700BC1857 /* idle-3.png in Resources */,
+				B495824424BC2E4700BC1857 /* bobby-15.png in Resources */,
+				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
+				B495825624BC3F6800BC1857 /* MaassslicerItalic.ps in Resources */,
+				B495824A24BC2E4700BC1857 /* bobby-9.png in Resources */,
+				B495824F24BC30DB00BC1857 /* earth.png in Resources */,
 				B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */,
+				B495822B24BC2D5A00BC1857 /* northamerica.png in Resources */,
+				B495826224BC437500BC1857 /* volume-on.png in Resources */,
+				B495826424BC4BA300BC1857 /* BitPap.ps in Resources */,
 				B432F79824BC1F140062EDB0 /* Actions.sks in Resources */,
+				B495825F24BC437500BC1857 /* like-icon.png in Resources */,
+				B495825324BC3A1700BC1857 /* starry.jpg in Resources */,
+				B495822C24BC2D5A00BC1857 /* southamerica.png in Resources */,
+				B495826024BC437500BC1857 /* menu-icon.png in Resources */,
+				B495824724BC2E4700BC1857 /* idle-4.png in Resources */,
+				B495824824BC2E4700BC1857 /* bobby-5.png in Resources */,
+				B495824024BC2E4700BC1857 /* bobby-10.png in Resources */,
+				B495824C24BC2E4700BC1857 /* idle-2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +414,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B432F79A24BC1F140062EDB0 /* GameScene.swift in Sources */,
+				B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */,
+				B432F7CA24BC269D0062EDB0 /* MenuScene.swift in Sources */,
 				B432F79C24BC1F140062EDB0 /* GameViewController.swift in Sources */,
 				B432F79424BC1F140062EDB0 /* AppDelegate.swift in Sources */,
 			);
@@ -445,12 +593,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QEXVU7NBU9;
 				INFOPLIST_FILE = continentclimb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Continent Climb";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -463,12 +612,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QEXVU7NBU9;
 				INFOPLIST_FILE = continentclimb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Continent Climb";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
