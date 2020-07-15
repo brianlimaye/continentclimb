@@ -34,6 +34,10 @@ class GameViewController: UIViewController {
             return .all
         }
     }
+    
+    override var prefersHomeIndicatorAutoHidden: Bool {
+        return true
+    }
 
     override var prefersStatusBarHidden: Bool {
         return true

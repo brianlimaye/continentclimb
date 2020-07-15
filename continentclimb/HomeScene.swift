@@ -45,7 +45,7 @@ class HomeScene: SKScene {
         drawMenuButton()
         drawTutorialButton()
         drawSoundButton()
-        initClickToStart()
+        //initClickToStart()
     }
     
     func initClickToStart() {
@@ -86,17 +86,17 @@ class HomeScene: SKScene {
     
     func initEarth() {
         
-        earth = SKSpriteNode(imageNamed: "earth")
+        earth = SKSpriteNode(imageNamed: "globe")
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            earth.size = CGSize(width: earth.size.width / 3, height: earth.size.height / 3)
+            earth.size = CGSize(width: earth.size.width / 2.5, height: earth.size.height / 2.5)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            earth.size = CGSize(width: earth.size.width / 1.75, height: earth.size.height / 1.75)
+            earth.size = CGSize(width: earth.size.width / 1.25, height: earth.size.height / 1.25)
         }
-        earth.position = CGPoint(x: 0, y: -self.frame.height / 3.5)
+        earth.position = CGPoint(x: 0, y: -15)
         earth.zPosition = 0
         self.addChild(earth)
     }
@@ -119,7 +119,7 @@ class HomeScene: SKScene {
         {
             hero.size = CGSize(width: hero.size.width / 2, height: hero.size.height / 2)
         }
-        hero.position = CGPoint(x: 0, y: -self.frame.height / 6)
+        hero.position = CGPoint(x: 0, y: self.frame.height / 6)
         hero.zPosition = 1
         
         hero.run(animateRepeater)
@@ -130,10 +130,19 @@ class HomeScene: SKScene {
         
         mainTitleScreen = SKLabelNode(fontNamed: "MaassslicerItalic")
         
-        mainTitleScreen.position = CGPoint(x: self.frame.midX, y: self.frame.maxY / 1.85)
+        mainTitleScreen.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2.9)
         
         mainTitleScreen.fontColor = .white
-        mainTitleScreen.fontSize = 70
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            mainTitleScreen.fontSize = 60
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            mainTitleScreen.fontSize = 90
+        }
         mainTitleScreen.numberOfLines = 1
         mainTitleScreen.text = "Continent Climb"
         mainTitleScreen.zPosition = 2
@@ -143,7 +152,7 @@ class HomeScene: SKScene {
     
     func drawIconRect() {
         
-        iconHolder = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.midY, width: (2 * self.frame.width), height: 2 * (self.frame.height / 13)))
+        iconHolder = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.minY, width: (2 * self.frame.width), height: 2 * (self.frame.height / 13)))
         
         iconHolder.fillColor = .clear
         iconHolder.lineWidth = 5
@@ -182,16 +191,7 @@ class HomeScene: SKScene {
         iconHolder.addChild(rateButtonShape)
         
         rateButtonShape.position.x = -self.size.width / 3
-        
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            rateButtonShape.position.y = 30
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            rateButtonShape.position.y = 60
-        }
+        rateButtonShape.position.y = -self.frame.height / 2.5
     }
     
     func drawTutorialButton() {
@@ -223,16 +223,7 @@ class HomeScene: SKScene {
         iconHolder.addChild(tutorialButtonShape)
         
         tutorialButtonShape.position.x = -self.size.width / 9
-        
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            tutorialButtonShape.position.y = 30
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            tutorialButtonShape.position.y = 60
-        }
+        tutorialButtonShape.position.y = -self.frame.height / 2.5
     }
     
     func drawSoundButton() {
@@ -246,7 +237,7 @@ class HomeScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            soundButton.size = CGSize(width: soundButton.size.width / 5, height: soundButton.size.height / 5)
+            soundButton.size = CGSize(width: soundButton.size.width / 4.5, height: soundButton.size.height / 4.5)
         }
         soundButton.isUserInteractionEnabled = false
         soundButton.position = CGPoint(x: 0, y: 0)
@@ -263,16 +254,7 @@ class HomeScene: SKScene {
         iconHolder.addChild(soundButtonShape)
         
         soundButtonShape.position.x = self.size.width / 3
-        
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            soundButtonShape.position.y = 30
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            soundButtonShape.position.y = 60
-        }
+        soundButtonShape.position.y = -self.frame.height / 2.5
     }
     
     func drawMenuButton() {
@@ -303,18 +285,55 @@ class HomeScene: SKScene {
         iconHolder.addChild(menuButtonShape)
         
         menuButtonShape.position.x = self.size.width / 9
+        menuButtonShape.position.y = -self.frame.height / 2.5
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
             menuButton.position = CGPoint(x: 10, y: 0)
-            menuButtonShape.position.y = 30
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             menuButton.position = CGPoint(x: 15, y: 0)
-            menuButtonShape.position.y = 60
         }
+    }
+    
+    func sinkHero() {
+        
+        iconHolder.isHidden = true
+        mainTitleScreen.isHidden = true
+        
+        hero.removeAllActions()
+        hero.texture = SKTexture(imageNamed: "bobby-15")
+        
+        let rotation = SKAction.rotate(byAngle: 2 * CGFloat.pi, duration: 0.5)
+        let minimize = SKAction.resize(toWidth: 0, height: 0, duration: 0.5)
+        let moveDown = SKAction.moveTo(y: self.frame.height / 8, duration: 0.5)
+        
+        let rotationRepeater = SKAction.repeat(rotation, count: 1)
+        let minimizeRepeater = SKAction.repeat(minimize, count: 1)
+        let moveRepeater = SKAction.repeat(moveDown, count: 1)
+        
+        hero.run(rotationRepeater)
+        hero.run(minimizeRepeater)
+        hero.run(moveRepeater, completion: fadeBlack)
+    }
+    
+    func fadeBlack() {
+        
+        scene?.backgroundColor = .black
+        let fadeOut = SKAction.fadeOut(withDuration: 0.3)
+        
+        let fadeRepeater = SKAction.repeat(fadeOut, count: 1)
+        
+        self.run(fadeRepeater, completion: goToMenuScene)
+    }
+    
+    func goToMenuScene() {
+        
+        let menuScene = MenuScene(size: self.size)
+        menuScene.scaleMode = .aspectFill
+        view?.presentScene(menuScene, transition: SKTransition.crossFade(withDuration: 0.5))
     }
     
     func rateApp() {
@@ -341,6 +360,10 @@ class HomeScene: SKScene {
         if((node?.name == "ratebutton") || (node?.name == "rateshape"))
         {
             rateApp()
+        }
+        else
+        {
+            sinkHero()
         }
     }
   }
