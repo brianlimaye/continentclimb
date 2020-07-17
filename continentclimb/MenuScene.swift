@@ -233,7 +233,7 @@ class MenuScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            worldMap.size = CGSize(width: worldMap.size.width / 0.875, height: worldMap.size.height / 0.875)
+            worldMap.size = CGSize(width: worldMap.size.width + (self.frame.width * 0.05), height: worldMap.size.height + (self.frame.width * 0.05))
             worldMap.position = CGPoint(x: 0, y: 0)
         }
 
@@ -253,7 +253,7 @@ class MenuScene: SKScene {
         {
             idText.fontSize = 30
             charID.size = CGSize(width: charID.size.width / 6, height: charID.size.height / 6)
-            charID.position = CGPoint(x: -self.frame.width / 2.5, y: self.frame.height / 2.3)
+            charID.position = CGPoint(x: -self.frame.width / 2.6, y: self.frame.height / 2.3)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)

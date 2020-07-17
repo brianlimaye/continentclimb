@@ -17,7 +17,7 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             
-            let scene = HomeScene(size: view.bounds.size)
+            let scene = GameScene(size: view.bounds.size)
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
         }
