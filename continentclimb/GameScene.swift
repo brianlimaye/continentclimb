@@ -15,20 +15,25 @@ class GameScene: SKScene {
     
     let characterSpeed: TimeInterval = 0.25
     
+    var heroRunAction: SKAction = SKAction()
     var icyBackground: SKSpriteNode = SKSpriteNode()
     var icyBackground2: SKSpriteNode = SKSpriteNode()
     var icePlatform: SKSpriteNode = SKSpriteNode()
     var hero: SKSpriteNode = SKSpriteNode()
+    var evilSnowman: SKSpriteNode = SKSpriteNode()
+    var snowball: SKSpriteNode = SKSpriteNode()
     var snow: SKEmitterNode = SKEmitterNode()
     
     override func didMove(to view: SKView) {
         
-        
+        GameViewController.gameScene = self
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
+        initObjects()
         drawBackground()
         drawPlatform()
         addSnow()
+        drawSnowman()
         drawCharacter()
     }
     
@@ -37,6 +42,11 @@ class GameScene: SKScene {
         snow = SKEmitterNode(fileNamed: "snowEffect.sks")!
         snow.position.y = self.frame.size.height
         self.addChild(snow)
+    }
+    
+    func resumeRunning() {
+        
+        hero.run(heroRunAction)
     }
     
     func drawPlatform() {
@@ -67,7 +77,7 @@ class GameScene: SKScene {
         while lowerBound < upperBound {
             
             icePlatform = SKSpriteNode(texture: platTexture)
-            icePlatform.position = CGPoint(x: platTexture.size().width * lowerBound, y: -self.frame.height / 2.25)
+            icePlatform.position = CGPoint(x: platTexture.size().width * lowerBound, y: -self.frame.size.height / 2.25)
             
             
             if(UIDevice.current.userInterfaceIdiom == .phone)
@@ -159,20 +169,134 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            hero.size = CGSize(width: hero.size.width / 2, height: hero.size.height / 2)
-            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3)
+            hero.size = CGSize(width: (hero.size.width + (self.frame.size.width * 0.25)) / 4, height: (hero.size.height + (self.frame.size.width * 0.25)) / 4)
+            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.1)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            hero.size = CGSize(width: hero.size.width / 3.5, height: hero.size.height / 3.5)
+            hero.size = CGSize(width: (hero.size.width + (self.frame.size.width * 0.1)) / 4, height: (hero.size.height + (self.frame.size.width * 0.1)) / 4)
             hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.25)
         }
         hero.zPosition = 0
 
         
+        self.heroRunAction = runForever
         hero.run(runForever)
         
         self.addChild(hero)
+    }
+    
+    func jumpHero() {
+        
+        hero.removeAllActions()
+        hero.texture = SKTexture(imageNamed: "bobby-12")
+        
+        var jumpAnim: SKAction = SKAction()
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.4)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.4)
+        }
+        
+        let jumpRepeater = SKAction.repeat(jumpAnim, count: 1)
+        
+        hero.run(jumpRepeater, completion: jumpLanding)
+    }
+    
+    func jumpLanding() {
+        
+        hero.texture = SKTexture(imageNamed: "bobby-13")
+        
+        var landAnim: SKAction = SKAction()
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.25, duration: 0.4)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.1, duration: 0.4)
+        }
+        
+        let landRepeater = SKAction.repeat(landAnim, count: 1)
+        
+        hero.run(landRepeater, completion: resumeRunning)
+    }
+    
+    func drawSnowman() {
+        
+        let snowmanFrames: [SKTexture] = [SKTexture(imageNamed: "evilsnowman-1"), SKTexture(imageNamed: "evilsnowman-2"), SKTexture(imageNamed: "evilsnowman-3"), SKTexture(imageNamed: "evilsnowman-4"), SKTexture(imageNamed: "evilsnowman-5"), SKTexture(imageNamed: "evilsnowman-6"), SKTexture(imageNamed: "evilsnowman-7"), SKTexture(imageNamed: "evilsnowman-8")]//, SKTexture(imageNamed: "evilsnowman-9")] //SKTexture(imageNamed: "evilsnowman-10")]
+        
+        let snowmanAnimate = SKAction.animate(with: snowmanFrames, timePerFrame: characterSpeed / 2)
+        let snowmanShift = SKAction.moveTo(x: -self.frame.size.width, duration: 3)
+        let snowmanRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([snowmanShift, snowmanRevert])
+        
+        let shiftRepeater = SKAction.repeatForever(shiftSeq)
+        let snowmanRepeater = SKAction.repeat(snowmanAnimate, count: 1)
+        
+        evilSnowman.run(snowmanRepeater, completion: drawSnowball)
+        evilSnowman.run(shiftRepeater)
+    }
+    
+    func disappearSnowman() {
+        
+        let vanish = SKAction.fadeOut(withDuration: 0.5)
+        
+        let vanishRepeater = SKAction.repeat(vanish, count: 1)
+        
+        evilSnowman.run(vanishRepeater)
+    }
+    
+    func drawSnowball() {
+        
+        disappearSnowman()
+        
+        let snowBallFrames: [SKTexture] = [SKTexture(imageNamed: "snowbol-1"), SKTexture(imageNamed: "snowbol-2"), SKTexture(imageNamed: "snowbol-3"), SKTexture(imageNamed: "snowbol-4"), SKTexture(imageNamed: "snowbol-5"), SKTexture(imageNamed: "snowbol-6"), SKTexture(imageNamed: "snowbol-7"), SKTexture(imageNamed: "snowbol-8")]
+        
+        let animate = SKAction.animate(with: snowBallFrames, timePerFrame: characterSpeed / 2)
+        let snowballShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1)
+        let snowballRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([snowballShift, snowballRevert])
+        
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
+        let animateRepeater = SKAction.repeatForever(animate)
+        
+        snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
+
+        snowball.run(shiftRepeater)
+        snowball.run(animateRepeater)
+    }
+    
+    func initObjects() {
+        
+        evilSnowman = SKSpriteNode(imageNamed: "evilsnowman-1")
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            evilSnowman.size = CGSize(width: (evilSnowman.size.width + (self.frame.size.width * 0.5)) / 4, height: (evilSnowman.size.height + (self.frame.size.width * 0.5)) / 4)
+            evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.4)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            evilSnowman.size = CGSize(width: (evilSnowman.size.width + (self.frame.size.width * 0.65)) / 4, height: (evilSnowman.size.height + (self.frame.size.width * 0.65)) / 4)
+            evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.9)
+         }
+        evilSnowman.xScale = -1
+        self.addChild(evilSnowman)
+        
+        snowball = SKSpriteNode(imageNamed: "snowbol-1")
+        snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
+        self.addChild(snowball)
     }
 }

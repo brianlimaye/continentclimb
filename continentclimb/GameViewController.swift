@@ -11,7 +11,24 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    static var gameScene: GameScene?
 
+    let isDebug: Bool = {
+        
+        var isDebug = false
+        // function with a side effect and Bool return value that we can pass into assert()
+        func set(debug: Bool) -> Bool {
+            isDebug = debug
+            return isDebug
+        }
+        // assert:
+        // "Condition is only evaluated in playgrounds and -Onone builds."
+        // so isDebug is never changed to true in Release builds
+        assert(set(debug: true))
+        return isDebug
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -21,6 +38,31 @@ class GameViewController: UIViewController {
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
         }
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
+
+           guard let key = presses.first?.key else { return }
+
+           switch key.keyCode {
+
+           case .keyboardUpArrow:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.jumpHero()
+               }
+           default:
+                
+               if isDebug
+               {
+               
+               }
+
+            super.pressesBegan(presses, with: event)
+            
+        }
+
     }
 
     override var shouldAutorotate: Bool {
