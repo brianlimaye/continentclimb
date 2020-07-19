@@ -282,7 +282,7 @@ class GameScene: SKScene {
         let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
         let snowmanRepeater = SKAction.repeat(snowmanAnimate, count: 1)
         
-        evilSnowman.run(snowmanRepeater, completion: drawSnowball)
+        evilSnowman.run(snowmanRepeater, completion: drawThrownSnowball)
         evilSnowman.run(shiftRepeater)
     }
     
@@ -307,7 +307,12 @@ class GameScene: SKScene {
         evilSnowman.run(fadeRepeater)
     }
     
-    func drawSnowball() {
+    func revertSnowball() {
+        
+        snowball.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.75)
+    }
+    
+    func drawThrownSnowball() {
         
         let rand = Int.random(in: 1 ... 2)
         var extraAnim: [SKTexture]?
@@ -357,6 +362,17 @@ class GameScene: SKScene {
 
         snowball.run(shiftRepeater)
         snowball.run(animateRepeater)
+    }
+    
+    func drawFallenSnowball() {
+        
+        snowball.position = CGPoint(x: hero.position.x, y: self.frame.size.height)
+        
+        let snowballFall = SKAction.moveTo(y: -self.frame.size.height, duration: 1.75)
+        
+        let fallRepeater = SKAction.repeat(snowballFall, count: 1)
+        
+        snowball.run(fallRepeater, completion: revertSnowball)
     }
     
     func initObjects() {

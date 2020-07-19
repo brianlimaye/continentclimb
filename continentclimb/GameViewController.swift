@@ -66,7 +66,14 @@ class GameViewController: UIViewController {
                {
                     GameViewController.gameScene?.drawSnowman()
                }
-
+            
+           case .keyboardB:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawFallenSnowball()
+               }
+            
            default:
                 
                if isDebug
