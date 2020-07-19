@@ -28,12 +28,10 @@ class GameScene: SKScene {
         
         GameViewController.gameScene = self
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         initObjects()
         drawBackground()
         drawPlatform()
         addSnow()
-        drawSnowman()
         drawCharacter()
     }
     
@@ -176,7 +174,7 @@ class GameScene: SKScene {
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
             hero.size = CGSize(width: (hero.size.width + (self.frame.size.width * 0.1)) / 4, height: (hero.size.height + (self.frame.size.width * 0.1)) / 4)
-            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.25)
+            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.35)
         }
         hero.zPosition = 0
 
@@ -185,6 +183,45 @@ class GameScene: SKScene {
         hero.run(runForever)
         
         self.addChild(hero)
+    }
+    
+    func slideHero() {
+        
+        hero.removeAllActions()
+        hero.texture = SKTexture(imageNamed: "bobby-5")
+        
+        var duckAnim: SKAction = SKAction()
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            duckAnim = SKAction.moveBy(x: 150, y: 0, duration: 0.5)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            duckAnim = SKAction.moveBy(x: 200, y: 0, duration: 0.5)
+        }
+        
+        let duckRepeater = SKAction.repeat(duckAnim, count: 1)
+        
+        hero.run(duckRepeater, completion: duckRevert)
+    }
+    
+    func duckRevert() {
+        
+        var duckReversion: SKAction = SKAction()
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            duckReversion = SKAction.moveTo(x: -self.frame.size.width / 3, duration: 0.5)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            duckReversion = SKAction.moveTo(x: -self.frame.width / 3.1, duration: 0.5)
+        }
+        
+        hero.run(duckReversion, completion: resumeRunning)
     }
     
     func jumpHero() {
@@ -196,12 +233,12 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.4)
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.5)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.4)
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.5)
         }
         
         let jumpRepeater = SKAction.repeat(jumpAnim, count: 1)
@@ -217,12 +254,12 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.25, duration: 0.4)
+            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.35, duration: 0.5)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.1, duration: 0.4)
+            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.1, duration: 0.5)
         }
         
         let landRepeater = SKAction.repeat(landAnim, count: 1)
@@ -232,15 +269,29 @@ class GameScene: SKScene {
     
     func drawSnowman() {
         
+        //let rand = Int.random(in: 1 ... 2)
+        
+        evilSnowman.isHidden = false
+        
         let snowmanFrames: [SKTexture] = [SKTexture(imageNamed: "evilsnowman-1"), SKTexture(imageNamed: "evilsnowman-2"), SKTexture(imageNamed: "evilsnowman-3"), SKTexture(imageNamed: "evilsnowman-4"), SKTexture(imageNamed: "evilsnowman-5"), SKTexture(imageNamed: "evilsnowman-6"), SKTexture(imageNamed: "evilsnowman-7"), SKTexture(imageNamed: "evilsnowman-8")]//, SKTexture(imageNamed: "evilsnowman-9")] //SKTexture(imageNamed: "evilsnowman-10")]
         
+        
+        /*
+        if(rand == 2)
+        {
+            snowball.position.y = -self.frame.size.height / 2.5
+            snowmanFrames.append(SKTexture(imageNamed: "evilsnowman-9"))
+            snowmanFrames.append(SKTexture(imageNamed: "evilsnowman-10"))
+        }
+ */
+ 
         let snowmanAnimate = SKAction.animate(with: snowmanFrames, timePerFrame: characterSpeed / 2)
-        let snowmanShift = SKAction.moveTo(x: -self.frame.size.width, duration: 3)
+        let snowmanShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2.75)
         let snowmanRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([snowmanShift, snowmanRevert])
         
-        let shiftRepeater = SKAction.repeatForever(shiftSeq)
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
         let snowmanRepeater = SKAction.repeat(snowmanAnimate, count: 1)
         
         evilSnowman.run(snowmanRepeater, completion: drawSnowball)
@@ -253,12 +304,31 @@ class GameScene: SKScene {
         
         let vanishRepeater = SKAction.repeat(vanish, count: 1)
         
-        evilSnowman.run(vanishRepeater)
+        evilSnowman.run(vanishRepeater, completion: revertSnowman)
+    }
+    
+    func revertSnowman() {
+        
+        evilSnowman.isHidden = true
+        evilSnowman.position.x = self.frame.size.width
+        
+        let fadeIn = SKAction.fadeIn(withDuration: 0)
+        
+        let fadeRepeater = SKAction.repeat(fadeIn, count: 1)
+        
+        evilSnowman.run(fadeRepeater)
     }
     
     func drawSnowball() {
         
-        disappearSnowman()
+        evilSnowman.removeAllActions()
+        evilSnowman.texture = SKTexture(imageNamed: "evilsnowman-9")
+        
+        let snowmanShift = SKAction.moveTo(x: self.frame.size.width, duration: characterSpeed * 4)
+        
+        let snowmanShiftRepeater = SKAction.repeat(snowmanShift, count: 1)
+        
+        evilSnowman.run(snowmanShiftRepeater)
         
         let snowBallFrames: [SKTexture] = [SKTexture(imageNamed: "snowbol-1"), SKTexture(imageNamed: "snowbol-2"), SKTexture(imageNamed: "snowbol-3"), SKTexture(imageNamed: "snowbol-4"), SKTexture(imageNamed: "snowbol-5"), SKTexture(imageNamed: "snowbol-6"), SKTexture(imageNamed: "snowbol-7"), SKTexture(imageNamed: "snowbol-8")]
         
@@ -297,6 +367,11 @@ class GameScene: SKScene {
         
         snowball = SKSpriteNode(imageNamed: "snowbol-1")
         snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            snowball.size = CGSize(width: snowball.size.width * 1.5, height: snowball.size.height * 1.5)
+        }
         self.addChild(snowball)
     }
 }

@@ -52,6 +52,21 @@ class GameViewController: UIViewController {
                {
                     GameViewController.gameScene?.jumpHero()
                }
+            
+           case .keyboardDownArrow:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.slideHero()
+               }
+            
+           case .keyboardS:
+            
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawSnowman()
+               }
+
            default:
                 
                if isDebug
@@ -59,7 +74,7 @@ class GameViewController: UIViewController {
                
                }
 
-            super.pressesBegan(presses, with: event)
+           super.pressesBegan(presses, with: event)
             
         }
 
