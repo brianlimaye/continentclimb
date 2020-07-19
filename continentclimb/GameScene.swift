@@ -269,21 +269,9 @@ class GameScene: SKScene {
     
     func drawSnowman() {
         
-        //let rand = Int.random(in: 1 ... 2)
-        
         evilSnowman.isHidden = false
         
-        let snowmanFrames: [SKTexture] = [SKTexture(imageNamed: "evilsnowman-1"), SKTexture(imageNamed: "evilsnowman-2"), SKTexture(imageNamed: "evilsnowman-3"), SKTexture(imageNamed: "evilsnowman-4"), SKTexture(imageNamed: "evilsnowman-5"), SKTexture(imageNamed: "evilsnowman-6"), SKTexture(imageNamed: "evilsnowman-7"), SKTexture(imageNamed: "evilsnowman-8")]//, SKTexture(imageNamed: "evilsnowman-9")] //SKTexture(imageNamed: "evilsnowman-10")]
-        
-        
-        /*
-        if(rand == 2)
-        {
-            snowball.position.y = -self.frame.size.height / 2.5
-            snowmanFrames.append(SKTexture(imageNamed: "evilsnowman-9"))
-            snowmanFrames.append(SKTexture(imageNamed: "evilsnowman-10"))
-        }
- */
+        let snowmanFrames: [SKTexture] = [SKTexture(imageNamed: "evilsnowman-1"), SKTexture(imageNamed: "evilsnowman-2"), SKTexture(imageNamed: "evilsnowman-3"), SKTexture(imageNamed: "evilsnowman-4"), SKTexture(imageNamed: "evilsnowman-5"), SKTexture(imageNamed: "evilsnowman-6"), SKTexture(imageNamed: "evilsnowman-7"), SKTexture(imageNamed: "evilsnowman-8")]
  
         let snowmanAnimate = SKAction.animate(with: snowmanFrames, timePerFrame: characterSpeed / 2)
         let snowmanShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2.75)
@@ -321,8 +309,22 @@ class GameScene: SKScene {
     
     func drawSnowball() {
         
+        let rand = Int.random(in: 1 ... 2)
+        var extraAnim: [SKTexture]?
+        
         evilSnowman.removeAllActions()
         evilSnowman.texture = SKTexture(imageNamed: "evilsnowman-9")
+        
+        if(rand == 2)
+        {
+            extraAnim = [SKTexture(imageNamed: "evilsnowman-9"), SKTexture(imageNamed: "evilsnowman-10")]
+            
+            let extraAnimation = SKAction.animate(with: extraAnim!, timePerFrame: characterSpeed / 2)
+            
+            let extraRepeater = SKAction.repeat(extraAnimation, count: 1)
+            
+            evilSnowman.run(extraRepeater)
+        }
         
         let snowmanShift = SKAction.moveTo(x: self.frame.size.width, duration: characterSpeed * 4)
         
@@ -333,7 +335,7 @@ class GameScene: SKScene {
         let snowBallFrames: [SKTexture] = [SKTexture(imageNamed: "snowbol-1"), SKTexture(imageNamed: "snowbol-2"), SKTexture(imageNamed: "snowbol-3"), SKTexture(imageNamed: "snowbol-4"), SKTexture(imageNamed: "snowbol-5"), SKTexture(imageNamed: "snowbol-6"), SKTexture(imageNamed: "snowbol-7"), SKTexture(imageNamed: "snowbol-8")]
         
         let animate = SKAction.animate(with: snowBallFrames, timePerFrame: characterSpeed / 2)
-        let snowballShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1)
+        let snowballShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.25)
         let snowballRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([snowballShift, snowballRevert])
@@ -341,7 +343,17 @@ class GameScene: SKScene {
         let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
         let animateRepeater = SKAction.repeatForever(animate)
         
-        snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
+        snowball.position.x = evilSnowman.position.x
+        
+        if(rand == 1)
+        {
+            snowball.position.y = -self.frame.size.height / 8
+        }
+        
+        if(rand == 2)
+        {
+            snowball.position.y = -self.frame.size.height / 3.5
+        }
 
         snowball.run(shiftRepeater)
         snowball.run(animateRepeater)
