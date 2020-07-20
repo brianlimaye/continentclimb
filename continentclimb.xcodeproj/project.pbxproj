@@ -28,6 +28,24 @@
 		B43D02DD24C02F90008BB9DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B43D02DB24C02F90008BB9DE /* Assets.xcassets */; };
 		B43D02DF24C03366008BB9DE /* snowgrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B43D02DE24C03366008BB9DE /* snowgrounds.png */; };
 		B43D02E324C13D0A008BB9DE /* icybackground.png in Resources */ = {isa = PBXBuildFile; fileRef = B43D02E224C13D0A008BB9DE /* icybackground.png */; };
+		B43EC5DC24C539D700B3EB47 /* snowyeti-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5CA24C539D500B3EB47 /* snowyeti-8.png */; };
+		B43EC5DD24C539D700B3EB47 /* snowyeti-13.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5CB24C539D500B3EB47 /* snowyeti-13.png */; };
+		B43EC5DE24C539D700B3EB47 /* snowyeti-16.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5CC24C539D500B3EB47 /* snowyeti-16.png */; };
+		B43EC5DF24C539D700B3EB47 /* snowyeti-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5CD24C539D500B3EB47 /* snowyeti-7.png */; };
+		B43EC5E124C539D700B3EB47 /* snowyeti-10.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5CF24C539D600B3EB47 /* snowyeti-10.png */; };
+		B43EC5E224C539D700B3EB47 /* snowyeti-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D024C539D600B3EB47 /* snowyeti-3.png */; };
+		B43EC5E324C539D700B3EB47 /* snowyeti-9.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D124C539D600B3EB47 /* snowyeti-9.png */; };
+		B43EC5E424C539D700B3EB47 /* snowyeti-5.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D224C539D600B3EB47 /* snowyeti-5.png */; };
+		B43EC5E524C539D700B3EB47 /* snowyeti-12.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D324C539D600B3EB47 /* snowyeti-12.png */; };
+		B43EC5E624C539D700B3EB47 /* snowyeti-15.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D424C539D600B3EB47 /* snowyeti-15.png */; };
+		B43EC5E724C539D700B3EB47 /* snowyeti-17.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D524C539D600B3EB47 /* snowyeti-17.png */; };
+		B43EC5E824C539D700B3EB47 /* snowyeti-18.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D624C539D600B3EB47 /* snowyeti-18.png */; };
+		B43EC5E924C539D700B3EB47 /* snowyeti-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D724C539D600B3EB47 /* snowyeti-2.png */; };
+		B43EC5EA24C539D700B3EB47 /* snowyeti-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D824C539D600B3EB47 /* snowyeti-1.png */; };
+		B43EC5EB24C539D700B3EB47 /* snowyeti-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5D924C539D700B3EB47 /* snowyeti-4.png */; };
+		B43EC5EC24C539D700B3EB47 /* snowyeti-14.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5DA24C539D700B3EB47 /* snowyeti-14.png */; };
+		B43EC5ED24C539D700B3EB47 /* snowyeti-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5DB24C539D700B3EB47 /* snowyeti-6.png */; };
+		B43EC5EF24C541F000B3EB47 /* snowyeti-11.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5EE24C541F000B3EB47 /* snowyeti-11.png */; };
 		B4504D4724BE281A007E9014 /* mapp.png in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4624BE281A007E9014 /* mapp.png */; };
 		B4504D4924BE3770007E9014 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4504D4824BE3770007E9014 /* Extensions.swift */; };
 		B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */; };
@@ -123,6 +141,24 @@
 		B43D02DB24C02F90008BB9DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B43D02DE24C03366008BB9DE /* snowgrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snowgrounds.png; sourceTree = "<group>"; };
 		B43D02E224C13D0A008BB9DE /* icybackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icybackground.png; sourceTree = "<group>"; };
+		B43EC5CA24C539D500B3EB47 /* snowyeti-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-8.png"; sourceTree = "<group>"; };
+		B43EC5CB24C539D500B3EB47 /* snowyeti-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-13.png"; sourceTree = "<group>"; };
+		B43EC5CC24C539D500B3EB47 /* snowyeti-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-16.png"; sourceTree = "<group>"; };
+		B43EC5CD24C539D500B3EB47 /* snowyeti-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-7.png"; sourceTree = "<group>"; };
+		B43EC5CF24C539D600B3EB47 /* snowyeti-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-10.png"; sourceTree = "<group>"; };
+		B43EC5D024C539D600B3EB47 /* snowyeti-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-3.png"; sourceTree = "<group>"; };
+		B43EC5D124C539D600B3EB47 /* snowyeti-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-9.png"; sourceTree = "<group>"; };
+		B43EC5D224C539D600B3EB47 /* snowyeti-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-5.png"; sourceTree = "<group>"; };
+		B43EC5D324C539D600B3EB47 /* snowyeti-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-12.png"; sourceTree = "<group>"; };
+		B43EC5D424C539D600B3EB47 /* snowyeti-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-15.png"; sourceTree = "<group>"; };
+		B43EC5D524C539D600B3EB47 /* snowyeti-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-17.png"; sourceTree = "<group>"; };
+		B43EC5D624C539D600B3EB47 /* snowyeti-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-18.png"; sourceTree = "<group>"; };
+		B43EC5D724C539D600B3EB47 /* snowyeti-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-2.png"; sourceTree = "<group>"; };
+		B43EC5D824C539D600B3EB47 /* snowyeti-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-1.png"; sourceTree = "<group>"; };
+		B43EC5D924C539D700B3EB47 /* snowyeti-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-4.png"; sourceTree = "<group>"; };
+		B43EC5DA24C539D700B3EB47 /* snowyeti-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-14.png"; sourceTree = "<group>"; };
+		B43EC5DB24C539D700B3EB47 /* snowyeti-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-6.png"; sourceTree = "<group>"; };
+		B43EC5EE24C541F000B3EB47 /* snowyeti-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-11.png"; sourceTree = "<group>"; };
 		B4504D4624BE281A007E9014 /* mapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapp.png; path = ../../../../../../Downloads/mapp.png; sourceTree = "<group>"; };
 		B4504D4824BE3770007E9014 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LazenbyComputer-Liquid.ps"; sourceTree = "<group>"; };
@@ -262,6 +298,24 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B43EC5D824C539D600B3EB47 /* snowyeti-1.png */,
+				B43EC5D724C539D600B3EB47 /* snowyeti-2.png */,
+				B43EC5D024C539D600B3EB47 /* snowyeti-3.png */,
+				B43EC5D924C539D700B3EB47 /* snowyeti-4.png */,
+				B43EC5D224C539D600B3EB47 /* snowyeti-5.png */,
+				B43EC5DB24C539D700B3EB47 /* snowyeti-6.png */,
+				B43EC5CD24C539D500B3EB47 /* snowyeti-7.png */,
+				B43EC5CA24C539D500B3EB47 /* snowyeti-8.png */,
+				B43EC5D124C539D600B3EB47 /* snowyeti-9.png */,
+				B43EC5CF24C539D600B3EB47 /* snowyeti-10.png */,
+				B43EC5EE24C541F000B3EB47 /* snowyeti-11.png */,
+				B43EC5D324C539D600B3EB47 /* snowyeti-12.png */,
+				B43EC5CB24C539D500B3EB47 /* snowyeti-13.png */,
+				B43EC5DA24C539D700B3EB47 /* snowyeti-14.png */,
+				B43EC5D424C539D600B3EB47 /* snowyeti-15.png */,
+				B43EC5CC24C539D500B3EB47 /* snowyeti-16.png */,
+				B43EC5D524C539D600B3EB47 /* snowyeti-17.png */,
+				B43EC5D624C539D600B3EB47 /* snowyeti-18.png */,
 				B48D2F9524C23823009AD3FD /* evilsnowman-0.5.png */,
 				B48D2F9A24C23823009AD3FD /* evilsnowman-1.png */,
 				B48D2F9724C23823009AD3FD /* evilsnowman-2.png */,
@@ -450,26 +504,35 @@
 				B43D02CC24BE48ED008BB9DE /* binary.jpg in Resources */,
 				B43D02E324C13D0A008BB9DE /* icybackground.png in Resources */,
 				B495824524BC2E4700BC1857 /* bobby-7.png in Resources */,
+				B43EC5E424C539D700B3EB47 /* snowyeti-5.png in Resources */,
 				B495826124BC437500BC1857 /* volume-off.png in Resources */,
+				B43EC5E324C539D700B3EB47 /* snowyeti-9.png in Resources */,
 				B432F79F24BC1F140062EDB0 /* Main.storyboard in Resources */,
 				B479DE6F24C2CD4B00E3F2BE /* snowbol-4.png in Resources */,
+				B43EC5E124C539D700B3EB47 /* snowyeti-10.png in Resources */,
 				B479DE7024C2CD4B00E3F2BE /* snowbol-1.png in Resources */,
 				B495825E24BC437500BC1857 /* home-icon.png in Resources */,
 				B432F79624BC1F140062EDB0 /* GameScene.sks in Resources */,
 				B495824324BC2E4700BC1857 /* bobby-13.png in Resources */,
+				B43EC5E524C539D700B3EB47 /* snowyeti-12.png in Resources */,
 				B432F7A124BC1F160062EDB0 /* Assets.xcassets in Resources */,
 				B495824124BC2E4700BC1857 /* bobby-14.png in Resources */,
 				B495823F24BC2E4700BC1857 /* idle-1.png in Resources */,
 				B43D02D024BEB0E1008BB9DE /* Brendohand-Regular.ps in Resources */,
+				B43EC5DC24C539D700B3EB47 /* snowyeti-8.png in Resources */,
 				B4504D4724BE281A007E9014 /* mapp.png in Resources */,
 				B43D02D424BEB7F3008BB9DE /* lock.png in Resources */,
+				B43EC5E224C539D700B3EB47 /* snowyeti-3.png in Resources */,
 				B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */,
 				B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */,
+				B43EC5EA24C539D700B3EB47 /* snowyeti-1.png in Resources */,
 				B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */,
 				B479DE7624C2CD4B00E3F2BE /* snowbol-6.png in Resources */,
+				B43EC5EB24C539D700B3EB47 /* snowyeti-4.png in Resources */,
 				B48D2FA424C23823009AD3FD /* evilsnowman-3.png in Resources */,
 				B495824924BC2E4700BC1857 /* bobby-12.png in Resources */,
 				B43D02DC24C02F90008BB9DE /* snowEffect.sks in Resources */,
+				B43EC5DE24C539D700B3EB47 /* snowyeti-16.png in Resources */,
 				B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */,
 				B495824224BC2E4700BC1857 /* bobby-11.png in Resources */,
 				B495825D24BC437500BC1857 /* question-mark.png in Resources */,
@@ -478,18 +541,24 @@
 				B48D2FA624C23823009AD3FD /* evilsnowman-6.png in Resources */,
 				B495824624BC2E4700BC1857 /* idle-3.png in Resources */,
 				B43D02CE24BEA1B9008BB9DE /* target.png in Resources */,
+				B43EC5EF24C541F000B3EB47 /* snowyeti-11.png in Resources */,
 				B495824424BC2E4700BC1857 /* bobby-15.png in Resources */,
 				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
 				B479DE7524C2CD4B00E3F2BE /* snowbol-3.png in Resources */,
+				B43EC5EC24C539D700B3EB47 /* snowyeti-14.png in Resources */,
 				B48D2FA024C23823009AD3FD /* evilsnowman-0.5.png in Resources */,
 				B43D02DF24C03366008BB9DE /* snowgrounds.png in Resources */,
 				B43D02DD24C02F90008BB9DE /* Assets.xcassets in Resources */,
 				B479DE7124C2CD4B00E3F2BE /* snowbol-2.png in Resources */,
 				B495825624BC3F6800BC1857 /* MaassslicerItalic.ps in Resources */,
+				B43EC5ED24C539D700B3EB47 /* snowyeti-6.png in Resources */,
 				B48D2FA524C23823009AD3FD /* evilsnowman-1.png in Resources */,
 				B479DE7224C2CD4B00E3F2BE /* snowbol-7.png in Resources */,
+				B43EC5DF24C539D700B3EB47 /* snowyeti-7.png in Resources */,
 				B495824A24BC2E4700BC1857 /* bobby-9.png in Resources */,
 				B479DE7424C2CD4B00E3F2BE /* snowbol-5.png in Resources */,
+				B43EC5DD24C539D700B3EB47 /* snowyeti-13.png in Resources */,
+				B43EC5E924C539D700B3EB47 /* snowyeti-2.png in Resources */,
 				B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */,
 				B43D02D224BEB2FB008BB9DE /* comingsoon.png in Resources */,
 				B495826224BC437500BC1857 /* volume-on.png in Resources */,
@@ -499,15 +568,18 @@
 				B495825F24BC437500BC1857 /* like-icon.png in Resources */,
 				B495825324BC3A1700BC1857 /* starry.jpg in Resources */,
 				B495826024BC437500BC1857 /* menu-icon.png in Resources */,
+				B43EC5E724C539D700B3EB47 /* snowyeti-17.png in Resources */,
 				B495824724BC2E4700BC1857 /* idle-4.png in Resources */,
 				B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */,
 				B479DE7324C2CD4B00E3F2BE /* snowbol-8.png in Resources */,
 				B495824824BC2E4700BC1857 /* bobby-5.png in Resources */,
 				B495824024BC2E4700BC1857 /* bobby-10.png in Resources */,
+				B43EC5E824C539D700B3EB47 /* snowyeti-18.png in Resources */,
 				B48D2FA824C23823009AD3FD /* evilsnowman-5.png in Resources */,
 				B48D2FA724C23823009AD3FD /* evilsnowman-9.png in Resources */,
 				B495824C24BC2E4700BC1857 /* idle-2.png in Resources */,
 				B48D2FA124C23823009AD3FD /* evilsnowman-7.png in Resources */,
+				B43EC5E624C539D700B3EB47 /* snowyeti-15.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

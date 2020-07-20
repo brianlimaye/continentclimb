@@ -16,11 +16,13 @@ class GameScene: SKScene {
     let characterSpeed: TimeInterval = 0.25
     
     var heroRunAction: SKAction = SKAction()
+    var yetiRunAction: SKAction = SKAction()
     var icyBackground: SKSpriteNode = SKSpriteNode()
     var icyBackground2: SKSpriteNode = SKSpriteNode()
     var icePlatform: SKSpriteNode = SKSpriteNode()
     var hero: SKSpriteNode = SKSpriteNode()
     var evilSnowman: SKSpriteNode = SKSpriteNode()
+    var snowYeti: SKSpriteNode = SKSpriteNode()
     var snowball: SKSpriteNode = SKSpriteNode()
     var snow: SKEmitterNode = SKEmitterNode()
     
@@ -286,6 +288,50 @@ class GameScene: SKScene {
         evilSnowman.run(shiftRepeater)
     }
     
+    func drawYeti() {
+        
+        let yetiFrames: [SKTexture] = [SKTexture(imageNamed: "snowyeti-1"), SKTexture(imageNamed: "snowyeti-2"), SKTexture(imageNamed: "snowyeti-3"), SKTexture(imageNamed: "snowyeti-4"), SKTexture(imageNamed: "snowyeti-5"), SKTexture(imageNamed: "snowyeti-6"), SKTexture(imageNamed: "snowyeti-7"), SKTexture(imageNamed: "snowyeti-8"), SKTexture(imageNamed: "snowyeti-9"), SKTexture(imageNamed: "snowyeti-10"), SKTexture(imageNamed: "snowyeti-11")]
+        
+        //let yetiFrames: [SKTexture] = [SKTexture(imageNamed: "snowyeti-12"), SKTexture(imageNamed: "snowyeti-13"), SKTexture(imageNamed: "snowyeti-14"), SKTexture(imageNamed: "snowyeti-15"), SKTexture(imageNamed: "snowyeti-16"), SKTexture(imageNamed: "snowyeti-17"), SKTexture(imageNamed: "snowyeti-18")]
+        
+        let yetiAnimate = SKAction.animate(with: yetiFrames, timePerFrame: characterSpeed / 7)
+        self.yetiRunAction = yetiAnimate
+        let yetiShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2)
+        let yetiRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([yetiShift, yetiRevert])
+        
+        let shiftRepeater = SKAction.repeatForever(shiftSeq)
+        let animateRepeater = SKAction.repeat(yetiAnimate, count: 2)
+        
+        snowYeti.run(animateRepeater, completion: yetiAttackAnimation)
+        snowYeti.run(shiftRepeater)
+    }
+    
+    func yetiAttackAnimation() {
+        
+        let attackFrames: [SKTexture] = [SKTexture(imageNamed: "snowyeti-12"), SKTexture(imageNamed: "snowyeti-13"), SKTexture(imageNamed: "snowyeti-14"), SKTexture(imageNamed: "snowyeti-15"), SKTexture(imageNamed: "snowyeti-16"), SKTexture(imageNamed: "snowyeti-17"), SKTexture(imageNamed: "snowyeti-18")]
+        
+        let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 3)
+        
+        let attackRepeater = SKAction.repeat(attackAnimate, count: 1)
+        
+        snowYeti.run(attackRepeater, completion: yetiResumeRunning)
+    }
+    
+    func yetiResumeRunning() {
+        
+        let yetiRunRepeater = SKAction.repeat(yetiRunAction, count: 1)
+        
+        snowYeti.run(yetiRunRepeater, completion: revertYeti)
+    }
+    
+    func revertYeti() {
+        
+        snowYeti.removeAllActions()
+        snowYeti.position.x = self.frame.size.width
+    }
+    
     func disappearSnowman() {
         
         let vanish = SKAction.fadeOut(withDuration: 0.5)
@@ -366,17 +412,41 @@ class GameScene: SKScene {
     
     func drawFallenSnowball() {
         
-        snowball.position = CGPoint(x: hero.position.x, y: self.frame.size.height)
+        let rand = Int.random(in: 1 ... 2)
         
-        let snowballFall = SKAction.moveTo(y: -self.frame.size.height, duration: 1.75)
+        let startingY = matchSnowballX(rand: rand)
+        
+        snowball.position = CGPoint(x: startingY, y: self.frame.size.height)
+        
+        let snowballFall = SKAction.move(to: CGPoint(x: hero.position.x - 50, y: hero.position.y), duration: 1)
         
         let fallRepeater = SKAction.repeat(snowballFall, count: 1)
         
         snowball.run(fallRepeater, completion: revertSnowball)
     }
     
+    func matchSnowballX(rand: Int) -> CGFloat {
+        
+        var startingX: CGFloat = CGFloat()
+        
+        switch(rand) {
+            
+            case 1:
+                startingX = hero.position.x
+            case 2:
+                startingX = self.frame.size.width
+                break
+            default:
+                print("other")
+        }
+        
+        return startingX
+    
+    }
+    
     func initObjects() {
         
+        //Evil Snowman
         evilSnowman = SKSpriteNode(imageNamed: "evilsnowman-1")
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
@@ -393,6 +463,25 @@ class GameScene: SKScene {
         evilSnowman.xScale = -1
         self.addChild(evilSnowman)
         
+        //Snow Yeti
+        snowYeti = SKSpriteNode(imageNamed: "snowyeti-1")
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            snowYeti.size = CGSize(width: (snowYeti.size.width + (self.frame.size.width * 0.5)) / 4, height: (snowYeti.size.height + (self.frame.size.width * 0.5)) / 4)
+            snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.15)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            snowYeti.size = CGSize(width: (snowYeti.size.width + (self.frame.size.width * 0.65)) / 4, height: (snowYeti.size.height + (self.frame.size.width * 0.65)) / 4)
+            snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.65)
+        }
+        
+        snowYeti.xScale = -1
+        self.addChild(snowYeti)
+        
+        //Snowball (Falling and Thrown)
         snowball = SKSpriteNode(imageNamed: "snowbol-1")
         snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
         
@@ -400,6 +489,7 @@ class GameScene: SKScene {
         {
             snowball.size = CGSize(width: snowball.size.width * 1.5, height: snowball.size.height * 1.5)
         }
+        
         self.addChild(snowball)
     }
 }
