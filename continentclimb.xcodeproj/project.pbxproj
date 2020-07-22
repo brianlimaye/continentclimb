@@ -49,6 +49,9 @@
 		B4504D4724BE281A007E9014 /* mapp.png in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4624BE281A007E9014 /* mapp.png */; };
 		B4504D4924BE3770007E9014 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4504D4824BE3770007E9014 /* Extensions.swift */; };
 		B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */; };
+		B4602C4B24C680F300B1E4EE /* desert.png in Resources */ = {isa = PBXBuildFile; fileRef = B4602C4A24C680F300B1E4EE /* desert.png */; };
+		B4602C4F24C69AA500B1E4EE /* desertgrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4602C4E24C69AA500B1E4EE /* desertgrounds.png */; };
+		B4602C5124C69BC300B1E4EE /* PlistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4602C5024C69BC300B1E4EE /* PlistParser.swift */; };
 		B479DE6F24C2CD4B00E3F2BE /* snowbol-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B479DE6724C2CD4B00E3F2BE /* snowbol-4.png */; };
 		B479DE7024C2CD4B00E3F2BE /* snowbol-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B479DE6824C2CD4B00E3F2BE /* snowbol-1.png */; };
 		B479DE7124C2CD4B00E3F2BE /* snowbol-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B479DE6924C2CD4B00E3F2BE /* snowbol-2.png */; };
@@ -93,6 +96,24 @@
 		B495826124BC437500BC1857 /* volume-off.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825B24BC437500BC1857 /* volume-off.png */; };
 		B495826224BC437500BC1857 /* volume-on.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825C24BC437500BC1857 /* volume-on.png */; };
 		B495826424BC4BA300BC1857 /* BitPap.ps in Resources */ = {isa = PBXBuildFile; fileRef = B495826324BC4BA300BC1857 /* BitPap.ps */; };
+		B4D77D1E24C7E7F500F5D335 /* coyote-14.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D0C24C7E7F300F5D335 /* coyote-14.png */; };
+		B4D77D1F24C7E7F500F5D335 /* coyote-11.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D0D24C7E7F400F5D335 /* coyote-11.png */; };
+		B4D77D2024C7E7F500F5D335 /* coyote-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D0E24C7E7F400F5D335 /* coyote-7.png */; };
+		B4D77D2124C7E7F500F5D335 /* coyote-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D0F24C7E7F400F5D335 /* coyote-6.png */; };
+		B4D77D2224C7E7F500F5D335 /* coyote-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1024C7E7F400F5D335 /* coyote-3.png */; };
+		B4D77D2324C7E7F500F5D335 /* coyote-15.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1124C7E7F400F5D335 /* coyote-15.png */; };
+		B4D77D2424C7E7F500F5D335 /* coyote-9.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1224C7E7F400F5D335 /* coyote-9.png */; };
+		B4D77D2524C7E7F500F5D335 /* coyote-16.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1324C7E7F400F5D335 /* coyote-16.png */; };
+		B4D77D2624C7E7F500F5D335 /* coyote-10.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1424C7E7F400F5D335 /* coyote-10.png */; };
+		B4D77D2724C7E7F500F5D335 /* coyote-18.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1524C7E7F400F5D335 /* coyote-18.png */; };
+		B4D77D2824C7E7F500F5D335 /* coyote-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1624C7E7F400F5D335 /* coyote-4.png */; };
+		B4D77D2924C7E7F500F5D335 /* coyote-17.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1724C7E7F400F5D335 /* coyote-17.png */; };
+		B4D77D2A24C7E7F500F5D335 /* coyote-12.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1824C7E7F400F5D335 /* coyote-12.png */; };
+		B4D77D2B24C7E7F500F5D335 /* coyote-5.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1924C7E7F400F5D335 /* coyote-5.png */; };
+		B4D77D2C24C7E7F500F5D335 /* coyote-13.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1A24C7E7F400F5D335 /* coyote-13.png */; };
+		B4D77D2D24C7E7F500F5D335 /* coyote-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1B24C7E7F400F5D335 /* coyote-8.png */; };
+		B4D77D2E24C7E7F500F5D335 /* coyote-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1C24C7E7F500F5D335 /* coyote-2.png */; };
+		B4D77D2F24C7E7F500F5D335 /* coyote-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B4D77D1D24C7E7F500F5D335 /* coyote-1.png */; };
 		B4E5F48C24BD8E5D00A5A45D /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F48B24BD8E5D00A5A45D /* globe.png */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +183,9 @@
 		B4504D4624BE281A007E9014 /* mapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapp.png; path = ../../../../../../Downloads/mapp.png; sourceTree = "<group>"; };
 		B4504D4824BE3770007E9014 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LazenbyComputer-Liquid.ps"; sourceTree = "<group>"; };
+		B4602C4A24C680F300B1E4EE /* desert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desert.png; sourceTree = "<group>"; };
+		B4602C4E24C69AA500B1E4EE /* desertgrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desertgrounds.png; sourceTree = "<group>"; };
+		B4602C5024C69BC300B1E4EE /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
 		B479DE6724C2CD4B00E3F2BE /* snowbol-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowbol-4.png"; sourceTree = "<group>"; };
 		B479DE6824C2CD4B00E3F2BE /* snowbol-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowbol-1.png"; sourceTree = "<group>"; };
 		B479DE6924C2CD4B00E3F2BE /* snowbol-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowbol-2.png"; sourceTree = "<group>"; };
@@ -206,6 +230,24 @@
 		B495825B24BC437500BC1857 /* volume-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-off.png"; sourceTree = "<group>"; };
 		B495825C24BC437500BC1857 /* volume-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-on.png"; sourceTree = "<group>"; };
 		B495826324BC4BA300BC1857 /* BitPap.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = BitPap.ps; sourceTree = "<group>"; };
+		B4D77D0C24C7E7F300F5D335 /* coyote-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-14.png"; sourceTree = "<group>"; };
+		B4D77D0D24C7E7F400F5D335 /* coyote-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-11.png"; sourceTree = "<group>"; };
+		B4D77D0E24C7E7F400F5D335 /* coyote-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-7.png"; sourceTree = "<group>"; };
+		B4D77D0F24C7E7F400F5D335 /* coyote-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-6.png"; sourceTree = "<group>"; };
+		B4D77D1024C7E7F400F5D335 /* coyote-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-3.png"; sourceTree = "<group>"; };
+		B4D77D1124C7E7F400F5D335 /* coyote-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-15.png"; sourceTree = "<group>"; };
+		B4D77D1224C7E7F400F5D335 /* coyote-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-9.png"; sourceTree = "<group>"; };
+		B4D77D1324C7E7F400F5D335 /* coyote-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-16.png"; sourceTree = "<group>"; };
+		B4D77D1424C7E7F400F5D335 /* coyote-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-10.png"; sourceTree = "<group>"; };
+		B4D77D1524C7E7F400F5D335 /* coyote-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-18.png"; sourceTree = "<group>"; };
+		B4D77D1624C7E7F400F5D335 /* coyote-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-4.png"; sourceTree = "<group>"; };
+		B4D77D1724C7E7F400F5D335 /* coyote-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-17.png"; sourceTree = "<group>"; };
+		B4D77D1824C7E7F400F5D335 /* coyote-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-12.png"; sourceTree = "<group>"; };
+		B4D77D1924C7E7F400F5D335 /* coyote-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-5.png"; sourceTree = "<group>"; };
+		B4D77D1A24C7E7F400F5D335 /* coyote-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-13.png"; sourceTree = "<group>"; };
+		B4D77D1B24C7E7F400F5D335 /* coyote-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-8.png"; sourceTree = "<group>"; };
+		B4D77D1C24C7E7F500F5D335 /* coyote-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-2.png"; sourceTree = "<group>"; };
+		B4D77D1D24C7E7F500F5D335 /* coyote-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coyote-1.png"; sourceTree = "<group>"; };
 		B4E5F48B24BD8E5D00A5A45D /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -266,6 +308,7 @@
 				B4504D4824BE3770007E9014 /* Extensions.swift */,
 				B432F79924BC1F140062EDB0 /* GameScene.swift */,
 				B432F79B24BC1F140062EDB0 /* GameViewController.swift */,
+				B4602C5024C69BC300B1E4EE /* PlistParser.swift */,
 				B432F79D24BC1F140062EDB0 /* Main.storyboard */,
 				B432F7A024BC1F160062EDB0 /* Assets.xcassets */,
 				B495825424BC3E5F00BC1857 /* Fonts */,
@@ -298,6 +341,26 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B4602C4A24C680F300B1E4EE /* desert.png */,
+				B4602C4E24C69AA500B1E4EE /* desertgrounds.png */,
+				B4D77D1D24C7E7F500F5D335 /* coyote-1.png */,
+				B4D77D1C24C7E7F500F5D335 /* coyote-2.png */,
+				B4D77D1024C7E7F400F5D335 /* coyote-3.png */,
+				B4D77D1624C7E7F400F5D335 /* coyote-4.png */,
+				B4D77D1924C7E7F400F5D335 /* coyote-5.png */,
+				B4D77D0F24C7E7F400F5D335 /* coyote-6.png */,
+				B4D77D0E24C7E7F400F5D335 /* coyote-7.png */,
+				B4D77D1B24C7E7F400F5D335 /* coyote-8.png */,
+				B4D77D1224C7E7F400F5D335 /* coyote-9.png */,
+				B4D77D1424C7E7F400F5D335 /* coyote-10.png */,
+				B4D77D0D24C7E7F400F5D335 /* coyote-11.png */,
+				B4D77D1824C7E7F400F5D335 /* coyote-12.png */,
+				B4D77D1A24C7E7F400F5D335 /* coyote-13.png */,
+				B4D77D0C24C7E7F300F5D335 /* coyote-14.png */,
+				B4D77D1124C7E7F400F5D335 /* coyote-15.png */,
+				B4D77D1324C7E7F400F5D335 /* coyote-16.png */,
+				B4D77D1724C7E7F400F5D335 /* coyote-17.png */,
+				B4D77D1524C7E7F400F5D335 /* coyote-18.png */,
 				B43EC5D824C539D600B3EB47 /* snowyeti-1.png */,
 				B43EC5D724C539D600B3EB47 /* snowyeti-2.png */,
 				B43EC5D024C539D600B3EB47 /* snowyeti-3.png */,
@@ -503,6 +566,8 @@
 			files = (
 				B43D02CC24BE48ED008BB9DE /* binary.jpg in Resources */,
 				B43D02E324C13D0A008BB9DE /* icybackground.png in Resources */,
+				B4D77D2224C7E7F500F5D335 /* coyote-3.png in Resources */,
+				B4D77D2624C7E7F500F5D335 /* coyote-10.png in Resources */,
 				B495824524BC2E4700BC1857 /* bobby-7.png in Resources */,
 				B43EC5E424C539D700B3EB47 /* snowyeti-5.png in Resources */,
 				B495826124BC437500BC1857 /* volume-off.png in Resources */,
@@ -520,17 +585,23 @@
 				B495823F24BC2E4700BC1857 /* idle-1.png in Resources */,
 				B43D02D024BEB0E1008BB9DE /* Brendohand-Regular.ps in Resources */,
 				B43EC5DC24C539D700B3EB47 /* snowyeti-8.png in Resources */,
+				B4D77D2124C7E7F500F5D335 /* coyote-6.png in Resources */,
 				B4504D4724BE281A007E9014 /* mapp.png in Resources */,
+				B4D77D2E24C7E7F500F5D335 /* coyote-2.png in Resources */,
 				B43D02D424BEB7F3008BB9DE /* lock.png in Resources */,
 				B43EC5E224C539D700B3EB47 /* snowyeti-3.png in Resources */,
+				B4D77D1F24C7E7F500F5D335 /* coyote-11.png in Resources */,
 				B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */,
 				B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */,
 				B43EC5EA24C539D700B3EB47 /* snowyeti-1.png in Resources */,
 				B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */,
 				B479DE7624C2CD4B00E3F2BE /* snowbol-6.png in Resources */,
 				B43EC5EB24C539D700B3EB47 /* snowyeti-4.png in Resources */,
+				B4D77D2724C7E7F500F5D335 /* coyote-18.png in Resources */,
+				B4D77D2A24C7E7F500F5D335 /* coyote-12.png in Resources */,
 				B48D2FA424C23823009AD3FD /* evilsnowman-3.png in Resources */,
 				B495824924BC2E4700BC1857 /* bobby-12.png in Resources */,
+				B4D77D2C24C7E7F500F5D335 /* coyote-13.png in Resources */,
 				B43D02DC24C02F90008BB9DE /* snowEffect.sks in Resources */,
 				B43EC5DE24C539D700B3EB47 /* snowyeti-16.png in Resources */,
 				B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */,
@@ -538,14 +609,18 @@
 				B495825D24BC437500BC1857 /* question-mark.png in Resources */,
 				B48D2FA324C23823009AD3FD /* evilsnowman-10.png in Resources */,
 				B4E5F48C24BD8E5D00A5A45D /* globe.png in Resources */,
+				B4D77D2024C7E7F500F5D335 /* coyote-7.png in Resources */,
 				B48D2FA624C23823009AD3FD /* evilsnowman-6.png in Resources */,
 				B495824624BC2E4700BC1857 /* idle-3.png in Resources */,
 				B43D02CE24BEA1B9008BB9DE /* target.png in Resources */,
+				B4D77D2D24C7E7F500F5D335 /* coyote-8.png in Resources */,
 				B43EC5EF24C541F000B3EB47 /* snowyeti-11.png in Resources */,
 				B495824424BC2E4700BC1857 /* bobby-15.png in Resources */,
+				B4D77D2924C7E7F500F5D335 /* coyote-17.png in Resources */,
 				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
 				B479DE7524C2CD4B00E3F2BE /* snowbol-3.png in Resources */,
 				B43EC5EC24C539D700B3EB47 /* snowyeti-14.png in Resources */,
+				B4D77D2524C7E7F500F5D335 /* coyote-16.png in Resources */,
 				B48D2FA024C23823009AD3FD /* evilsnowman-0.5.png in Resources */,
 				B43D02DF24C03366008BB9DE /* snowgrounds.png in Resources */,
 				B43D02DD24C02F90008BB9DE /* Assets.xcassets in Resources */,
@@ -553,12 +628,17 @@
 				B495825624BC3F6800BC1857 /* MaassslicerItalic.ps in Resources */,
 				B43EC5ED24C539D700B3EB47 /* snowyeti-6.png in Resources */,
 				B48D2FA524C23823009AD3FD /* evilsnowman-1.png in Resources */,
+				B4D77D2824C7E7F500F5D335 /* coyote-4.png in Resources */,
+				B4D77D2424C7E7F500F5D335 /* coyote-9.png in Resources */,
+				B4602C4B24C680F300B1E4EE /* desert.png in Resources */,
 				B479DE7224C2CD4B00E3F2BE /* snowbol-7.png in Resources */,
 				B43EC5DF24C539D700B3EB47 /* snowyeti-7.png in Resources */,
+				B4D77D1E24C7E7F500F5D335 /* coyote-14.png in Resources */,
 				B495824A24BC2E4700BC1857 /* bobby-9.png in Resources */,
 				B479DE7424C2CD4B00E3F2BE /* snowbol-5.png in Resources */,
 				B43EC5DD24C539D700B3EB47 /* snowyeti-13.png in Resources */,
 				B43EC5E924C539D700B3EB47 /* snowyeti-2.png in Resources */,
+				B4D77D2F24C7E7F500F5D335 /* coyote-1.png in Resources */,
 				B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */,
 				B43D02D224BEB2FB008BB9DE /* comingsoon.png in Resources */,
 				B495826224BC437500BC1857 /* volume-on.png in Resources */,
@@ -576,10 +656,13 @@
 				B495824024BC2E4700BC1857 /* bobby-10.png in Resources */,
 				B43EC5E824C539D700B3EB47 /* snowyeti-18.png in Resources */,
 				B48D2FA824C23823009AD3FD /* evilsnowman-5.png in Resources */,
+				B4D77D2324C7E7F500F5D335 /* coyote-15.png in Resources */,
+				B4D77D2B24C7E7F500F5D335 /* coyote-5.png in Resources */,
 				B48D2FA724C23823009AD3FD /* evilsnowman-9.png in Resources */,
 				B495824C24BC2E4700BC1857 /* idle-2.png in Resources */,
 				B48D2FA124C23823009AD3FD /* evilsnowman-7.png in Resources */,
 				B43EC5E624C539D700B3EB47 /* snowyeti-15.png in Resources */,
+				B4602C4F24C69AA500B1E4EE /* desertgrounds.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -604,6 +687,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B4602C5124C69BC300B1E4EE /* PlistParser.swift in Sources */,
 				B432F79A24BC1F140062EDB0 /* GameScene.swift in Sources */,
 				B4504D4924BE3770007E9014 /* Extensions.swift in Sources */,
 				B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */,

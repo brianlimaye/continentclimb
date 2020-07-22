@@ -2,6 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Platforms</key>
+	<array>
+		<string>snowgrounds.png</string>
+		<string>desertgrounds.png</string>
+	</array>
+	<key>Backgrounds</key>
+	<array>
+		<string>icybackground.png</string>
+		<string>desert.png</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

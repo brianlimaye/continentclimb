@@ -17,6 +17,7 @@ class GameScene: SKScene {
     
     var heroRunAction: SKAction = SKAction()
     var yetiRunAction: SKAction = SKAction()
+    var coyoteDashAction: SKAction = SKAction()
     var icyBackground: SKSpriteNode = SKSpriteNode()
     var icyBackground2: SKSpriteNode = SKSpriteNode()
     var icePlatform: SKSpriteNode = SKSpriteNode()
@@ -24,6 +25,8 @@ class GameScene: SKScene {
     var evilSnowman: SKSpriteNode = SKSpriteNode()
     var snowYeti: SKSpriteNode = SKSpriteNode()
     var snowball: SKSpriteNode = SKSpriteNode()
+    var coyote: SKSpriteNode = SKSpriteNode()
+    
     var snow: SKEmitterNode = SKEmitterNode()
     
     override func didMove(to view: SKView) {
@@ -33,7 +36,7 @@ class GameScene: SKScene {
         initObjects()
         drawBackground()
         drawPlatform()
-        addSnow()
+        //addSnow()
         drawCharacter()
     }
     
@@ -54,7 +57,7 @@ class GameScene: SKScene {
         var lowerBound: CGFloat = 0
         var upperBound: CGFloat = 0
         
-        let platTexture = SKTexture(imageNamed: "snowgrounds")
+        let platTexture = SKTexture(imageNamed: PlistParser.getKeyFromValue(forKey: "Platforms"))
             
         let platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 3)
         
@@ -109,7 +112,7 @@ class GameScene: SKScene {
         var backgAnimation: SKAction = SKAction()
         var backgShift: SKAction = SKAction()
         
-        let backgTexture = SKTexture(imageNamed: "icybackground")
+        let backgTexture = SKTexture(imageNamed: PlistParser.getKeyFromValue(forKey: "Backgrounds"))
                 
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -355,6 +358,7 @@ class GameScene: SKScene {
     
     func revertSnowball() {
         
+        snowball.alpha = 1.0
         snowball.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.75)
     }
     
@@ -418,11 +422,18 @@ class GameScene: SKScene {
         
         snowball.position = CGPoint(x: startingY, y: self.frame.size.height)
         
-        let snowballFall = SKAction.move(to: CGPoint(x: hero.position.x - 50, y: hero.position.y), duration: 1)
+        let snowballFall = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3.5, y: hero.position.y), duration: 1)
         
         let fallRepeater = SKAction.repeat(snowballFall, count: 1)
         
-        snowball.run(fallRepeater, completion: revertSnowball)
+        snowball.run(fallRepeater, completion: fadeSnowball)
+    }
+    
+    func fadeSnowball() {
+        
+        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+        
+        snowball.run(fadeOut, completion: revertSnowball)
     }
     
     func matchSnowballX(rand: Int) -> CGFloat {
@@ -442,6 +453,41 @@ class GameScene: SKScene {
         
         return startingX
     
+    }
+    
+    func drawCoyote() {
+        
+        let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "coyote-1"), SKTexture(imageNamed: "coyote-2"), SKTexture(imageNamed: "coyote-3"), SKTexture(imageNamed: "coyote-4"), SKTexture(imageNamed: "coyote-5"), SKTexture(imageNamed: "coyote-6"), SKTexture(imageNamed: "coyote-7"), SKTexture(imageNamed: "coyote-8"), SKTexture(imageNamed: "coyote-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
+        
+        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4)
+        self.coyoteDashAction = coyoteAnimate
+        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2)
+        let coyoteRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([coyoteShift, coyoteRevert])
+        
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
+        let coyoteAnimateRepeater = SKAction.repeatForever(coyoteAnimate)
+        
+        coyote.run(shiftRepeater)
+        coyote.run(coyoteAnimateRepeater)
+        
+    }
+    
+    func coyoteAttackAnimation() {
+        
+        let attackFrames: [SKTexture] = [SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
+        
+        let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 2)
+        
+        let attackRepeater = SKAction.repeat(attackAnimate, count: 1)
+        
+        coyote.run(attackRepeater, completion: coyoteResumeRunning)
+    }
+    
+    func coyoteResumeRunning() {
+        
+        coyote.run(coyoteDashAction)
     }
     
     func initObjects() {
@@ -491,5 +537,25 @@ class GameScene: SKScene {
         }
         
         self.addChild(snowball)
+        
+        //Cayote
+        
+        coyote = SKSpriteNode(imageNamed: "coyote-1")
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            //coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.5)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.5)) / 4)
+            coyote.size = CGSize(width: coyote.size.width / 1.25, height: coyote.size.height / 1.25)
+            coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)//-self.frame.size.height / 4.15)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            //coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.65)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.65)) / 4)
+            coyote.position = CGPoint(x: self.frame.size.width, y: 0)//-self.frame.size.height / 3.65)
+        }
+        
+        coyote.xScale = -1
+        self.addChild(coyote)
     }
 }

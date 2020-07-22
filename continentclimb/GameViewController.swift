@@ -79,6 +79,12 @@ class GameViewController: UIViewController {
                {
                     GameViewController.gameScene?.drawYeti()
                }
+           case .keyboardC:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawCoyote()
+               }
             
            default:
                 
