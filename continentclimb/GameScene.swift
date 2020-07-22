@@ -26,6 +26,7 @@ class GameScene: SKScene {
     var snowYeti: SKSpriteNode = SKSpriteNode()
     var snowball: SKSpriteNode = SKSpriteNode()
     var coyote: SKSpriteNode = SKSpriteNode()
+    var snake: SKSpriteNode = SKSpriteNode()
     
     var snow: SKEmitterNode = SKEmitterNode()
     
@@ -38,6 +39,7 @@ class GameScene: SKScene {
         drawPlatform()
         //addSnow()
         drawCharacter()
+        //drawSnake()
     }
     
     func addSnow() {
@@ -56,26 +58,28 @@ class GameScene: SKScene {
         
         var lowerBound: CGFloat = 0
         var upperBound: CGFloat = 0
-        
+                
         let platTexture = SKTexture(imageNamed: PlistParser.getKeyFromValue(forKey: "Platforms"))
             
-        let platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 3)
-        
-        let platShift = SKAction.move(by: CGVector(dx: platTexture.size().width, dy: 0), duration: 0)
-        let pAnimation = SKAction.sequence([platAnimation, platShift])
-        let infinitePlat = SKAction.repeatForever(pAnimation)
+        var platAnimation: SKAction = SKAction()
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
+            platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 2.25)
             lowerBound = 0
             upperBound = 2
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
+            platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 1.125)
             lowerBound = -1
             upperBound = 3
         }
+        
+        let platShift = SKAction.move(by: CGVector(dx: platTexture.size().width, dy: 0), duration: 0)
+        let pAnimation = SKAction.sequence([platAnimation, platShift])
+        let infinitePlat = SKAction.repeatForever(pAnimation)
 
         while lowerBound < upperBound {
             
@@ -92,7 +96,7 @@ class GameScene: SKScene {
             if(UIDevice.current.userInterfaceIdiom == .pad)
             {
                 icePlatform.size.width = icePlatform.size.width * 1.01
-                icePlatform.size.height = 150
+                icePlatform.size.height = 200
             }
             icePlatform.run(infinitePlat)
 
@@ -125,7 +129,7 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width), dy: 0), duration: 3)
+            backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width), dy: 0), duration: 1.5)
             
             backgShift = SKAction.move(by: CGVector(dx: round(backgTexture.size().width), dy: 0), duration: 0)
             lowerBound = 0
@@ -172,7 +176,7 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            hero.size = CGSize(width: (hero.size.width + (self.frame.size.width * 0.25)) / 4, height: (hero.size.height + (self.frame.size.width * 0.25)) / 4)
+            hero.size = CGSize(width: round((hero.size.width + (self.frame.size.width * 0.25)) / 4), height: round(hero.size.height + (self.frame.size.width * 0.25)) / 4)
             hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.1)
         }
         
@@ -199,12 +203,12 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            duckAnim = SKAction.moveBy(x: 150, y: 0, duration: 0.5)
+            duckAnim = SKAction.moveBy(x: 250, y: 0, duration: 0.5)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            duckAnim = SKAction.moveBy(x: 200, y: 0, duration: 0.5)
+            duckAnim = SKAction.moveBy(x: 300, y: 0, duration: 0.5)
         }
         
         let duckRepeater = SKAction.repeat(duckAnim, count: 1)
@@ -459,7 +463,7 @@ class GameScene: SKScene {
         
         let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "coyote-1"), SKTexture(imageNamed: "coyote-2"), SKTexture(imageNamed: "coyote-3"), SKTexture(imageNamed: "coyote-4"), SKTexture(imageNamed: "coyote-5"), SKTexture(imageNamed: "coyote-6"), SKTexture(imageNamed: "coyote-7"), SKTexture(imageNamed: "coyote-8"), SKTexture(imageNamed: "coyote-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
         
-        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4)
+        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4.25)
         self.coyoteDashAction = coyoteAnimate
         let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2)
         let coyoteRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
@@ -467,10 +471,10 @@ class GameScene: SKScene {
         let shiftSeq = SKAction.sequence([coyoteShift, coyoteRevert])
         
         let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
-        let coyoteAnimateRepeater = SKAction.repeatForever(coyoteAnimate)
+        let coyoteAnimateRepeater = SKAction.repeat(coyoteAnimate, count: 2)
         
         coyote.run(shiftRepeater)
-        coyote.run(coyoteAnimateRepeater)
+        coyote.run(coyoteAnimateRepeater, completion: coyoteAttackAnimation)
         
     }
     
@@ -478,16 +482,39 @@ class GameScene: SKScene {
         
         let attackFrames: [SKTexture] = [SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
         
-        let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 2)
+        let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 1.5)
+        let rise = SKAction.moveTo(y: self.frame.size.height / 8, duration: characterSpeed / 1.5)
+        let drop = SKAction.moveTo(y: -self.frame.size.height / 3.65, duration: characterSpeed / 1.5)
         
+        let riseSeq = SKAction.sequence([rise, drop])
+        
+        let riseRepeater = SKAction.repeat(riseSeq, count: 1)
         let attackRepeater = SKAction.repeat(attackAnimate, count: 1)
         
+        coyote.run(riseRepeater)
         coyote.run(attackRepeater, completion: coyoteResumeRunning)
     }
     
     func coyoteResumeRunning() {
         
         coyote.run(coyoteDashAction)
+    }
+    
+    func drawSnake() {
+        
+        let snakeFrames: [SKTexture] = [SKTexture(imageNamed: "snake-1"), SKTexture(imageNamed: "snake-2"), SKTexture(imageNamed: "snake-3"), SKTexture(imageNamed: "snake-4"), SKTexture(imageNamed: "snake-5"), SKTexture(imageNamed: "snake-6"), SKTexture(imageNamed: "snake-7"), SKTexture(imageNamed: "snake-8"), SKTexture(imageNamed: "snake-9"), SKTexture(imageNamed: "snake-10"), SKTexture(imageNamed: "snake-11")]//, SKTexture(imageNamed: "snake-12")]//, SKTexture(imageNamed: "snake-13"), SKTexture(imageNamed: "snake-14"), SKTexture(imageNamed: "snake-15")]
+        
+        let snakeAnimate = SKAction.animate(with: snakeFrames, timePerFrame: 0.15)
+        let snakeShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
+        let snakeRevert = SKAction.moveTo(x: self.frame.size.height, duration: 0)
+        
+        let snakeSeq = SKAction.sequence([snakeShift, snakeRevert])
+        
+        let shiftRepeater = SKAction.repeat(snakeSeq, count: 1)
+        let snakeRepeater = SKAction.repeat(snakeAnimate, count: 1)
+        
+        snake.run(snakeRepeater)
+        snake.run(shiftRepeater)
     }
     
     func initObjects() {
@@ -544,18 +571,36 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            //coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.5)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.5)) / 4)
+            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.5)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.5)) / 4)
             coyote.size = CGSize(width: coyote.size.width / 1.25, height: coyote.size.height / 1.25)
             coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)//-self.frame.size.height / 4.15)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            //coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.65)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.65)) / 4)
+            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.65)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.65)) / 4)
             coyote.position = CGPoint(x: self.frame.size.width, y: 0)//-self.frame.size.height / 3.65)
         }
         
         coyote.xScale = -1
         self.addChild(coyote)
+        
+        //Snake
+        
+        snake = SKSpriteNode(imageNamed: "snake-1")
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.5)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            //coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.65)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.65)) / 4)
+            snake.position = CGPoint(x: 0, y: 0)//-self.frame.size.height / 3.65)
+        }
+        //snake.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.4)
+        snake.xScale = -1
+        self.addChild(snake)
     }
 }
