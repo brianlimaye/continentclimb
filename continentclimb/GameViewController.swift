@@ -67,6 +67,13 @@ class GameViewController: UIViewController {
                     GameViewController.gameScene?.drawSnowman()
                }
             
+           case .keyboardN:
+              
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawSnake()
+               }
+            
            case .keyboardB:
                
                if isDebug
@@ -84,6 +91,13 @@ class GameViewController: UIViewController {
                if isDebug
                {
                     GameViewController.gameScene?.drawCoyote()
+               }
+    
+           case .keyboardD:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawSandstorm()
                }
             
            default:

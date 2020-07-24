@@ -27,6 +27,7 @@ class GameScene: SKScene {
     var snowball: SKSpriteNode = SKSpriteNode()
     var coyote: SKSpriteNode = SKSpriteNode()
     var snake: SKSpriteNode = SKSpriteNode()
+    var sandstorm: SKSpriteNode = SKSpriteNode()
     
     var snow: SKEmitterNode = SKEmitterNode()
     
@@ -39,7 +40,7 @@ class GameScene: SKScene {
         drawPlatform()
         //addSnow()
         drawCharacter()
-        //drawSnake()
+        //drawSandstorm()
     }
     
     func addSnow() {
@@ -47,6 +48,68 @@ class GameScene: SKScene {
         snow = SKEmitterNode(fileNamed: "snowEffect.sks")!
         snow.position.y = self.frame.size.height
         self.addChild(snow)
+    }
+    
+    func drawSandstorm() {
+        
+        var sandstormShift: SKAction = SKAction()
+        
+        let sandstormFrames: [SKTexture] = [SKTexture(imageNamed: "sandtwister-1"), SKTexture(imageNamed: "sandtwister-2"), SKTexture(imageNamed: "sandtwister-3"), SKTexture(imageNamed: "sandtwister-4")]
+        
+        let sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: 0.5)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: 0.33)
+        }
+        
+        let sandstormRepeater = SKAction.repeatForever(sandstormAnim)
+        let shiftRepeater = SKAction.repeat(sandstormShift, count: 1)
+        
+        sandstorm.run(shiftRepeater, completion: determineSandstormDirection)
+        sandstorm.run(sandstormRepeater)
+    }
+    
+    func determineSandstormDirection() {
+        
+        let rand = Int.random(in: 1 ... 2)
+        var riseAction: SKAction = SKAction()
+        var riseRepeater: SKAction = SKAction()
+        
+        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
+        
+        let shiftRepeater = SKAction.repeat(secondShift, count: 1)
+        
+        if(rand == 1)
+        {
+            riseAction = SKAction.moveTo(y: 0, duration: 0.2)
+            riseRepeater = SKAction.repeat(riseAction, count: 1)
+            
+            sandstorm.run(riseRepeater)
+            
+        }
+        sandstorm.run(shiftRepeater, completion: sandstormRevert)
+    }
+    
+    
+    func sandstormRevert() {
+        
+        sandstorm.position.x = self.frame.size.width
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            sandstorm.position.y = -self.frame.size.height / 4
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            sandstorm.position.y = -self.frame.size.height / 4
+        }
     }
     
     func resumeRunning() {
@@ -72,7 +135,7 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 1.125)
+            platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 2)
             lowerBound = -1
             upperBound = 3
         }
@@ -120,16 +183,16 @@ class GameScene: SKScene {
                 
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width / 2.01), dy: 0), duration: 3)
+            backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width / 2), dy: 0), duration: 3)
             
-            backgShift = SKAction.move(by: CGVector(dx: round(backgTexture.size().width / 2.01), dy: 0), duration: 0)
+            backgShift = SKAction.move(by: CGVector(dx: round(backgTexture.size().width / 2), dy: 0), duration: 0)
             lowerBound = -1
             upperBound = 3
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width), dy: 0), duration: 1.5)
+            backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width), dy: 0), duration: 2.67)
             
             backgShift = SKAction.move(by: CGVector(dx: round(backgTexture.size().width), dy: 0), duration: 0)
             lowerBound = 0
@@ -145,13 +208,13 @@ class GameScene: SKScene {
             
             if(UIDevice.current.userInterfaceIdiom == .pad)
             {
-                icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound)), y: self.frame.midY)
+                icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound) / 1.001), y: self.frame.midY)
                 icyBackground.size.height = round(self.frame.size.height)
             }
             
             if(UIDevice.current.userInterfaceIdiom == .phone)
             {
-                icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound) / 2.01), y: self.frame.midY)
+                icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound) / 2.002), y: self.frame.midY)
                 icyBackground.size = CGSize(width: icyBackground.size.width / 2, height: icyBackground.size.height / 2)
             }
             icyBackground.run(infiniteBackg)
@@ -177,7 +240,7 @@ class GameScene: SKScene {
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             hero.size = CGSize(width: round((hero.size.width + (self.frame.size.width * 0.25)) / 4), height: round(hero.size.height + (self.frame.size.width * 0.25)) / 4)
-            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.1)
+            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.25)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
@@ -461,17 +524,17 @@ class GameScene: SKScene {
     
     func drawCoyote() {
         
-        let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "coyote-1"), SKTexture(imageNamed: "coyote-2"), SKTexture(imageNamed: "coyote-3"), SKTexture(imageNamed: "coyote-4"), SKTexture(imageNamed: "coyote-5"), SKTexture(imageNamed: "coyote-6"), SKTexture(imageNamed: "coyote-7"), SKTexture(imageNamed: "coyote-8"), SKTexture(imageNamed: "coyote-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
+        let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "wolf-1"), SKTexture(imageNamed: "wolf-2"), SKTexture(imageNamed: "wolf-3"), SKTexture(imageNamed: "wolf-4"), SKTexture(imageNamed: "wolf-5"), SKTexture(imageNamed: "wolf-6"), SKTexture(imageNamed: "wolf-7"), SKTexture(imageNamed: "wolf-8"), SKTexture(imageNamed: "wolf-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
         
-        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4.25)
+        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4)
         self.coyoteDashAction = coyoteAnimate
-        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2)
+        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.25)
         let coyoteRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([coyoteShift, coyoteRevert])
         
         let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
-        let coyoteAnimateRepeater = SKAction.repeat(coyoteAnimate, count: 2)
+        let coyoteAnimateRepeater = SKAction.repeat(coyoteAnimate, count: 1)
         
         coyote.run(shiftRepeater)
         coyote.run(coyoteAnimateRepeater, completion: coyoteAttackAnimation)
@@ -480,9 +543,9 @@ class GameScene: SKScene {
     
     func coyoteAttackAnimation() {
         
-        let attackFrames: [SKTexture] = [SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
+        let attackFrames: [SKTexture] = [SKTexture(imageNamed: "wolf-11"), SKTexture(imageNamed: "wolf-12"), SKTexture(imageNamed: "wolf-13"), SKTexture(imageNamed: "wolf-14"), SKTexture(imageNamed: "wolf-15"), SKTexture(imageNamed: "wolf-16"), SKTexture(imageNamed: "wolf-17"), SKTexture(imageNamed: "wolf-18")]
         
-        let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 1.5)
+        let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 3)
         let rise = SKAction.moveTo(y: self.frame.size.height / 8, duration: characterSpeed / 1.5)
         let drop = SKAction.moveTo(y: -self.frame.size.height / 3.65, duration: characterSpeed / 1.5)
         
@@ -565,21 +628,21 @@ class GameScene: SKScene {
         
         self.addChild(snowball)
         
-        //Cayote
+        //Coyote
         
-        coyote = SKSpriteNode(imageNamed: "coyote-1")
+        coyote = SKSpriteNode(imageNamed: "wolf-1")
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.5)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.5)) / 4)
-            coyote.size = CGSize(width: coyote.size.width / 1.25, height: coyote.size.height / 1.25)
+            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.45)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.45)) / 4)
+            //coyote.size = CGSize(width: coyote.size.width / 1.25, height: coyote.size.height / 1.25)
             coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)//-self.frame.size.height / 4.15)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.65)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.65)) / 4)
-            coyote.position = CGPoint(x: self.frame.size.width, y: 0)//-self.frame.size.height / 3.65)
+            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.5)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.5)) / 4)
+            coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)//-self.frame.size.height / 3.65)
         }
         
         coyote.xScale = -1
@@ -591,16 +654,35 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.5)
+            snake.size = CGSize(width: (snake.size.width + (self.frame.size.width * 0.5)) / 4, height: (snake.size.height + (self.frame.size.width * 0.5)) / 4)
+            snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.6)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            //coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.65)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.65)) / 4)
-            snake.position = CGPoint(x: 0, y: 0)//-self.frame.size.height / 3.65)
+            
+            snake.size = CGSize(width: (snake.size.width + (self.frame.size.width * 0.65)) / 4, height: (snake.size.height + (self.frame.size.width * 0.65)) / 4)
+            snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.75)
         }
-        //snake.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.4)
         snake.xScale = -1
         self.addChild(snake)
+        
+        //Sandstorm
+        
+        sandstorm = SKSpriteNode(imageNamed: "sandtwister-1")
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            sandstorm.size = CGSize(width: sandstorm.size.width / 3.5, height: sandstorm.size.height / 3.5)
+            sandstorm.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            sandstorm.size = CGSize(width: sandstorm.size.width / 2, height: sandstorm.size.height / 2)
+            sandstorm.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4)
+        }
+        
+        self.addChild(sandstorm)
     }
 }
