@@ -32,6 +32,8 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>NationalPark-Heavy.ps</string>
+		<string>HellofreedayDEMO.ps</string>
 		<string>MaassslicerItalic.ps</string>
 		<string>BitPap.ps</string>
 		<string>LazenbyComputer-Liquid.ps</string>

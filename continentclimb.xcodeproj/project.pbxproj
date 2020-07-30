@@ -19,6 +19,7 @@
 		B432F7BA24BC1F160062EDB0 /* continentclimbUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7B924BC1F160062EDB0 /* continentclimbUITests.swift */; };
 		B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7C724BC268D0062EDB0 /* HomeScene.swift */; };
 		B432F7CA24BC269D0062EDB0 /* MenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B432F7C924BC269D0062EDB0 /* MenuScene.swift */; };
+		B43B816D24CD697800C953AB /* lock-on.png in Resources */ = {isa = PBXBuildFile; fileRef = B43B816C24CD697800C953AB /* lock-on.png */; };
 		B43D02CC24BE48ED008BB9DE /* binary.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B43D02CB24BE48ED008BB9DE /* binary.jpg */; };
 		B43D02CE24BEA1B9008BB9DE /* target.png in Resources */ = {isa = PBXBuildFile; fileRef = B43D02CD24BEA1B9008BB9DE /* target.png */; };
 		B43D02D024BEB0E1008BB9DE /* Brendohand-Regular.ps in Resources */ = {isa = PBXBuildFile; fileRef = B43D02CF24BEB0E1008BB9DE /* Brendohand-Regular.ps */; };
@@ -49,9 +50,21 @@
 		B4504D4724BE281A007E9014 /* mapp.png in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4624BE281A007E9014 /* mapp.png */; };
 		B4504D4924BE3770007E9014 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4504D4824BE3770007E9014 /* Extensions.swift */; };
 		B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */; };
+		B45C7CCC24D0AA7200B5A79E /* purpleskies.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CCB24D0AA7200B5A79E /* purpleskies.jpg */; };
+		B45C7CCE24D0AB5900B5A79E /* junglebackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CCD24D0AB5800B5A79E /* junglebackg.jpg */; };
+		B45C7CD024D0ABEC00B5A79E /* aurorabackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CCF24D0ABEC00B5A79E /* aurorabackg.jpg */; };
+		B45C7CD224D0AD0A00B5A79E /* NationalPark-Heavy.ps in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CD124D0AD0900B5A79E /* NationalPark-Heavy.ps */; };
+		B45C7CD424D0B28D00B5A79E /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45C7CD324D0B28D00B5A79E /* ScrollView.swift */; };
+		B45C7CD624D0BD6800B5A79E /* leopardbackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CD524D0BD6800B5A79E /* leopardbackg.jpg */; };
+		B45C7CDA24D0C0A600B5A79E /* greecebackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CD924D0C0A600B5A79E /* greecebackg.jpg */; };
+		B45C7CDC24D0C38100B5A79E /* fugibackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CDB24D0C38100B5A79E /* fugibackg.jpg */; };
+		B45C7CDE24D0C51800B5A79E /* sydneybackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CDD24D0C51800B5A79E /* sydneybackg.jpg */; };
 		B4602C4B24C680F300B1E4EE /* desert.png in Resources */ = {isa = PBXBuildFile; fileRef = B4602C4A24C680F300B1E4EE /* desert.png */; };
 		B4602C4F24C69AA500B1E4EE /* desertgrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4602C4E24C69AA500B1E4EE /* desertgrounds.png */; };
 		B4602C5124C69BC300B1E4EE /* PlistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4602C5024C69BC300B1E4EE /* PlistParser.swift */; };
+		B464E6E324CE3C9800DD5B18 /* sniper.png in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E224CE3C9800DD5B18 /* sniper.png */; };
+		B464E6E724CE43C700DD5B18 /* AthenaVKFRegular.ps in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */; };
+		B464E6E924CE4E2500DD5B18 /* HellofreedayDEMO.ps in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */; };
 		B468DAC924CB757500C72BB3 /* sandprev-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC524CB757500C72BB3 /* sandprev-4.png */; };
 		B468DACA24CB757500C72BB3 /* sandprev-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC624CB757500C72BB3 /* sandprev-3.png */; };
 		B468DACB24CB757500C72BB3 /* sandprev-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC724CB757500C72BB3 /* sandprev-2.png */; };
@@ -194,6 +207,7 @@
 		B432F7BB24BC1F160062EDB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B432F7C724BC268D0062EDB0 /* HomeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScene.swift; sourceTree = "<group>"; };
 		B432F7C924BC269D0062EDB0 /* MenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuScene.swift; sourceTree = "<group>"; };
+		B43B816C24CD697800C953AB /* lock-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "lock-on.png"; sourceTree = "<group>"; };
 		B43D02CB24BE48ED008BB9DE /* binary.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = binary.jpg; sourceTree = "<group>"; };
 		B43D02CD24BEA1B9008BB9DE /* target.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = target.png; sourceTree = "<group>"; };
 		B43D02CF24BEB0E1008BB9DE /* Brendohand-Regular.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Brendohand-Regular.ps"; sourceTree = "<group>"; };
@@ -224,9 +238,21 @@
 		B4504D4624BE281A007E9014 /* mapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapp.png; path = ../../../../../../Downloads/mapp.png; sourceTree = "<group>"; };
 		B4504D4824BE3770007E9014 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LazenbyComputer-Liquid.ps"; sourceTree = "<group>"; };
+		B45C7CCB24D0AA7200B5A79E /* purpleskies.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = purpleskies.jpg; sourceTree = "<group>"; };
+		B45C7CCD24D0AB5800B5A79E /* junglebackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = junglebackg.jpg; sourceTree = "<group>"; };
+		B45C7CCF24D0ABEC00B5A79E /* aurorabackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aurorabackg.jpg; sourceTree = "<group>"; };
+		B45C7CD124D0AD0900B5A79E /* NationalPark-Heavy.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NationalPark-Heavy.ps"; sourceTree = "<group>"; };
+		B45C7CD324D0B28D00B5A79E /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
+		B45C7CD524D0BD6800B5A79E /* leopardbackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leopardbackg.jpg; sourceTree = "<group>"; };
+		B45C7CD924D0C0A600B5A79E /* greecebackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = greecebackg.jpg; sourceTree = "<group>"; };
+		B45C7CDB24D0C38100B5A79E /* fugibackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = fugibackg.jpg; sourceTree = "<group>"; };
+		B45C7CDD24D0C51800B5A79E /* sydneybackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sydneybackg.jpg; sourceTree = "<group>"; };
 		B4602C4A24C680F300B1E4EE /* desert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desert.png; sourceTree = "<group>"; };
 		B4602C4E24C69AA500B1E4EE /* desertgrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desertgrounds.png; sourceTree = "<group>"; };
 		B4602C5024C69BC300B1E4EE /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
+		B464E6E224CE3C9800DD5B18 /* sniper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sniper.png; sourceTree = "<group>"; };
+		B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = AthenaVKFRegular.ps; sourceTree = "<group>"; };
+		B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = HellofreedayDEMO.ps; sourceTree = "<group>"; };
 		B468DAC524CB757500C72BB3 /* sandprev-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-4.png"; sourceTree = "<group>"; };
 		B468DAC624CB757500C72BB3 /* sandprev-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-3.png"; sourceTree = "<group>"; };
 		B468DAC724CB757500C72BB3 /* sandprev-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-2.png"; sourceTree = "<group>"; };
@@ -385,12 +411,13 @@
 				B432F79324BC1F140062EDB0 /* AppDelegate.swift */,
 				B432F79524BC1F140062EDB0 /* GameScene.sks */,
 				B432F79724BC1F140062EDB0 /* Actions.sks */,
-				B432F7C724BC268D0062EDB0 /* HomeScene.swift */,
-				B432F7C924BC269D0062EDB0 /* MenuScene.swift */,
 				B4504D4824BE3770007E9014 /* Extensions.swift */,
+				B45C7CD324D0B28D00B5A79E /* ScrollView.swift */,
+				B432F7C924BC269D0062EDB0 /* MenuScene.swift */,
+				B4602C5024C69BC300B1E4EE /* PlistParser.swift */,
+				B432F7C724BC268D0062EDB0 /* HomeScene.swift */,
 				B432F79924BC1F140062EDB0 /* GameScene.swift */,
 				B432F79B24BC1F140062EDB0 /* GameViewController.swift */,
-				B4602C5024C69BC300B1E4EE /* PlistParser.swift */,
 				B432F79D24BC1F140062EDB0 /* Main.storyboard */,
 				B432F7A024BC1F160062EDB0 /* Assets.xcassets */,
 				B495825424BC3E5F00BC1857 /* Fonts */,
@@ -423,6 +450,15 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B45C7CDD24D0C51800B5A79E /* sydneybackg.jpg */,
+				B45C7CDB24D0C38100B5A79E /* fugibackg.jpg */,
+				B45C7CD924D0C0A600B5A79E /* greecebackg.jpg */,
+				B45C7CD524D0BD6800B5A79E /* leopardbackg.jpg */,
+				B45C7CCF24D0ABEC00B5A79E /* aurorabackg.jpg */,
+				B45C7CCD24D0AB5800B5A79E /* junglebackg.jpg */,
+				B45C7CCB24D0AA7200B5A79E /* purpleskies.jpg */,
+				B464E6E224CE3C9800DD5B18 /* sniper.png */,
+				B43B816C24CD697800C953AB /* lock-on.png */,
 				B4F270F524CB798E0042788B /* sandtwister-1.png */,
 				B4F270F824CB798E0042788B /* sandtwister-2.png */,
 				B4F270F724CB798E0042788B /* sandtwister-3.png */,
@@ -575,6 +611,9 @@
 		B495825424BC3E5F00BC1857 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B45C7CD124D0AD0900B5A79E /* NationalPark-Heavy.ps */,
+				B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */,
+				B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */,
 				B43D02CF24BEB0E1008BB9DE /* Brendohand-Regular.ps */,
 				B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */,
 				B495825524BC3F6800BC1857 /* MaassslicerItalic.ps */,
@@ -688,6 +727,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B43D02CC24BE48ED008BB9DE /* binary.jpg in Resources */,
+				B45C7CD624D0BD6800B5A79E /* leopardbackg.jpg in Resources */,
 				B4D2E2CA24CB6E2800A11E92 /* wolf-11.png in Resources */,
 				B43D02E324C13D0A008BB9DE /* icybackground.png in Resources */,
 				B4D77D2224C7E7F500F5D335 /* coyote-3.png in Resources */,
@@ -715,15 +755,18 @@
 				B432F7A124BC1F160062EDB0 /* Assets.xcassets in Resources */,
 				B4D2E2D624CB6E2800A11E92 /* wolf-3.png in Resources */,
 				B495824124BC2E4700BC1857 /* bobby-14.png in Resources */,
+				B43B816D24CD697800C953AB /* lock-on.png in Resources */,
 				B495823F24BC2E4700BC1857 /* idle-1.png in Resources */,
 				B43D02D024BEB0E1008BB9DE /* Brendohand-Regular.ps in Resources */,
 				B43EC5DC24C539D700B3EB47 /* snowyeti-8.png in Resources */,
 				B4D77D4024C820C800F5D335 /* snake-11.png in Resources */,
+				B464E6E324CE3C9800DD5B18 /* sniper.png in Resources */,
 				B4D77D2124C7E7F500F5D335 /* coyote-6.png in Resources */,
 				B4504D4724BE281A007E9014 /* mapp.png in Resources */,
 				B4D77D2E24C7E7F500F5D335 /* coyote-2.png in Resources */,
 				B43D02D424BEB7F3008BB9DE /* lock.png in Resources */,
 				B43EC5E224C539D700B3EB47 /* snowyeti-3.png in Resources */,
+				B45C7CCC24D0AA7200B5A79E /* purpleskies.jpg in Resources */,
 				B4D77D4A24C820C800F5D335 /* snake-2.png in Resources */,
 				B4D77D1F24C7E7F500F5D335 /* coyote-11.png in Resources */,
 				B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */,
@@ -744,6 +787,7 @@
 				B43D02DC24C02F90008BB9DE /* snowEffect.sks in Resources */,
 				B43EC5DE24C539D700B3EB47 /* snowyeti-16.png in Resources */,
 				B4D77D4224C820C800F5D335 /* snake-12.png in Resources */,
+				B45C7CDA24D0C0A600B5A79E /* greecebackg.jpg in Resources */,
 				B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */,
 				B495824224BC2E4700BC1857 /* bobby-11.png in Resources */,
 				B495825D24BC437500BC1857 /* question-mark.png in Resources */,
@@ -759,6 +803,7 @@
 				B4D2E2D924CB6E2800A11E92 /* wolf-2.png in Resources */,
 				B4D77D2924C7E7F500F5D335 /* coyote-17.png in Resources */,
 				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
+				B45C7CCE24D0AB5900B5A79E /* junglebackg.jpg in Resources */,
 				B479DE7524C2CD4B00E3F2BE /* snowbol-3.png in Resources */,
 				B43EC5EC24C539D700B3EB47 /* snowyeti-14.png in Resources */,
 				B4D77D4124C820C800F5D335 /* snake-4.png in Resources */,
@@ -769,9 +814,12 @@
 				B4D77D4524C820C800F5D335 /* snake-1.png in Resources */,
 				B4F270FA24CB798E0042788B /* sandtwister-4.png in Resources */,
 				B4D2E2D524CB6E2800A11E92 /* wolf-18.png in Resources */,
+				B464E6E724CE43C700DD5B18 /* AthenaVKFRegular.ps in Resources */,
+				B45C7CD024D0ABEC00B5A79E /* aurorabackg.jpg in Resources */,
 				B43D02DF24C03366008BB9DE /* snowgrounds.png in Resources */,
 				B43D02DD24C02F90008BB9DE /* Assets.xcassets in Resources */,
 				B4D2E2C924CB6E2800A11E92 /* wolf-1.png in Resources */,
+				B45C7CD224D0AD0A00B5A79E /* NationalPark-Heavy.ps in Resources */,
 				B479DE7124C2CD4B00E3F2BE /* snowbol-2.png in Resources */,
 				B495825624BC3F6800BC1857 /* MaassslicerItalic.ps in Resources */,
 				B43EC5ED24C539D700B3EB47 /* snowyeti-6.png in Resources */,
@@ -800,7 +848,10 @@
 				B48D2FA224C23823009AD3FD /* evilsnowman-2.png in Resources */,
 				B495826424BC4BA300BC1857 /* BitPap.ps in Resources */,
 				B4D2E2D024CB6E2800A11E92 /* wolf-6.png in Resources */,
+				B45C7CDE24D0C51800B5A79E /* sydneybackg.jpg in Resources */,
 				B4D77D3F24C820C800F5D335 /* snake-15.png in Resources */,
+				B464E6E924CE4E2500DD5B18 /* HellofreedayDEMO.ps in Resources */,
+				B45C7CDC24D0C38100B5A79E /* fugibackg.jpg in Resources */,
 				B432F79824BC1F140062EDB0 /* Actions.sks in Resources */,
 				B495825F24BC437500BC1857 /* like-icon.png in Resources */,
 				B495825324BC3A1700BC1857 /* starry.jpg in Resources */,
@@ -856,6 +907,7 @@
 				B4504D4924BE3770007E9014 /* Extensions.swift in Sources */,
 				B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */,
 				B432F7CA24BC269D0062EDB0 /* MenuScene.swift in Sources */,
+				B45C7CD424D0B28D00B5A79E /* ScrollView.swift in Sources */,
 				B432F79C24BC1F140062EDB0 /* GameViewController.swift in Sources */,
 				B432F79424BC1F140062EDB0 /* AppDelegate.swift in Sources */,
 			);

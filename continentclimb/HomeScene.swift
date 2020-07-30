@@ -316,7 +316,7 @@ class HomeScene: SKScene {
         
         hero.run(rotationRepeater)
         hero.run(minimizeRepeater)
-        hero.run(moveRepeater, completion: fadeBlack)
+        hero.run(moveRepeater, completion: goToMenuScene)
     }
     
     func fadeBlack() {
@@ -333,7 +333,7 @@ class HomeScene: SKScene {
         
         let menuScene = MenuScene(size: self.size)
         menuScene.scaleMode = .aspectFill
-        view?.presentScene(menuScene, transition: SKTransition.crossFade(withDuration: 0.5))
+        view?.presentScene(menuScene)
     }
     
     func rateApp() {

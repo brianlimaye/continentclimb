@@ -15,6 +15,10 @@ class GameScene: SKScene {
     
     let characterSpeed: TimeInterval = 0.25
     
+    var recordedTime: Int = 0
+    var isJumping: Bool = false
+    var isDucking: Bool = false
+    
     var heroRunAction: SKAction = SKAction()
     var yetiRunAction: SKAction = SKAction()
     var coyoteDashAction: SKAction = SKAction()
@@ -32,6 +36,15 @@ class GameScene: SKScene {
     var snow: SKEmitterNode = SKEmitterNode()
     
     override func didMove(to view: SKView) {
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
+        swipeUp.direction = .up
+        self.view?.addGestureRecognizer(swipeUp)
+
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(slideHero))
+        swipeDown.direction = .down
+        self.view?.addGestureRecognizer(swipeDown)
+        
         
         GameViewController.gameScene = self
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -214,7 +227,7 @@ class GameScene: SKScene {
             
             if(UIDevice.current.userInterfaceIdiom == .phone)
             {
-                icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound) / 2.002), y: self.frame.midY)
+                icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound) / 2.005), y: self.frame.midY)
                 icyBackground.size = CGSize(width: icyBackground.size.width / 2, height: icyBackground.size.height / 2)
             }
             icyBackground.run(infiniteBackg)
@@ -257,7 +270,13 @@ class GameScene: SKScene {
         self.addChild(hero)
     }
     
-    func slideHero() {
+    @objc func slideHero() {
+        
+        if(!isReady())
+        {
+            print("in-motion")
+            return
+        }
         
         hero.removeAllActions()
         hero.texture = SKTexture(imageNamed: "bobby-5")
@@ -296,7 +315,34 @@ class GameScene: SKScene {
         hero.run(duckReversion, completion: resumeRunning)
     }
     
-    func jumpHero() {
+    func currentTimeInMilliSeconds()-> Int {
+        
+        let currentDate = Date()
+        let since1970 = currentDate.timeIntervalSince1970
+        return Int(since1970 * 1000)
+    }
+    
+    func isReady() -> Bool {
+        
+        let currentTime = currentTimeInMilliSeconds()
+        
+        if((recordedTime == 0) || (abs(currentTime - recordedTime) >= 1000))
+        {
+            recordedTime = currentTime
+            return true
+        }
+        
+        return false
+    }
+    
+    
+    @objc func jumpHero() {
+        
+        if(!isReady())
+        {
+            print("in-motion")
+            return
+        }
         
         hero.removeAllActions()
         hero.texture = SKTexture(imageNamed: "bobby-12")

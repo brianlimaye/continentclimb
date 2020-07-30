@@ -14,7 +14,31 @@ import StoreKit
 
 class MenuScene: SKScene {
     
+    var scrollView: ScrollView!
+    let moveableNode = SKNode()
+    
+    var background: SKSpriteNode = SKSpriteNode()
+    var mainText: SKLabelNode = SKLabelNode()
+    var chapterOneShape: SKShapeNode = SKShapeNode()
+    var chapterOneText: SKLabelNode = SKLabelNode()
+    var chapterTwoShape: SKShapeNode = SKShapeNode()
+    var chapterTwoText: SKLabelNode = SKLabelNode()
+    var chapterThreeShape: SKShapeNode = SKShapeNode()
+    var chapterThreeText: SKLabelNode = SKLabelNode()
+    var chapterFourShape: SKShapeNode = SKShapeNode()
+    var chapterFourText: SKLabelNode = SKLabelNode()
+    var chapterFiveShape: SKShapeNode = SKShapeNode()
+    var chapterFiveText: SKLabelNode = SKLabelNode()
+    var chapterSixShape: SKShapeNode = SKShapeNode()
+    var chapterSixText: SKLabelNode = SKLabelNode()
+    var chapterSevenShape: SKShapeNode = SKShapeNode()
+    var chapterSevenText: SKLabelNode = SKLabelNode()
+    
+    
+    
     var worldMap: SKSpriteNode = SKSpriteNode()
+    var lockOn: SKSpriteNode = SKSpriteNode()
+    var matrices: SKSpriteNode = SKSpriteNode()
     var charID: SKSpriteNode = SKSpriteNode()
     var naTarget: SKSpriteNode = SKSpriteNode()
     var saTarget: SKSpriteNode = SKSpriteNode()
@@ -38,9 +62,254 @@ class MenuScene: SKScene {
         
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         scene?.backgroundColor = .black
-        loadMap()
-        addTargets()
-        displayID()
+        addBackground()
+        addMainText()
+        initScrollView()
+        addChapters()
+        //loadMap()
+        //addLockOn()
+        //addMatrices()
+        //addTargets()
+        //displayID()
+    }
+    
+    func addBackground() {
+        
+        background = SKSpriteNode(imageNamed: "starry.jpg")
+        background.size = (view?.bounds.size)!
+        
+        self.addChild(background)
+    }
+    
+    func addMainText() {
+        
+        mainText = SKLabelNode(fontNamed: "MaassslicerItalic")
+        mainText.fontColor = .white
+        mainText.text = "Chapters"
+        
+        mainText.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2.9)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            mainText.fontSize = 60
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            mainText.fontSize = 90
+        }
+    
+        moveableNode.addChild(mainText)
+    }
+    
+    func initScrollView() {
+        
+        scrollView = ScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height), moveableNode: moveableNode, direction: .vertical)
+        scrollView.contentSize = CGSize(width: self.frame.size.width, height: self.frame.size.height * 2)
+        view?.addSubview(scrollView)
+        addChild(moveableNode)
+    }
+    
+    func addChapters() {
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterOneShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: self.frame.size.height / 12, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterOneShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: self.frame.size.height / 12, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        let naBackg = SKTexture(imageNamed: "purpleskies.jpg")
+        chapterOneShape.fillTexture = naBackg
+        chapterOneShape.fillColor = .white
+        
+        
+        chapterOneText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterOneText.fontSize = chapterOneShape.frame.size.width / 11
+        chapterOneText.fontColor = .white
+        chapterOneText.horizontalAlignmentMode = .center
+        chapterOneText.text = "Chapter 1: North America"
+        
+        chapterOneShape.addChild(chapterOneText)
+        
+        chapterOneText.position.y = self.frame.size.height / 6.85
+        
+        moveableNode.addChild(chapterOneShape)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterTwoShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 8, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterTwoShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 8, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        chapterTwoShape.fillTexture = SKTexture(imageNamed: "junglebackg.jpg")
+        chapterTwoShape.fillColor = .white
+        
+        chapterTwoText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterTwoText.fontSize = chapterTwoShape.frame.size.width / 11
+        chapterTwoText.fontColor = .white
+        chapterTwoText.text = "Chapter 2: South America"
+        
+        chapterTwoShape.addChild(chapterTwoText)
+        
+        chapterTwoText.position = CGPoint(x: 8, y: -self.frame.size.height / 14)
+
+        moveableNode.addChild(chapterTwoShape)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterThreeShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterThreeShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        chapterThreeShape.fillTexture = SKTexture(imageNamed: "aurorabackg.jpg")
+        chapterThreeShape.fillColor = .white
+        
+        chapterThreeText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterThreeText.fontSize = chapterTwoShape.frame.size.width / 11
+        chapterThreeText.fontColor = .white
+        chapterThreeText.text = "Chapter 3: Antarctica"
+        
+        chapterThreeShape.addChild(chapterThreeText)
+        
+        chapterThreeText.position = CGPoint(x: -self.frame.size.width / 24, y: -self.frame.size.height / 3.65)
+
+        moveableNode.addChild(chapterThreeShape)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterFourShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.85, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterFourShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.85, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        chapterFourShape.fillTexture = SKTexture(imageNamed: "leopardbackg.jpg")
+        chapterFourShape.fillColor = .white
+        
+        chapterFourText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterFourText.fontSize = chapterTwoShape.frame.size.width / 11
+        chapterFourText.fontColor = .white
+        chapterFourText.text = "Chapter 4: Africa"
+        
+        chapterFourShape.addChild(chapterFourText)
+        
+        chapterFourText.position = CGPoint(x: -self.frame.size.width / 11, y: -self.frame.size.height / 2.1)
+        
+        moveableNode.addChild(chapterFourShape)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterFiveShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.335, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterFiveShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.335, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        chapterFiveShape.fillTexture = SKTexture(imageNamed: "greecebackg.jpg")
+        chapterFiveShape.fillColor = .white
+        
+        chapterFiveText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterFiveText.fontSize = chapterTwoShape.frame.size.width / 11
+        chapterFiveText.fontColor = .white
+        chapterFiveText.text = "Chapter 5: Europe"
+        
+        chapterFiveShape.addChild(chapterFiveText)
+        
+        chapterFiveText.position = CGPoint(x: -self.frame.size.width / 13, y: -self.frame.size.height / 1.47)
+        
+        moveableNode.addChild(chapterFiveShape)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterSixShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.05, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterSixShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.05, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        chapterSixShape.fillTexture = SKTexture(imageNamed: "fugibackg.jpg")
+        chapterSixShape.fillColor = .white
+        
+        chapterSixText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterSixText.fontSize = chapterTwoShape.frame.size.width / 11
+        chapterSixText.fontColor = .white
+        chapterSixText.text = "Chapter 6: Asia"
+        
+        chapterSixShape.addChild(chapterSixText)
+        
+        chapterSixText.position = CGPoint(x: -self.frame.size.width / 9, y: -self.frame.size.height / 1.13)
+        
+        moveableNode.addChild(chapterSixShape)
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            chapterSevenShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height * 1.16, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            chapterSevenShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height * 1.16, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        chapterSevenShape.fillTexture = SKTexture(imageNamed: "sydneybackg.jpg")
+        chapterSevenShape.fillColor = .white
+        
+        chapterSevenText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        chapterSevenText.fontSize = chapterTwoShape.frame.size.width / 11
+        chapterSevenText.fontColor = .white
+        chapterSevenText.text = "Chapter 7: Australia"
+        
+        chapterSevenShape.addChild(chapterSevenText)
+        
+        chapterSevenText.position = CGPoint(x: -self.frame.size.width / 17, y: -self.frame.size.height * 1.1)
+        
+        moveableNode.addChild(chapterSevenShape)
+        
+        
+        
+        
+        
+        
+    }
+
+    func addMatrices() {
+        
+        let matrixTexture = SKTexture(imageNamed: "matrices.jpg")
+        
+        let matrixAnimation = SKAction.move(by: CGVector(dx: 0, dy: -matrixTexture.size().height), duration: 9)
+        let matrixShift = SKAction.move(by: CGVector(dx: 0, dy: matrixTexture.size().height), duration: 0)
+        
+        let matrixSeq = SKAction.sequence([matrixAnimation, matrixShift])
+        
+        let matrixRepeater = SKAction.repeatForever(matrixSeq)
+        
+        var i: CGFloat = 0
+        
+        while i < 2 {
+            
+            matrices = SKSpriteNode(texture: matrixTexture)
+            matrices.position = CGPoint(x: 0, y: matrixTexture.size().height * i)
+            
+            matrices.run(matrixRepeater)
+
+            self.addChild(matrices)
+            i += 1
+
+            // Set background first
+            matrices.zPosition = -1
+        }
+        
     }
     
     func addTargets() {
@@ -239,6 +508,16 @@ class MenuScene: SKScene {
 
         worldMap.zPosition = 0
         self.addChild(worldMap)
+    }
+    
+    func addLockOn() {
+        
+        lockOn = SKSpriteNode(imageNamed: "sniper")
+        lockOn.size = CGSize(width: worldMap.size.width * 1.1, height: worldMap.size.height * 1.1)
+        lockOn.alpha = 0.5
+        worldMap.addChild(lockOn)
+        
+        worldMap.zPosition = 1
     }
     
     func displayID() {
