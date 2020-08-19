@@ -2,15 +2,29 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>Platforms</key>
+	<key>snow</key>
 	<array>
 		<string>snowgrounds.png</string>
-		<string>desertgrounds.png</string>
-	</array>
-	<key>Backgrounds</key>
-	<array>
 		<string>icybackground.png</string>
+		<string>Duluth, MN</string>
+		<string>Fargo, ND</string>
+		<string>Fairbanks, AK</string>
+	</array>
+	<key>desert</key>
+	<array>
+		<string>desertgrounds.png</string>
 		<string>desert.png</string>
+		<string>Tuscon, AZ</string>
+		<string>Thermal, CA</string>
+		<string>Death Valley</string>
+	</array>
+	<key>cave</key>
+	<array>
+		<string>cavegrounds.png</string>
+		<string>cave.jpg</string>
+		<string>n/a</string>
+		<string>n/a</string>
+		<string>n/a</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -33,6 +47,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>NationalPark-Heavy.ps</string>
+		<string>GemunuLibre-ExtraBold.ps</string>
 		<string>HellofreedayDEMO.ps</string>
 		<string>MaassslicerItalic.ps</string>
 		<string>BitPap.ps</string>

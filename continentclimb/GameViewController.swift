@@ -60,11 +60,25 @@ class GameViewController: UIViewController {
                     GameViewController.gameScene?.slideHero()
                }
             
+           case .keyboardG:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawGolem()
+               }
+            
            case .keyboardS:
             
                if isDebug
                {
                     GameViewController.gameScene?.drawSnowman()
+               }
+            
+           case .keyboardP:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawSpider()
                }
             
            case .keyboardN:
@@ -80,6 +94,14 @@ class GameViewController: UIViewController {
                {
                     GameViewController.gameScene?.drawFallenSnowball()
                }
+            
+           case .keyboardA:
+            
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawBat()
+               }
+            
            case .keyboardY:
                
                if isDebug

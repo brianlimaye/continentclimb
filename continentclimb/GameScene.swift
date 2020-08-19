@@ -16,9 +16,8 @@ class GameScene: SKScene {
     let characterSpeed: TimeInterval = 0.25
     
     var recordedTime: Int = 0
-    var isJumping: Bool = false
-    var isDucking: Bool = false
-    
+    var initialYPos: CGFloat = 0
+
     var heroRunAction: SKAction = SKAction()
     var yetiRunAction: SKAction = SKAction()
     var coyoteDashAction: SKAction = SKAction()
@@ -32,8 +31,31 @@ class GameScene: SKScene {
     var coyote: SKSpriteNode = SKSpriteNode()
     var snake: SKSpriteNode = SKSpriteNode()
     var sandstorm: SKSpriteNode = SKSpriteNode()
+    var batSprite: SKSpriteNode = SKSpriteNode()
+    var spider: SKSpriteNode = SKSpriteNode()
+    var golem: SKSpriteNode = SKSpriteNode()
+    var rock: SKSpriteNode = SKSpriteNode()
     
+    var rain: SKEmitterNode = SKEmitterNode()
     var snow: SKEmitterNode = SKEmitterNode()
+    
+    var difficultyBox: SKShapeNode = SKShapeNode()
+    var difficultyText: SKLabelNode = SKLabelNode()
+    var difficultySubBox1: SKShapeNode = SKShapeNode()
+    var difficultySubText1: SKLabelNode = SKLabelNode()
+    var difficultySubBox2: SKShapeNode = SKShapeNode()
+    var difficultySubText2: SKLabelNode = SKLabelNode()
+    var difficultySubBox3: SKShapeNode = SKShapeNode()
+    var difficultySubText3: SKLabelNode = SKLabelNode()
+    
+    var oneStar: SKSpriteNode = SKSpriteNode()
+    var twoStar: SKSpriteNode = SKSpriteNode()
+    var threeStar: SKSpriteNode = SKSpriteNode()
+    
+    var platName: String = String()
+    var backgName: String = String()
+    var levelNames: [String] = [String]()
+    
     
     override func didMove(to view: SKView) {
         
@@ -45,22 +67,140 @@ class GameScene: SKScene {
         swipeDown.direction = .down
         self.view?.addGestureRecognizer(swipeDown)
         
+        (platName, backgName, levelNames) = PlistParser.getLayoutPackage(forKey: terrainKeyword, property1: "platform", property2: "background")
+        
         
         GameViewController.gameScene = self
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        //selectDifficulty()
         initObjects()
         drawBackground()
         drawPlatform()
         //addSnow()
         drawCharacter()
-        //drawSandstorm()
+ 
     }
     
+    func selectDifficulty() {
+        
+        difficultyBox = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 1.5, height: self.frame.size.width / 5))
+        difficultyBox.fillTexture = SKTexture(imageNamed: "gradient.jpg")
+        difficultyBox.fillColor = .white
+        difficultyBox.strokeColor = .white
+        difficultyBox.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
+        difficultyBox.lineWidth = 5
+        
+        self.addChild(difficultyBox)
+        
+        difficultyText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        difficultyText.fontColor = .white
+        difficultyText.fontSize = self.frame.width / 24
+        difficultyText.text = "Level Difficulty"
+        difficultyText.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 9.5)
+        
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            difficultyText.position.y = self.frame.size.height / 14
+        }
+        
+        difficultyBox.addChild(difficultyText)
+        
+        
+        
+        difficultySubBox1 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
+        difficultySubBox1.fillColor = .yellow
+        difficultySubBox1.strokeColor = .black
+        difficultySubBox1.position = CGPoint(x: 0, y: -self.frame.height / 20)
+        difficultySubBox1.lineWidth = 5
+        
+        difficultyBox.addChild(difficultySubBox1)
+        
+        difficultySubText1 = SKLabelNode(fontNamed: "GemunuLibre-ExtraBold")
+        difficultySubText1.fontColor = .black
+        difficultySubText1.fontSize = self.frame.size.width / 45
+        difficultySubText1.text = levelNames[1]
+        difficultySubText1.position = CGPoint(x: 0, y: 0)
+        
+        difficultyBox.addChild(difficultySubText1)
+        
+        twoStar = SKSpriteNode(imageNamed: "two-star")
+        twoStar.size = CGSize(width: self.frame.size.width / 9, height: self.frame.size.width / 9)
+        twoStar.position = CGPoint(x: 0, y: 0)
+        
+        self.addChild(twoStar)
+        
+        twoStar.position.y = -self.frame.size.height / 9.25
+        
+        difficultySubBox2 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
+        difficultySubBox2.fillColor = .green
+        difficultySubBox2.strokeColor = .black
+        difficultySubBox2.position = CGPoint(x: -self.frame.size.width / 4, y: -self.frame.height / 20)
+        difficultySubBox2.lineWidth = 5
+        
+        difficultyBox.addChild(difficultySubBox2)
+        
+        difficultySubText2 = SKLabelNode(fontNamed: "GemunuLibre-ExtraBold")
+        difficultySubText2.fontColor = .black
+        difficultySubText2.fontSize = self.frame.size.width / 45
+        difficultySubText2.text = levelNames[0]
+        difficultySubText2.position = CGPoint(x: -self.frame.size.width / 4, y: 0)
+        difficultyBox.addChild(difficultySubText2)
+        
+        oneStar = SKSpriteNode(imageNamed: "one-star")
+        
+        oneStar.size = CGSize(width: self.frame.size.width / 15, height: self.frame.size.width / 15)
+        print(oneStar.size)
+        
+        oneStar.position = CGPoint(x: -self.frame.size.width / 3.95, y: -self.frame.size.height / 8.75)
+        
+        self.addChild(oneStar)
+        
+        difficultySubBox3 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
+        difficultySubBox3.fillColor = .red
+        difficultySubBox3.strokeColor = .black
+        difficultySubBox3.position = CGPoint(x: self.frame.size.width / 4, y: -self.frame.height / 20)
+        difficultySubBox3.lineWidth = 5
+        
+        difficultyBox.addChild(difficultySubBox3)
+        
+        difficultySubText3 = SKLabelNode(fontNamed: "GemunuLibre-ExtraBold")
+        difficultySubText3.fontColor = .black
+        difficultySubText3.fontSize = self.frame.size.width / 45
+        difficultySubText3.text = levelNames[2]
+        difficultySubText3.position = CGPoint(x: self.frame.size.width / 4, y: 0)
+        
+        difficultyBox.addChild(difficultySubText3)
+        
+        threeStar = SKSpriteNode(imageNamed: "three-star")
+        threeStar.size = CGSize(width: self.frame.size.width / 6, height: self.frame.size.width / 6)
+        threeStar.position = CGPoint(x: self.frame.size.width / 3.8, y: -self.frame.size.height / 8.5)
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            oneStar.position.y = -self.frame.size.height / 9.75
+            twoStar.position.y = -self.frame.size.height / 10
+            threeStar.position.y = -self.frame.size.height / 9.5
+        }
+        
+        self.addChild(threeStar)
+        
+    }
+
     func addSnow() {
         
         snow = SKEmitterNode(fileNamed: "snowEffect.sks")!
         snow.position.y = self.frame.size.height
         self.addChild(snow)
+    }
+    
+    func addRain() {
+        
+        rain = SKEmitterNode(fileNamed: "rainEffect.sks")!
+        rain.position.y = self.frame.size.height
+        self.addChild(rain)
+        
     }
     
     func drawSandstorm() {
@@ -135,7 +275,12 @@ class GameScene: SKScene {
         var lowerBound: CGFloat = 0
         var upperBound: CGFloat = 0
                 
-        let platTexture = SKTexture(imageNamed: PlistParser.getKeyFromValue(forKey: "Platforms"))
+        if(platName == "none")
+        {
+            return
+        }
+
+        let platTexture = SKTexture(imageNamed: platName)
             
         var platAnimation: SKAction = SKAction()
         
@@ -192,7 +337,7 @@ class GameScene: SKScene {
         var backgAnimation: SKAction = SKAction()
         var backgShift: SKAction = SKAction()
         
-        let backgTexture = SKTexture(imageNamed: PlistParser.getKeyFromValue(forKey: "Backgrounds"))
+        let backgTexture = SKTexture(imageNamed: backgName)
                 
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -250,17 +395,16 @@ class GameScene: SKScene {
         
         hero = SKSpriteNode(imageNamed: "bobby-6")
         
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            hero.size = CGSize(width: round((hero.size.width + (self.frame.size.width * 0.25)) / 4), height: round(hero.size.height + (self.frame.size.width * 0.25)) / 4)
-            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.25)
-        }
+        hero.size = CGSize(width: hero.size.width * (self.frame.size.width * 0.00035), height: hero.size.height * (self.frame.size.width * 0.00035))
+        print(hero.size)
+        hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.55)
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            hero.size = CGSize(width: (hero.size.width + (self.frame.size.width * 0.1)) / 4, height: (hero.size.height + (self.frame.size.width * 0.1)) / 4)
-            hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.35)
+            hero.position.y = -self.frame.size.height / 3.35
         }
+        
+        initialYPos = hero.position.y
         hero.zPosition = 0
 
         
@@ -370,15 +514,7 @@ class GameScene: SKScene {
         
         var landAnim: SKAction = SKAction()
         
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.35, duration: 0.5)
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            landAnim = SKAction.moveTo(y: -self.frame.size.height / 3.1, duration: 0.5)
-        }
+        landAnim = SKAction.moveTo(y: initialYPos, duration: 0.5)
         
         let landRepeater = SKAction.repeat(landAnim, count: 1)
         
@@ -626,20 +762,124 @@ class GameScene: SKScene {
         snake.run(shiftRepeater)
     }
     
+    func drawBat() {
+        
+        let batFrames: [SKTexture] = [SKTexture(imageNamed: "batframe-1"), SKTexture(imageNamed: "batframe-2"), SKTexture(imageNamed: "batframe-3"), SKTexture(imageNamed: "batframe-4")]
+        
+        let batAnim = SKAction.animate(with: batFrames, timePerFrame: 0.2)
+        let batAnimRepeater = SKAction.repeatForever(batAnim)
+        let batShift = SKAction.moveTo(x: -self.frame.width, duration: 1.5)
+        
+        let batReversion = SKAction.moveTo(x: self.frame.width, duration: 0)
+        let batSeq = SKAction.sequence([batShift, batReversion])
+        let reversionRepeater = SKAction.repeat(batSeq, count: 1)
+                
+        batSprite.run(batAnimRepeater)
+        batSprite.run(reversionRepeater)
+    }
+    
+    func drawSpider() {
+        
+        let spiderFrames: [SKTexture] = [SKTexture(imageNamed: "spider-1"), SKTexture(imageNamed: "spider-2"), SKTexture(imageNamed: "spider-3"), SKTexture(imageNamed: "spider-4"), SKTexture(imageNamed: "spider-5"), SKTexture(imageNamed: "spider-6"), SKTexture(imageNamed: "spider-7")]//, SKTexture(imageNamed: "spider-8"), SKTexture(imageNamed: "spider-9"), SKTexture(imageNamed: "spider-10"), SKTexture(imageNamed: "spider-11"), SKTexture(imageNamed: "spider-12"), SKTexture(imageNamed: "spider-13")]
+        
+        let spiderAnimate = SKAction.animate(with: spiderFrames, timePerFrame: characterSpeed / 2)
+        
+        let spiderShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
+        
+        let spiderRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let spiderSeq = SKAction.sequence([spiderShift, spiderRevert])
+        
+        let animateRepeater = SKAction.repeatForever(spiderAnimate)
+        let shiftRepeater = SKAction.repeat(spiderSeq, count: 1)
+        
+        spider.run(animateRepeater)
+        spider.run(shiftRepeater)
+    }
+    
+    func drawGolem() {
+        
+        let golemFrames: [SKTexture] = [SKTexture(imageNamed: "golem-1"), SKTexture(imageNamed: "golem-2"), SKTexture(imageNamed: "golem-3"), SKTexture(imageNamed: "golem-4"), SKTexture(imageNamed: "golem-5")]
+        
+        let golemAnimate = SKAction.animate(with: golemFrames, timePerFrame: characterSpeed / 1.5)
+        
+        let golemShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2.75)
+        let golemRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([golemShift, golemRevert])
+        
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
+        let golemRepeater = SKAction.repeat(golemAnimate, count: 1)
+        
+        golem.run(golemRepeater, completion: drawThrownRock)
+        golem.run(shiftRepeater)
+    }
+    
+    func drawThrownRock() {
+        
+        let rand = Int.random(in: 1 ... 2)
+        var extraAnim: [SKTexture]?
+        
+        golem.removeAllActions()
+        golem.texture = SKTexture(imageNamed: "golem-5")
+        
+        if(rand == 2)
+        {
+            extraAnim = [SKTexture(imageNamed: "golem-6"), SKTexture(imageNamed: "golem-7")]
+            
+            let extraAnimation = SKAction.animate(with: extraAnim!, timePerFrame: characterSpeed / 2)
+            
+            let extraRepeater = SKAction.repeat(extraAnimation, count: 1)
+            
+            golem.run(extraRepeater)
+        }
+        
+        let golemShift = SKAction.moveTo(x: self.frame.size.width, duration: characterSpeed * 4)
+        
+        let golemShiftRepeater = SKAction.repeat(golemShift, count: 1)
+        
+        golem.run(golemShiftRepeater)
+        
+        let rockFrames: [SKTexture] = [SKTexture(imageNamed: "roc-1"), SKTexture(imageNamed: "roc-2"), SKTexture(imageNamed: "roc-3"), SKTexture(imageNamed: "roc-4"), SKTexture(imageNamed: "roc-5"), SKTexture(imageNamed: "roc-6"), SKTexture(imageNamed: "roc-7")]
+        
+        let animate = SKAction.animate(with: rockFrames, timePerFrame: characterSpeed / 2)
+        let rockShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.25)
+        let rockRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([rockShift, rockRevert])
+        
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
+        let animateRepeater = SKAction.repeatForever(animate)
+        
+        rock.position.x = golem.position.x
+        
+        if(rand == 1)
+        {
+            rock.position.y = -self.frame.size.height / 8
+        }
+        
+        if(rand == 2)
+        {
+            rock.position.y = -self.frame.size.height / 3.5
+        }
+
+        rock.run(shiftRepeater)
+        rock.run(animateRepeater)
+    }
+    
     func initObjects() {
         
         //Evil Snowman
         evilSnowman = SKSpriteNode(imageNamed: "evilsnowman-1")
+        evilSnowman.size = CGSize(width: evilSnowman.size.width * (self.frame.size.width * 0.001), height: evilSnowman.size.height * (self.frame.size.width * 0.001))
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            evilSnowman.size = CGSize(width: (evilSnowman.size.width + (self.frame.size.width * 0.5)) / 4, height: (evilSnowman.size.height + (self.frame.size.width * 0.5)) / 4)
-            evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.4)
+            evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.6)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            evilSnowman.size = CGSize(width: (evilSnowman.size.width + (self.frame.size.width * 0.65)) / 4, height: (evilSnowman.size.height + (self.frame.size.width * 0.65)) / 4)
             evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.9)
          }
         evilSnowman.xScale = -1
@@ -647,16 +887,15 @@ class GameScene: SKScene {
         
         //Snow Yeti
         snowYeti = SKSpriteNode(imageNamed: "snowyeti-1")
+        snowYeti.size = CGSize(width: snowYeti.size.width * (self.frame.size.width * 0.001), height: snowYeti.size.height * (self.frame.size.width * 0.001))
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            snowYeti.size = CGSize(width: (snowYeti.size.width + (self.frame.size.width * 0.5)) / 4, height: (snowYeti.size.height + (self.frame.size.width * 0.5)) / 4)
-            snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.15)
+            snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.8)// self.frame.width, y: -self.frame.size.height / 4.15)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            snowYeti.size = CGSize(width: (snowYeti.size.width + (self.frame.size.width * 0.65)) / 4, height: (snowYeti.size.height + (self.frame.size.width * 0.65)) / 4)
             snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.65)
         }
         
@@ -667,28 +906,24 @@ class GameScene: SKScene {
         snowball = SKSpriteNode(imageNamed: "snowbol-1")
         snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
         
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            snowball.size = CGSize(width: snowball.size.width * 1.5, height: snowball.size.height * 1.5)
-        }
+        
+        snowball.size = CGSize(width: snowball.size.width * (self.frame.size.width * 0.001), height: snowball.size.height * (self.frame.size.width * 0.001))
         
         self.addChild(snowball)
         
         //Coyote
         
-        coyote = SKSpriteNode(imageNamed: "wolf-1")
+        coyote = SKSpriteNode(imageNamed: "coy-1")
+        coyote.size = CGSize(width: coyote.size.width * (self.frame.size.width * 0.001), height: coyote.size.height * (self.frame.size.width * 0.001))
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.45)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.45)) / 4)
-            //coyote.size = CGSize(width: coyote.size.width / 1.25, height: coyote.size.height / 1.25)
-            coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)//-self.frame.size.height / 4.15)
+            coyote.position = CGPoint(x: 0, y: -self.frame.size.height / 3.5)//-self.frame.size.height / 4.15)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            coyote.size = CGSize(width: (coyote.size.width + (self.frame.size.width * 0.5)) / 4, height: (coyote.size.height + (self.frame.size.width * 0.5)) / 4)
-            coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)//-self.frame.size.height / 3.65)
+            coyote.position = CGPoint(x: 0, y: -self.frame.size.height / 3.65)
         }
         
         coyote.xScale = -1
@@ -697,17 +932,15 @@ class GameScene: SKScene {
         //Snake
         
         snake = SKSpriteNode(imageNamed: "snake-1")
+        snake.size = CGSize(width: snake.size.width * (self.frame.size.width * 0.001), height: snake.size.height * (self.frame.size.width * 0.001))
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            snake.size = CGSize(width: (snake.size.width + (self.frame.size.width * 0.5)) / 4, height: (snake.size.height + (self.frame.size.width * 0.5)) / 4)
             snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.6)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            
-            snake.size = CGSize(width: (snake.size.width + (self.frame.size.width * 0.65)) / 4, height: (snake.size.height + (self.frame.size.width * 0.65)) / 4)
             snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.75)
         }
         snake.xScale = -1
@@ -716,19 +949,83 @@ class GameScene: SKScene {
         //Sandstorm
         
         sandstorm = SKSpriteNode(imageNamed: "sandtwister-1")
+        sandstorm.size = CGSize(width: sandstorm.size.width * (self.frame.size.width * 0.0004), height: sandstorm.size.height * (self.frame.size.width * 0.0004))
+
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            sandstorm.size = CGSize(width: sandstorm.size.width / 3.5, height: sandstorm.size.height / 3.5)
             sandstorm.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            sandstorm.size = CGSize(width: sandstorm.size.width / 2, height: sandstorm.size.height / 2)
             sandstorm.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4)
         }
         
         self.addChild(sandstorm)
+        
+        //Bat
+        
+        batSprite = SKSpriteNode(imageNamed: "batframe-1")
+        batSprite.size = CGSize(width: batSprite.size.width * (self.frame.size.width * 0.0005), height: batSprite.size.height * (self.frame.size.width * 0.0005))
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 6)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.5)
+        }
+        
+        batSprite.xScale = -1
+        self.addChild(batSprite)
+        
+        //Spider
+        
+        spider = SKSpriteNode(imageNamed: "spider-1")
+        spider.size = CGSize(width: spider.size.width * (self.frame.size.width * 0.001), height: spider.size.height * (self.frame.size.width * 0.001))
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.75)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.8)
+        }
+        
+        spider.xScale = -1
+        self.addChild(spider)
+        
+        //Cave Golem
+        
+        golem = SKSpriteNode(imageNamed: "golem-1")
+        golem.size = CGSize(width: golem.size.width * (self.frame.size.width * 0.001), height: golem.size.height * (self.frame.size.width * 0.001))
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            golem.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4.3)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            golem.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.9)
+        }
+    
+        golem.xScale = -1
+        self.addChild(golem)
+        
+        //Rock
+        
+        rock = SKSpriteNode(imageNamed: "roc-1")
+        rock.position = CGPoint(x: golem.position.x, y: -self.frame.size.height / 4.75)
+    
+        rock.size = CGSize(width: rock.size.width * (self.frame.size.width * 0.001), height: rock.size.height * (self.frame.size.width * 0.001))
+        
+        self.addChild(rock)
+        
     }
 }

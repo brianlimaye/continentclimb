@@ -11,8 +11,7 @@ import SpriteKit
 import AVFoundation
 import StoreKit
 
-var cameraNode: SKCameraNode = SKCameraNode()
-
+var terrainKeyword: String = "desert"
 class HomeScene: SKScene {
     
     let heroSpeed = 0.25
@@ -35,7 +34,6 @@ class HomeScene: SKScene {
     override func didMove(to view: SKView) {
         
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        print("reached")
         drawMainText()
         initHero()
         initEarth()

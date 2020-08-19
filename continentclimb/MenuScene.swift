@@ -17,6 +17,7 @@ class MenuScene: SKScene {
     var scrollView: ScrollView!
     let moveableNode = SKNode()
     
+    
     var background: SKSpriteNode = SKSpriteNode()
     var mainText: SKLabelNode = SKLabelNode()
     var chapterOneShape: SKShapeNode = SKShapeNode()
@@ -104,10 +105,12 @@ class MenuScene: SKScene {
     
     func initScrollView() {
         
+        moveableNode.isUserInteractionEnabled = false
+        addChild(moveableNode)
+        
         scrollView = ScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height), moveableNode: moveableNode, direction: .vertical)
         scrollView.contentSize = CGSize(width: self.frame.size.width, height: self.frame.size.height * 2)
         view?.addSubview(scrollView)
-        addChild(moveableNode)
     }
     
     func addChapters() {
@@ -124,15 +127,19 @@ class MenuScene: SKScene {
         let naBackg = SKTexture(imageNamed: "purpleskies.jpg")
         chapterOneShape.fillTexture = naBackg
         chapterOneShape.fillColor = .white
+        chapterOneShape.name = "Northamericashape"
         
         
         chapterOneText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterOneText.fontSize = chapterOneShape.frame.size.width / 11
         chapterOneText.fontColor = .white
         chapterOneText.horizontalAlignmentMode = .center
+        chapterOneText.name = "Northamerica"
         chapterOneText.text = "Chapter 1: North America"
         
         chapterOneShape.addChild(chapterOneText)
+        chapterOneText.isUserInteractionEnabled = false
+        chapterOneShape.isUserInteractionEnabled = false
         
         chapterOneText.position.y = self.frame.size.height / 6.85
         
@@ -149,13 +156,16 @@ class MenuScene: SKScene {
         }
         chapterTwoShape.fillTexture = SKTexture(imageNamed: "junglebackg.jpg")
         chapterTwoShape.fillColor = .white
+        chapterTwoShape.name = "Southamericashape"
         
         chapterTwoText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterTwoText.fontSize = chapterTwoShape.frame.size.width / 11
         chapterTwoText.fontColor = .white
+        chapterTwoText.name = "Southamerica"
         chapterTwoText.text = "Chapter 2: South America"
         
         chapterTwoShape.addChild(chapterTwoText)
+        chapterTwoShape.isUserInteractionEnabled = false
         
         chapterTwoText.position = CGPoint(x: 8, y: -self.frame.size.height / 14)
 
@@ -172,13 +182,16 @@ class MenuScene: SKScene {
         }
         chapterThreeShape.fillTexture = SKTexture(imageNamed: "aurorabackg.jpg")
         chapterThreeShape.fillColor = .white
+        chapterThreeShape.name = "Antarcticashape"
         
         chapterThreeText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterThreeText.fontSize = chapterTwoShape.frame.size.width / 11
         chapterThreeText.fontColor = .white
+        chapterThreeText.name = "Antarctica"
         chapterThreeText.text = "Chapter 3: Antarctica"
         
         chapterThreeShape.addChild(chapterThreeText)
+        chapterThreeShape.isUserInteractionEnabled = false
         
         chapterThreeText.position = CGPoint(x: -self.frame.size.width / 24, y: -self.frame.size.height / 3.65)
 
@@ -195,13 +208,16 @@ class MenuScene: SKScene {
         }
         chapterFourShape.fillTexture = SKTexture(imageNamed: "leopardbackg.jpg")
         chapterFourShape.fillColor = .white
+        chapterFourShape.name = "Africashape"
         
         chapterFourText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterFourText.fontSize = chapterTwoShape.frame.size.width / 11
         chapterFourText.fontColor = .white
+        chapterFourText.name = "Africa"
         chapterFourText.text = "Chapter 4: Africa"
         
         chapterFourShape.addChild(chapterFourText)
+        chapterFourShape.isUserInteractionEnabled = false
         
         chapterFourText.position = CGPoint(x: -self.frame.size.width / 11, y: -self.frame.size.height / 2.1)
         
@@ -218,13 +234,16 @@ class MenuScene: SKScene {
         }
         chapterFiveShape.fillTexture = SKTexture(imageNamed: "greecebackg.jpg")
         chapterFiveShape.fillColor = .white
+        chapterFiveShape.name = "Europeshape"
         
         chapterFiveText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterFiveText.fontSize = chapterTwoShape.frame.size.width / 11
         chapterFiveText.fontColor = .white
+        chapterFiveText.name = "Europe"
         chapterFiveText.text = "Chapter 5: Europe"
         
         chapterFiveShape.addChild(chapterFiveText)
+        chapterFiveShape.isUserInteractionEnabled = false
         
         chapterFiveText.position = CGPoint(x: -self.frame.size.width / 13, y: -self.frame.size.height / 1.47)
         
@@ -241,13 +260,16 @@ class MenuScene: SKScene {
         }
         chapterSixShape.fillTexture = SKTexture(imageNamed: "fugibackg.jpg")
         chapterSixShape.fillColor = .white
+        chapterSixShape.name = "Asiashape"
         
         chapterSixText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterSixText.fontSize = chapterTwoShape.frame.size.width / 11
         chapterSixText.fontColor = .white
+        chapterSixText.name = "Asia"
         chapterSixText.text = "Chapter 6: Asia"
         
         chapterSixShape.addChild(chapterSixText)
+        chapterSixShape.isUserInteractionEnabled = false
         
         chapterSixText.position = CGPoint(x: -self.frame.size.width / 9, y: -self.frame.size.height / 1.13)
         
@@ -264,22 +286,20 @@ class MenuScene: SKScene {
         }
         chapterSevenShape.fillTexture = SKTexture(imageNamed: "sydneybackg.jpg")
         chapterSevenShape.fillColor = .white
+        chapterSevenShape.name = "Australiashape"
         
         chapterSevenText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterSevenText.fontSize = chapterTwoShape.frame.size.width / 11
         chapterSevenText.fontColor = .white
+        chapterSevenText.name = "Australia"
         chapterSevenText.text = "Chapter 7: Australia"
         
         chapterSevenShape.addChild(chapterSevenText)
+        chapterSevenShape.isUserInteractionEnabled = false
         
         chapterSevenText.position = CGPoint(x: -self.frame.size.width / 17, y: -self.frame.size.height * 1.1)
         
         moveableNode.addChild(chapterSevenShape)
-        
-        
-        
-        
-        
         
     }
 
@@ -545,5 +565,23 @@ class MenuScene: SKScene {
         self.addChild(charID)
         self.addChild(idText)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+                
+        if let touch = touches.first {
+            
+            let location = touch.previousLocation(in: self)
+            let node = self.nodes(at: location).first
+                        
+            if((node?.name == "Northamericashape") || (node?.name == "Northamerica"))
+            {
+                let terrainScene = ContinentLoader(size: view!.bounds.size)
+                terrainScene.scaleMode = .aspectFill
+                view?.presentScene(terrainScene)
+                scrollView.removeFromSuperview()
+            }
+       }
+}
+
 }
 

@@ -35,6 +35,11 @@ public class ScrollView: UIScrollView, UIScrollViewDelegate {
     /// Nodes touched. This will forward touches to node subclasses.
     private var touchedNodes = [AnyObject]()
     
+    func getTouchedNodes() -> [AnyObject] {
+        
+        return touchedNodes
+    }
+    
     /// Current scene reference
     private weak var currentScene: SKScene?
     
@@ -78,14 +83,15 @@ public class ScrollView: UIScrollView, UIScrollViewDelegate {
 extension ScrollView {
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         guard !isDisabled else { return }
         super.touchesBegan(touches, with: event)
         
         guard let currentScene = currentScene else { return }
         
         for touch in touches {
+            
             let location = touch.location(in: currentScene)
-        
             currentScene.touchesBegan(touches, with: event)
             touchedNodes = currentScene.nodes(at: location)
             for node in touchedNodes {
@@ -93,6 +99,7 @@ extension ScrollView {
             }
         }
     }
+    
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard !isDisabled else { return }
