@@ -11,9 +11,23 @@ import SpriteKit
 import AVFoundation
 import StoreKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    struct ColliderType {
+        
+        static let hero: UInt32 = 1
+        static let snowBall: UInt32 = 2
+        static let yeti: UInt32 = 3
+        static let coyote: UInt32 = 4
+        static let snake: UInt32 = 5
+        static let sandstorm: UInt32 = 6
+        static let bat: UInt32 = 7
+        static let spider: UInt32 = 8
+        static let rock: UInt32 = 9
+    }
     
     let characterSpeed: TimeInterval = 0.25
+    let realCharSpeed: TimeInterval = 0.1
     
     var recordedTime: Int = 0
     var initialYPos: CGFloat = 0
@@ -47,6 +61,10 @@ class GameScene: SKScene {
     var difficultySubText2: SKLabelNode = SKLabelNode()
     var difficultySubBox3: SKShapeNode = SKShapeNode()
     var difficultySubText3: SKLabelNode = SKLabelNode()
+    var gameOverDisplay: SKShapeNode = SKShapeNode()
+    var levelAlert: SKLabelNode = SKLabelNode()
+    var levelStatusAlert: SKLabelNode = SKLabelNode()
+    
     
     var oneStar: SKSpriteNode = SKSpriteNode()
     var twoStar: SKSpriteNode = SKSpriteNode()
@@ -56,9 +74,12 @@ class GameScene: SKScene {
     var backgName: String = String()
     var levelNames: [String] = [String]()
     
+    var isLevelPassed: Bool = false
+    
     
     override func didMove(to view: SKView) {
         
+        physicsWorld.contactDelegate = self
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
         swipeUp.direction = .up
         self.view?.addGestureRecognizer(swipeUp)
@@ -79,7 +100,6 @@ class GameScene: SKScene {
         drawPlatform()
         //addSnow()
         drawCharacter()
- 
     }
     
     func selectDifficulty() {
@@ -310,7 +330,7 @@ class GameScene: SKScene {
             
             if(UIDevice.current.userInterfaceIdiom == .phone)
             {
-                icePlatform.size.width = icePlatform.size.width * 1.1
+                icePlatform.size.width = icePlatform.size.width * 1.01
                 icePlatform.size.height = 50
             }
             
@@ -321,6 +341,7 @@ class GameScene: SKScene {
             }
             icePlatform.run(infinitePlat)
 
+            icePlatform.name = "platform" + lowerBound.description
             self.addChild(icePlatform)
             lowerBound += 1
 
@@ -377,6 +398,7 @@ class GameScene: SKScene {
             }
             icyBackground.run(infiniteBackg)
 
+            icyBackground.name = "background" + lowerBound.description
             self.addChild(icyBackground)
             lowerBound += 1
 
@@ -389,15 +411,15 @@ class GameScene: SKScene {
         
         let runningFrames: [SKTexture] = [SKTexture(imageNamed: "bobby-6"), SKTexture(imageNamed: "bobby-7"), SKTexture(imageNamed: "bobby-8"), SKTexture(imageNamed: "bobby-9"), SKTexture(imageNamed: "bobby-10"), SKTexture(imageNamed: "bobby-11")]
         
-        let animate = SKAction.animate(with: runningFrames, timePerFrame: characterSpeed)
+        let animate = SKAction.animate(with: runningFrames, timePerFrame: realCharSpeed)
         
         let runForever = SKAction.repeatForever(animate)
         
         hero = SKSpriteNode(imageNamed: "bobby-6")
         
         hero.size = CGSize(width: hero.size.width * (self.frame.size.width * 0.00035), height: hero.size.height * (self.frame.size.width * 0.00035))
-        print(hero.size)
         hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.55)
+        hero.name = "hero"
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -410,6 +432,11 @@ class GameScene: SKScene {
         
         self.heroRunAction = runForever
         hero.run(runForever)
+        
+        hero.physicsBody = SKPhysicsBody(circleOfRadius: hero.size.width / 3)
+        hero.physicsBody?.affectedByGravity = false
+        hero.physicsBody?.categoryBitMask = ColliderType.hero
+        hero.physicsBody?.isDynamic = true
         
         self.addChild(hero)
     }
@@ -429,17 +456,18 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            duckAnim = SKAction.moveBy(x: 250, y: 0, duration: 0.5)
+            duckAnim = SKAction.moveBy(x: 250, y: -20, duration: 0.25)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            duckAnim = SKAction.moveBy(x: 300, y: 0, duration: 0.5)
+            duckAnim = SKAction.moveBy(x: 300, y: -20, duration: 0.25)
         }
-        
+                
         let duckRepeater = SKAction.repeat(duckAnim, count: 1)
         
         hero.run(duckRepeater, completion: duckRevert)
+        
     }
     
     func duckRevert() {
@@ -448,12 +476,12 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            duckReversion = SKAction.moveTo(x: -self.frame.size.width / 3, duration: 0.5)
+            duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.35), duration: 0.25)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            duckReversion = SKAction.moveTo(x: -self.frame.width / 3.1, duration: 0.5)
+            duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.55), duration: 0.25)
         }
         
         hero.run(duckReversion, completion: resumeRunning)
@@ -470,7 +498,7 @@ class GameScene: SKScene {
         
         let currentTime = currentTimeInMilliSeconds()
         
-        if((recordedTime == 0) || (abs(currentTime - recordedTime) >= 1000))
+        if((recordedTime == 0) || (abs(currentTime - recordedTime) >= 500))
         {
             recordedTime = currentTime
             return true
@@ -495,12 +523,12 @@ class GameScene: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.5)
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.25)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.5)
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.25)
         }
         
         let jumpRepeater = SKAction.repeat(jumpAnim, count: 1)
@@ -514,7 +542,7 @@ class GameScene: SKScene {
         
         var landAnim: SKAction = SKAction()
         
-        landAnim = SKAction.moveTo(y: initialYPos, duration: 0.5)
+        landAnim = SKAction.moveTo(y: initialYPos, duration: 0.25)
         
         let landRepeater = SKAction.repeat(landAnim, count: 1)
         
@@ -706,7 +734,7 @@ class GameScene: SKScene {
     
     func drawCoyote() {
         
-        let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "wolf-1"), SKTexture(imageNamed: "wolf-2"), SKTexture(imageNamed: "wolf-3"), SKTexture(imageNamed: "wolf-4"), SKTexture(imageNamed: "wolf-5"), SKTexture(imageNamed: "wolf-6"), SKTexture(imageNamed: "wolf-7"), SKTexture(imageNamed: "wolf-8"), SKTexture(imageNamed: "wolf-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
+        let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "coy-1"), SKTexture(imageNamed: "coy-2"), SKTexture(imageNamed: "coy-3"), SKTexture(imageNamed: "coy-4"), SKTexture(imageNamed: "coy-5"), SKTexture(imageNamed: "coy-6"), SKTexture(imageNamed: "coy-7"), SKTexture(imageNamed: "coy-8"), SKTexture(imageNamed: "coy-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
         
         let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4)
         self.coyoteDashAction = coyoteAnimate
@@ -725,7 +753,7 @@ class GameScene: SKScene {
     
     func coyoteAttackAnimation() {
         
-        let attackFrames: [SKTexture] = [SKTexture(imageNamed: "wolf-11"), SKTexture(imageNamed: "wolf-12"), SKTexture(imageNamed: "wolf-13"), SKTexture(imageNamed: "wolf-14"), SKTexture(imageNamed: "wolf-15"), SKTexture(imageNamed: "wolf-16"), SKTexture(imageNamed: "wolf-17"), SKTexture(imageNamed: "wolf-18")]
+        let attackFrames: [SKTexture] = [SKTexture(imageNamed: "coy-11"), SKTexture(imageNamed: "coy-12"), SKTexture(imageNamed: "coy-13"), SKTexture(imageNamed: "coy-14"), SKTexture(imageNamed: "coy-15"), SKTexture(imageNamed: "coy-16"), SKTexture(imageNamed: "coy-17"), SKTexture(imageNamed: "coy-18")]
         
         let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 3)
         let rise = SKAction.moveTo(y: self.frame.size.height / 8, duration: characterSpeed / 1.5)
@@ -751,7 +779,7 @@ class GameScene: SKScene {
         
         let snakeAnimate = SKAction.animate(with: snakeFrames, timePerFrame: 0.15)
         let snakeShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
-        let snakeRevert = SKAction.moveTo(x: self.frame.size.height, duration: 0)
+        let snakeRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let snakeSeq = SKAction.sequence([snakeShift, snakeRevert])
         
@@ -764,7 +792,7 @@ class GameScene: SKScene {
     
     func drawBat() {
         
-        let batFrames: [SKTexture] = [SKTexture(imageNamed: "batframe-1"), SKTexture(imageNamed: "batframe-2"), SKTexture(imageNamed: "batframe-3"), SKTexture(imageNamed: "batframe-4")]
+        let batFrames: [SKTexture] = [SKTexture(imageNamed: "bat-1"), SKTexture(imageNamed: "bat-2"), SKTexture(imageNamed: "bat-3"), SKTexture(imageNamed: "bat-4")]
         
         let batAnim = SKAction.animate(with: batFrames, timePerFrame: 0.2)
         let batAnimRepeater = SKAction.repeatForever(batAnim)
@@ -888,10 +916,11 @@ class GameScene: SKScene {
         //Snow Yeti
         snowYeti = SKSpriteNode(imageNamed: "snowyeti-1")
         snowYeti.size = CGSize(width: snowYeti.size.width * (self.frame.size.width * 0.001), height: snowYeti.size.height * (self.frame.size.width * 0.001))
+        snowYeti.name = "yeti"
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.8)// self.frame.width, y: -self.frame.size.height / 4.15)
+            snowYeti.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.8)// self.frame.width, y: -self.frame.size.height / 4.15)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
@@ -900,14 +929,30 @@ class GameScene: SKScene {
         }
         
         snowYeti.xScale = -1
+        
+        snowYeti.physicsBody = SKPhysicsBody(circleOfRadius: snowYeti.size.width / 3)
+        snowYeti.physicsBody?.affectedByGravity = false
+        snowYeti.physicsBody?.categoryBitMask = ColliderType.yeti
+        snowYeti.physicsBody?.collisionBitMask = ColliderType.hero
+        snowYeti.physicsBody?.contactTestBitMask = ColliderType.hero
+        snowYeti.physicsBody?.isDynamic = false
+        
         self.addChild(snowYeti)
         
         //Snowball (Falling and Thrown)
         snowball = SKSpriteNode(imageNamed: "snowbol-1")
         snowball.position = CGPoint(x: evilSnowman.position.x, y: -self.frame.size.height / 4.75)
+        snowball.name = "snowball"
         
         
         snowball.size = CGSize(width: snowball.size.width * (self.frame.size.width * 0.001), height: snowball.size.height * (self.frame.size.width * 0.001))
+        
+        snowball.physicsBody = SKPhysicsBody(circleOfRadius: snowball.size.width / 2)
+        snowball.physicsBody?.affectedByGravity = false
+        snowball.physicsBody?.categoryBitMask = ColliderType.snowBall
+        snowball.physicsBody?.collisionBitMask = ColliderType.hero
+        snowball.physicsBody?.contactTestBitMask = ColliderType.hero
+        snowball.physicsBody?.isDynamic = false
         
         self.addChild(snowball)
         
@@ -915,24 +960,34 @@ class GameScene: SKScene {
         
         coyote = SKSpriteNode(imageNamed: "coy-1")
         coyote.size = CGSize(width: coyote.size.width * (self.frame.size.width * 0.001), height: coyote.size.height * (self.frame.size.width * 0.001))
+        coyote.name = "coyote"
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            coyote.position = CGPoint(x: 0, y: -self.frame.size.height / 3.5)//-self.frame.size.height / 4.15)
+            coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.5)//-self.frame.size.height / 4.15)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            coyote.position = CGPoint(x: 0, y: -self.frame.size.height / 3.65)
+            coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)
         }
         
         coyote.xScale = -1
+        
+        coyote.physicsBody = SKPhysicsBody(circleOfRadius: coyote.size.width / 3.5, center: CGPoint(x: -20, y: 0))
+        coyote.physicsBody?.affectedByGravity = false
+        coyote.physicsBody?.categoryBitMask = ColliderType.coyote
+        coyote.physicsBody?.collisionBitMask = ColliderType.hero
+        coyote.physicsBody?.contactTestBitMask = ColliderType.hero
+        coyote.physicsBody?.isDynamic = false
+        
         self.addChild(coyote)
         
         //Snake
         
         snake = SKSpriteNode(imageNamed: "snake-1")
         snake.size = CGSize(width: snake.size.width * (self.frame.size.width * 0.001), height: snake.size.height * (self.frame.size.width * 0.001))
+        snake.name = "snake"
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -944,12 +999,21 @@ class GameScene: SKScene {
             snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.75)
         }
         snake.xScale = -1
+        
+        snake.physicsBody = SKPhysicsBody(circleOfRadius: snake.size.width / 3.25, center: CGPoint(x: -10, y: 10))
+        snake.physicsBody?.affectedByGravity = false
+        snake.physicsBody?.categoryBitMask = ColliderType.snake
+        snake.physicsBody?.collisionBitMask = ColliderType.hero
+        snake.physicsBody?.contactTestBitMask = ColliderType.hero
+        snake.physicsBody?.isDynamic = false
+        
         self.addChild(snake)
         
         //Sandstorm
         
         sandstorm = SKSpriteNode(imageNamed: "sandtwister-1")
         sandstorm.size = CGSize(width: sandstorm.size.width * (self.frame.size.width * 0.0004), height: sandstorm.size.height * (self.frame.size.width * 0.0004))
+        sandstorm.name = "sandstorm"
 
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
@@ -962,16 +1026,24 @@ class GameScene: SKScene {
             sandstorm.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4)
         }
         
+        sandstorm.physicsBody = SKPhysicsBody(circleOfRadius: sandstorm.size.width / 2.5)
+        sandstorm.physicsBody?.affectedByGravity = false
+        sandstorm.physicsBody?.categoryBitMask = ColliderType.sandstorm
+        sandstorm.physicsBody?.collisionBitMask = ColliderType.hero
+        sandstorm.physicsBody?.contactTestBitMask = ColliderType.hero
+        sandstorm.physicsBody?.isDynamic = false
+        
         self.addChild(sandstorm)
         
         //Bat
         
-        batSprite = SKSpriteNode(imageNamed: "batframe-1")
+        batSprite = SKSpriteNode(imageNamed: "bat-1")
         batSprite.size = CGSize(width: batSprite.size.width * (self.frame.size.width * 0.0005), height: batSprite.size.height * (self.frame.size.width * 0.0005))
+        batSprite.name = "bat"
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 6)
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.8)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
@@ -980,24 +1052,41 @@ class GameScene: SKScene {
         }
         
         batSprite.xScale = -1
+        
+        batSprite.physicsBody = SKPhysicsBody(circleOfRadius: batSprite.size.width / 3.25)
+        batSprite.physicsBody?.affectedByGravity = false
+        batSprite.physicsBody?.categoryBitMask = ColliderType.bat
+        batSprite.physicsBody?.collisionBitMask = ColliderType.hero
+        batSprite.physicsBody?.contactTestBitMask = ColliderType.hero
+        batSprite.physicsBody?.isDynamic = false
+        
         self.addChild(batSprite)
         
         //Spider
         
         spider = SKSpriteNode(imageNamed: "spider-1")
-        spider.size = CGSize(width: spider.size.width * (self.frame.size.width * 0.001), height: spider.size.height * (self.frame.size.width * 0.001))
+        spider.size = CGSize(width: spider.size.width * (self.frame.size.width * 0.0009), height: spider.size.height * (self.frame.size.width * 0.0009))
+        spider.name = "spider"
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.75)
+            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.85)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.8)
+            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)
         }
         
         spider.xScale = -1
+        
+        spider.physicsBody = SKPhysicsBody(circleOfRadius: spider.size.width / 2.75, center: CGPoint(x: 20, y: -20))
+        spider.physicsBody?.affectedByGravity = false
+        spider.physicsBody?.categoryBitMask = ColliderType.spider
+        spider.physicsBody?.collisionBitMask = ColliderType.hero
+        spider.physicsBody?.contactTestBitMask = ColliderType.hero
+        spider.physicsBody?.isDynamic = false
+        
         self.addChild(spider)
         
         //Cave Golem
@@ -1024,8 +1113,143 @@ class GameScene: SKScene {
         rock.position = CGPoint(x: golem.position.x, y: -self.frame.size.height / 4.75)
     
         rock.size = CGSize(width: rock.size.width * (self.frame.size.width * 0.001), height: rock.size.height * (self.frame.size.width * 0.001))
+        rock.name = "rock"
+        
+        rock.physicsBody = SKPhysicsBody(circleOfRadius: rock.size.width / 2)
+        rock.physicsBody?.affectedByGravity = false
+        rock.physicsBody?.categoryBitMask = ColliderType.rock
+        rock.physicsBody?.collisionBitMask = ColliderType.hero
+        rock.physicsBody?.contactTestBitMask = ColliderType.hero
+        rock.physicsBody?.isDynamic = false
         
         self.addChild(rock)
+    }
+    
+    func performDieAnimation() {
         
+        self.view?.gestureRecognizers?.removeAll()
+        //timer.invalidate()
+        hero.removeAllActions()
+        
+        let rotation = SKAction.rotate(byAngle: ((3 * CGFloat.pi) / 2), duration: 0.3)
+        
+        let rotationAnim = SKAction.repeat(rotation, count: 1)
+        
+        hero.run(rotationAnim, completion: rotateBack)
+    }
+    
+    func rotateBack() {
+        
+        let rotationBack = SKAction.rotate(byAngle: (-(3 * CGFloat.pi) / 2), duration: 0)
+        let fall = SKAction.move(to: CGPoint(x: self.frame.minX / 2.35, y: self.frame.minY / 1.70), duration: 0.3)
+        
+        let rotationBackAnim = SKAction.repeat(rotationBack, count: 1)
+        let fallAnim = SKAction.repeat(fall, count: 1)
+        
+        hero.texture = SKTexture(imageNamed: "bobby-16.png")
+        hero.run(rotationBackAnim)
+        hero.run(fallAnim, completion: endGame)
+    }
+    
+    func pauseBackgAndPlatform() {
+        
+        for child in self.children
+        {
+            if((child.name == "background-1.0") || (child.name == "background0.0") || (child.name == "background1.0") || (child.name == "background2.0"))
+            {
+                child.speed = 0
+            }
+            
+            if((child.name == "platform-1.0") || (child.name == "platform0.0") || (child.name == "platform1.0") || (child.name == "platform2.0"))
+            {
+                child.speed = 0
+            }
+        }
+    }
+    
+    func endGame() {
+        
+        pauseBackgAndPlatform()
+        showEndingMenu()
+        
+    }
+    
+    func showEndingMenu() -> Void {
+        
+        gameOverDisplay = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.midY - 20, width: self.frame.width * 2, height: self.frame.height / 3.5))
+        gameOverDisplay.fillColor = .black
+        gameOverDisplay.alpha = 0.5
+                
+        levelAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
+        levelAlert.fontColor = .white
+        levelAlert.fontSize = (self.frame.size.width * 0.06)
+        levelAlert.position = CGPoint(x: 0, y: 55)
+        levelAlert.text = "Level BETA:"
+        
+        levelStatusAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
+        levelStatusAlert.fontSize = (self.frame.size.width * 0.05)
+        levelStatusAlert.position = CGPoint(x: 0, y: 0)
+        
+        if(isLevelPassed)
+        {
+            levelStatusAlert.fontColor = .green
+            levelStatusAlert.text = "PASSED"
+        }
+
+        else
+        {
+            levelStatusAlert.fontColor = .red
+            levelStatusAlert.text = "INCOMPLETE"
+        }
+        
+        //initReplayButton()
+        //initHomeButton()
+        
+        self.addChild(gameOverDisplay)
+        self.addChild(levelAlert)
+        self.addChild(levelStatusAlert)
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        
+        let nodeA = contact.bodyA.node
+        let nodeB = contact.bodyB.node
+        
+        hero.physicsBody?.isDynamic = false
+        performDieAnimation()
+        
+        if(((nodeA?.name == "hero") && (nodeB?.name == "snowball")) || ((nodeA?.name == "snowball") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "yeti")) || ((nodeA?.name == "yeti") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "coyote")) || ((nodeA?.name == "coyote") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "snake")) || ((nodeA?.name == "snake") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "sandstorm")) || ((nodeA?.name == "sandstorm") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "bat")) || ((nodeA?.name == "bat") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "spider")) || ((nodeA?.name == "spider") && (nodeB?.name == "hero")))
+        {
+            
+        }
+        else if(((nodeA?.name == "hero") && (nodeB?.name == "rock")) || ((nodeA?.name == "rock") && (nodeB?.name == "hero")))
+        {
+            
+        }
     }
 }

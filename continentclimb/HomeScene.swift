@@ -11,7 +11,7 @@ import SpriteKit
 import AVFoundation
 import StoreKit
 
-var terrainKeyword: String = "desert"
+var terrainKeyword: String = "snow"
 class HomeScene: SKScene {
     
     let heroSpeed = 0.25

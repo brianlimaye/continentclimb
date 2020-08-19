@@ -37,7 +37,13 @@ class GameViewController: UIViewController {
             let scene = GameScene(size: view.bounds.size)
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
+            
+            view.ignoresSiblingOrder = true
+            view.showsFPS = true
+            view.showsNodeCount = true
+            view.showsPhysics = true
         }
+
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
