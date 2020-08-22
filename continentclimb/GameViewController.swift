@@ -34,14 +34,14 @@ class GameViewController: UIViewController {
         
         if let view = self.view as! SKView? {
             
-            let scene = GameScene(size: view.bounds.size)
+            let scene = HomeScene(size: view.bounds.size)
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
             view.showsFPS = true
             view.showsNodeCount = true
-            view.showsPhysics = true
+            //view.showsPhysics = true
         }
 
     }
@@ -64,6 +64,13 @@ class GameViewController: UIViewController {
                if isDebug
                {
                     GameViewController.gameScene?.slideHero()
+               }
+            
+           case .keyboardO:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.drawCoin()
                }
             
            case .keyboardG:
@@ -126,6 +133,13 @@ class GameViewController: UIViewController {
                if isDebug
                {
                     GameViewController.gameScene?.drawSandstorm()
+               }
+            
+           case .keyboardE:
+               
+               if isDebug
+               {
+                    GameViewController.gameScene?.endGame()
                }
             
            default:

@@ -17,8 +17,8 @@ class ContinentLoader: SKScene {
     var sunnyTerrainShape: SKShapeNode = SKShapeNode()
     var sunnyTerrainText: SKLabelNode = SKLabelNode()
     
-    var tempestTerrainShape: SKShapeNode = SKShapeNode()
-    var tempestTerrainText: SKLabelNode = SKLabelNode()
+    var caveTerrainShape: SKShapeNode = SKShapeNode()
+    var caveTerrainText: SKLabelNode = SKLabelNode()
     
     var background: SKSpriteNode = SKSpriteNode()
     var mainText: SKLabelNode = SKLabelNode()
@@ -83,9 +83,10 @@ class ContinentLoader: SKScene {
         icyTerrainText.fontColor = .white
         icyTerrainText.horizontalAlignmentMode = .center
         icyTerrainText.name = "Alaska"
-        icyTerrainText.text = "Alaska"
+        icyTerrainText.text = "Snow"
         
         icyTerrainShape.addChild(icyTerrainText)
+        icyTerrainShape.zPosition = 3
         icyTerrainShape.isUserInteractionEnabled = false
         
         icyTerrainText.position.y = self.frame.size.height / 6.5
@@ -112,9 +113,10 @@ class ContinentLoader: SKScene {
         sunnyTerrainText.fontColor = .white
         sunnyTerrainText.horizontalAlignmentMode = .center
         sunnyTerrainText.name = "Arizona"
-        sunnyTerrainText.text = "Arizona"
+        sunnyTerrainText.text = "Desert"
         
         sunnyTerrainShape.addChild(sunnyTerrainText)
+        sunnyTerrainShape.zPosition = 3
         sunnyTerrainShape.isUserInteractionEnabled = false
         
         sunnyTerrainText.position.y = -self.frame.size.height / 14
@@ -123,29 +125,30 @@ class ContinentLoader: SKScene {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            tempestTerrainShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+            caveTerrainShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            tempestTerrainShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+            caveTerrainShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
         }
-        tempestTerrainShape.fillTexture = SKTexture(imageNamed: "aurorabackg.jpg")
-        tempestTerrainShape.fillColor = .white
-        tempestTerrainShape.name = "Caveshape"
+        caveTerrainShape.fillTexture = SKTexture(imageNamed: "cave.jpg")
+        caveTerrainShape.fillColor = .white
+        caveTerrainShape.name = "Caveshape"
         
-        tempestTerrainText = SKLabelNode(fontNamed: "NationalPark-Heavy")
-        tempestTerrainText.fontSize = tempestTerrainShape.frame.size.width / 11
-        tempestTerrainText.fontColor = .white
-        tempestTerrainShape.name = "Cave"
-        tempestTerrainText.text = "Caves"
+        caveTerrainText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        caveTerrainText.fontSize = caveTerrainShape.frame.size.width / 11
+        caveTerrainText.fontColor = .white
+        caveTerrainShape.name = "Cave"
+        caveTerrainText.text = "Cave"
         
-        tempestTerrainShape.addChild(tempestTerrainText)
-        tempestTerrainShape.isUserInteractionEnabled = false
+        caveTerrainShape.zPosition = 3
+        caveTerrainShape.addChild(caveTerrainText)
+        caveTerrainShape.isUserInteractionEnabled = false
         
-        tempestTerrainText.position.y = -self.frame.size.height / 3.65
+        caveTerrainText.position.y = -self.frame.size.height / 3.65
 
-        self.addChild(tempestTerrainShape)
+        self.addChild(caveTerrainShape)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -165,6 +168,12 @@ class ContinentLoader: SKScene {
           {
               terrainKeyword = "desert"
               doesExist = true
+          }
+        
+          else if((node?.name == "Caveshape") || (node?.name == "Cave"))
+          {
+               terrainKeyword = "cave"
+               doesExist = true
           }
             
           if(doesExist)

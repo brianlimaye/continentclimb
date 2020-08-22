@@ -139,6 +139,12 @@
 		B48D2FA724C23823009AD3FD /* evilsnowman-9.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9C24C23823009AD3FD /* evilsnowman-9.png */; };
 		B48D2FA824C23823009AD3FD /* evilsnowman-5.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9D24C23823009AD3FD /* evilsnowman-5.png */; };
 		B48FB68D24EDC6DD00C2FF01 /* CarbonBl-Regular.ps in Resources */ = {isa = PBXBuildFile; fileRef = B48FB68C24EDC6DD00C2FF01 /* CarbonBl-Regular.ps */; };
+		B493A91324EF682E00C51B62 /* bluenext.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A90D24EF682E00C51B62 /* bluenext.png */; };
+		B493A91424EF682E00C51B62 /* bluehome.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A90E24EF682E00C51B62 /* bluehome.png */; };
+		B493A91524EF682E00C51B62 /* bluereplay.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A90F24EF682E00C51B62 /* bluereplay.png */; };
+		B493A91624EF682E00C51B62 /* redreplay.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A91024EF682E00C51B62 /* redreplay.png */; };
+		B493A91724EF682E00C51B62 /* rednext.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A91124EF682E00C51B62 /* rednext.png */; };
+		B493A91824EF682E00C51B62 /* redback.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A91224EF682E00C51B62 /* redback.png */; };
 		B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822E24BC2E4600BC1857 /* bobby-8.png */; };
 		B495823F24BC2E4700BC1857 /* idle-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822F24BC2E4600BC1857 /* idle-1.png */; };
 		B495824024BC2E4700BC1857 /* bobby-10.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823024BC2E4600BC1857 /* bobby-10.png */; };
@@ -164,6 +170,16 @@
 		B495826124BC437500BC1857 /* volume-off.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825B24BC437500BC1857 /* volume-off.png */; };
 		B495826224BC437500BC1857 /* volume-on.png in Resources */ = {isa = PBXBuildFile; fileRef = B495825C24BC437500BC1857 /* volume-on.png */; };
 		B495826424BC4BA300BC1857 /* BitPap.ps in Resources */ = {isa = PBXBuildFile; fileRef = B495826324BC4BA300BC1857 /* BitPap.ps */; };
+		B4A6BB3D24F1964C00FDEF7D /* difficultybackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4A6BB3C24F1964C00FDEF7D /* difficultybackg.jpg */; };
+		B4AF093A24F1BC4D00EC97D6 /* goldcoin-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093124F1BC4C00EC97D6 /* goldcoin-1.png */; };
+		B4AF093B24F1BC4D00EC97D6 /* goldcoin-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093224F1BC4C00EC97D6 /* goldcoin-4.png */; };
+		B4AF093C24F1BC4D00EC97D6 /* goldcoin-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093324F1BC4C00EC97D6 /* goldcoin-3.png */; };
+		B4AF093D24F1BC4D00EC97D6 /* goldcoin-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093424F1BC4C00EC97D6 /* goldcoin-7.png */; };
+		B4AF093E24F1BC4D00EC97D6 /* goldcoin-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093524F1BC4C00EC97D6 /* goldcoin-2.png */; };
+		B4AF093F24F1BC4D00EC97D6 /* goldcoin-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093624F1BC4C00EC97D6 /* goldcoin-8.png */; };
+		B4AF094024F1BC4D00EC97D6 /* goldcoin-5.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093724F1BC4D00EC97D6 /* goldcoin-5.png */; };
+		B4AF094124F1BC4D00EC97D6 /* goldcoin-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093824F1BC4D00EC97D6 /* goldcoin-6.png */; };
+		B4AF094224F1BC4D00EC97D6 /* goldcoin-9.png in Resources */ = {isa = PBXBuildFile; fileRef = B4AF093924F1BC4D00EC97D6 /* goldcoin-9.png */; };
 		B4B1277924EA3001000EA6CF /* spider-11.png in Resources */ = {isa = PBXBuildFile; fileRef = B4B1276C24EA3000000EA6CF /* spider-11.png */; };
 		B4B1277A24EA3001000EA6CF /* spider-7.png in Resources */ = {isa = PBXBuildFile; fileRef = B4B1276D24EA3000000EA6CF /* spider-7.png */; };
 		B4B1277B24EA3001000EA6CF /* spider-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B4B1276E24EA3000000EA6CF /* spider-6.png */; };
@@ -343,6 +359,12 @@
 		B48D2F9C24C23823009AD3FD /* evilsnowman-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-9.png"; sourceTree = "<group>"; };
 		B48D2F9D24C23823009AD3FD /* evilsnowman-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-5.png"; sourceTree = "<group>"; };
 		B48FB68C24EDC6DD00C2FF01 /* CarbonBl-Regular.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "CarbonBl-Regular.ps"; sourceTree = "<group>"; };
+		B493A90D24EF682E00C51B62 /* bluenext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluenext.png; sourceTree = "<group>"; };
+		B493A90E24EF682E00C51B62 /* bluehome.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluehome.png; sourceTree = "<group>"; };
+		B493A90F24EF682E00C51B62 /* bluereplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluereplay.png; sourceTree = "<group>"; };
+		B493A91024EF682E00C51B62 /* redreplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redreplay.png; sourceTree = "<group>"; };
+		B493A91124EF682E00C51B62 /* rednext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rednext.png; sourceTree = "<group>"; };
+		B493A91224EF682E00C51B62 /* redback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redback.png; sourceTree = "<group>"; };
 		B495822E24BC2E4600BC1857 /* bobby-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-8.png"; sourceTree = "<group>"; };
 		B495822F24BC2E4600BC1857 /* idle-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idle-1.png"; sourceTree = "<group>"; };
 		B495823024BC2E4600BC1857 /* bobby-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-10.png"; sourceTree = "<group>"; };
@@ -368,6 +390,16 @@
 		B495825B24BC437500BC1857 /* volume-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-off.png"; sourceTree = "<group>"; };
 		B495825C24BC437500BC1857 /* volume-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-on.png"; sourceTree = "<group>"; };
 		B495826324BC4BA300BC1857 /* BitPap.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = BitPap.ps; sourceTree = "<group>"; };
+		B4A6BB3C24F1964C00FDEF7D /* difficultybackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = difficultybackg.jpg; sourceTree = "<group>"; };
+		B4AF093124F1BC4C00EC97D6 /* goldcoin-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-1.png"; sourceTree = "<group>"; };
+		B4AF093224F1BC4C00EC97D6 /* goldcoin-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-4.png"; sourceTree = "<group>"; };
+		B4AF093324F1BC4C00EC97D6 /* goldcoin-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-3.png"; sourceTree = "<group>"; };
+		B4AF093424F1BC4C00EC97D6 /* goldcoin-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-7.png"; sourceTree = "<group>"; };
+		B4AF093524F1BC4C00EC97D6 /* goldcoin-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-2.png"; sourceTree = "<group>"; };
+		B4AF093624F1BC4C00EC97D6 /* goldcoin-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-8.png"; sourceTree = "<group>"; };
+		B4AF093724F1BC4D00EC97D6 /* goldcoin-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-5.png"; sourceTree = "<group>"; };
+		B4AF093824F1BC4D00EC97D6 /* goldcoin-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-6.png"; sourceTree = "<group>"; };
+		B4AF093924F1BC4D00EC97D6 /* goldcoin-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-9.png"; sourceTree = "<group>"; };
 		B4B1276C24EA3000000EA6CF /* spider-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spider-11.png"; sourceTree = "<group>"; };
 		B4B1276D24EA3000000EA6CF /* spider-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spider-7.png"; sourceTree = "<group>"; };
 		B4B1276E24EA3000000EA6CF /* spider-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spider-6.png"; sourceTree = "<group>"; };
@@ -483,6 +515,22 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B4AF093124F1BC4C00EC97D6 /* goldcoin-1.png */,
+				B4AF093524F1BC4C00EC97D6 /* goldcoin-2.png */,
+				B4AF093324F1BC4C00EC97D6 /* goldcoin-3.png */,
+				B4AF093224F1BC4C00EC97D6 /* goldcoin-4.png */,
+				B4AF093724F1BC4D00EC97D6 /* goldcoin-5.png */,
+				B4AF093824F1BC4D00EC97D6 /* goldcoin-6.png */,
+				B4AF093424F1BC4C00EC97D6 /* goldcoin-7.png */,
+				B4AF093624F1BC4C00EC97D6 /* goldcoin-8.png */,
+				B4AF093924F1BC4D00EC97D6 /* goldcoin-9.png */,
+				B4A6BB3C24F1964C00FDEF7D /* difficultybackg.jpg */,
+				B493A90E24EF682E00C51B62 /* bluehome.png */,
+				B493A90D24EF682E00C51B62 /* bluenext.png */,
+				B493A90F24EF682E00C51B62 /* bluereplay.png */,
+				B493A91224EF682E00C51B62 /* redback.png */,
+				B493A91124EF682E00C51B62 /* rednext.png */,
+				B493A91024EF682E00C51B62 /* redreplay.png */,
 				B42FF95924ECC22F00B35118 /* golem-1.png */,
 				B42FF95524ECC22F00B35118 /* golem-2.png */,
 				B42FF95624ECC22F00B35118 /* golem-3.png */,
@@ -799,6 +847,7 @@
 				B4B1277D24EA3001000EA6CF /* spider-9.png in Resources */,
 				B495825E24BC437500BC1857 /* home-icon.png in Resources */,
 				B432F79624BC1F140062EDB0 /* GameScene.sks in Resources */,
+				B4AF093B24F1BC4D00EC97D6 /* goldcoin-4.png in Resources */,
 				B495824324BC2E4700BC1857 /* bobby-13.png in Resources */,
 				B48FB68D24EDC6DD00C2FF01 /* CarbonBl-Regular.ps in Resources */,
 				B43EC5E524C539D700B3EB47 /* snowyeti-12.png in Resources */,
@@ -814,6 +863,7 @@
 				B43D02D424BEB7F3008BB9DE /* lock.png in Resources */,
 				B42FF98A24ECC2D600B35118 /* coy-9.png in Resources */,
 				B43EC5E224C539D700B3EB47 /* snowyeti-3.png in Resources */,
+				B493A91324EF682E00C51B62 /* bluenext.png in Resources */,
 				B45C7CCC24D0AA7200B5A79E /* purpleskies.jpg in Resources */,
 				B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */,
 				B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */,
@@ -821,6 +871,7 @@
 				B4252C7B24DB3B5B0028FE7E /* three-star.png in Resources */,
 				B43EC5EA24C539D700B3EB47 /* snowyeti-1.png in Resources */,
 				B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */,
+				B493A91824EF682E00C51B62 /* redback.png in Resources */,
 				B42FF9AF24ECC4DE00B35118 /* snake-10.png in Resources */,
 				B42FF9AD24ECC4DE00B35118 /* snake-8.png in Resources */,
 				B479DE7624C2CD4B00E3F2BE /* snowbol-6.png in Resources */,
@@ -830,6 +881,7 @@
 				B42FF96024ECC22F00B35118 /* golem-1.png in Resources */,
 				B42FF98E24ECC2D600B35118 /* coy-2.png in Resources */,
 				B42FF97624ECC28E00B35118 /* bat-4.png in Resources */,
+				B4AF093E24F1BC4D00EC97D6 /* goldcoin-2.png in Resources */,
 				B42FF98D24ECC2D600B35118 /* coy-4.png in Resources */,
 				B4B1278424EA3001000EA6CF /* spider-1.png in Resources */,
 				B48D2FA424C23823009AD3FD /* evilsnowman-3.png in Resources */,
@@ -840,8 +892,10 @@
 				B42FF9A624ECC4DE00B35118 /* snake-1.png in Resources */,
 				B42FF96824ECC26A00B35118 /* roc-6.png in Resources */,
 				B43EC5DE24C539D700B3EB47 /* snowyeti-16.png in Resources */,
+				B493A91424EF682E00C51B62 /* bluehome.png in Resources */,
 				B45C7CDA24D0C0A600B5A79E /* greecebackg.jpg in Resources */,
 				B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */,
+				B4AF093A24F1BC4D00EC97D6 /* goldcoin-1.png in Resources */,
 				B42FF99024ECC2D600B35118 /* coy-7.png in Resources */,
 				B495824224BC2E4700BC1857 /* bobby-11.png in Resources */,
 				B495825D24BC437500BC1857 /* question-mark.png in Resources */,
@@ -861,12 +915,14 @@
 				B42FF99A24ECC39300B35118 /* coy-18.png in Resources */,
 				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
 				B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */,
+				B4AF093F24F1BC4D00EC97D6 /* goldcoin-8.png in Resources */,
 				B45C7CCE24D0AB5900B5A79E /* junglebackg.jpg in Resources */,
 				B4252C7C24DB3B5B0028FE7E /* two-star.png in Resources */,
 				B479DE7524C2CD4B00E3F2BE /* snowbol-3.png in Resources */,
 				B43EC5EC24C539D700B3EB47 /* snowyeti-14.png in Resources */,
 				B4D3D4A524D3956C002AA8E2 /* stormy.jpg in Resources */,
 				B42FF99524ECC2D600B35118 /* coy-13.png in Resources */,
+				B4AF093D24F1BC4D00EC97D6 /* goldcoin-7.png in Resources */,
 				B48D2FA024C23823009AD3FD /* evilsnowman-0.5.png in Resources */,
 				B4B1278524EA3001000EA6CF /* spider-13.png in Resources */,
 				B4F270FA24CB798E0042788B /* sandtwister-4.png in Resources */,
@@ -880,10 +936,13 @@
 				B4B1278324EA3001000EA6CF /* spider-8.png in Resources */,
 				B495825624BC3F6800BC1857 /* MaassslicerItalic.ps in Resources */,
 				B43EC5ED24C539D700B3EB47 /* snowyeti-6.png in Resources */,
+				B493A91624EF682E00C51B62 /* redreplay.png in Resources */,
 				B48D2FA524C23823009AD3FD /* evilsnowman-1.png in Resources */,
+				B4A6BB3D24F1964C00FDEF7D /* difficultybackg.jpg in Resources */,
 				B42FF98F24ECC2D600B35118 /* coy-15.png in Resources */,
 				B4602C4B24C680F300B1E4EE /* desert.png in Resources */,
 				B4B1277C24EA3001000EA6CF /* spider-3.png in Resources */,
+				B493A91524EF682E00C51B62 /* bluereplay.png in Resources */,
 				B4B1278024EA3001000EA6CF /* spider-2.png in Resources */,
 				B42FF9A824ECC4DE00B35118 /* snake-11.png in Resources */,
 				B479DE7224C2CD4B00E3F2BE /* snowbol-7.png in Resources */,
@@ -891,6 +950,7 @@
 				B42FF9A724ECC4DE00B35118 /* snake-9.png in Resources */,
 				B42FF95A24ECC22F00B35118 /* golem-4.png in Resources */,
 				B495824A24BC2E4700BC1857 /* bobby-9.png in Resources */,
+				B4AF094224F1BC4D00EC97D6 /* goldcoin-9.png in Resources */,
 				B479DE7424C2CD4B00E3F2BE /* snowbol-5.png in Resources */,
 				B42FF98824ECC2D600B35118 /* coy-17.png in Resources */,
 				B43EC5DD24C539D700B3EB47 /* snowyeti-13.png in Resources */,
@@ -902,6 +962,8 @@
 				B4B1277E24EA3001000EA6CF /* spider-5.png in Resources */,
 				B495826224BC437500BC1857 /* volume-on.png in Resources */,
 				B48D2FA224C23823009AD3FD /* evilsnowman-2.png in Resources */,
+				B4AF094024F1BC4D00EC97D6 /* goldcoin-5.png in Resources */,
+				B493A91724EF682E00C51B62 /* rednext.png in Resources */,
 				B495826424BC4BA300BC1857 /* BitPap.ps in Resources */,
 				B45C7CDE24D0C51800B5A79E /* sydneybackg.jpg in Resources */,
 				B42FF99824ECC2D600B35118 /* coy-12.png in Resources */,
@@ -926,6 +988,7 @@
 				B479DE7324C2CD4B00E3F2BE /* snowbol-8.png in Resources */,
 				B495824824BC2E4700BC1857 /* bobby-5.png in Resources */,
 				B495824024BC2E4700BC1857 /* bobby-10.png in Resources */,
+				B4AF094124F1BC4D00EC97D6 /* goldcoin-6.png in Resources */,
 				B468DACC24CB757500C72BB3 /* sandprev-1.png in Resources */,
 				B42FF99224ECC2D600B35118 /* coy-14.png in Resources */,
 				B43EC5E824C539D700B3EB47 /* snowyeti-18.png in Resources */,
@@ -941,6 +1004,7 @@
 				B48D2FA724C23823009AD3FD /* evilsnowman-9.png in Resources */,
 				B495824C24BC2E4700BC1857 /* idle-2.png in Resources */,
 				B42FF9AB24ECC4DE00B35118 /* snake-2.png in Resources */,
+				B4AF093C24F1BC4D00EC97D6 /* goldcoin-3.png in Resources */,
 				B42FF99724ECC2D600B35118 /* coy-5.png in Resources */,
 				B48D2FA124C23823009AD3FD /* evilsnowman-7.png in Resources */,
 				B43EC5E624C539D700B3EB47 /* snowyeti-15.png in Resources */,

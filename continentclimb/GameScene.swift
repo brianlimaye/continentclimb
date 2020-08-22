@@ -11,6 +11,18 @@ import SpriteKit
 import AVFoundation
 import StoreKit
 
+var cameraNode: SKCameraNode = SKCameraNode()
+
+struct gameData {
+    
+    static var startingHeroPos: CGPoint = CGPoint(x: 0, y: 0)
+}
+
+struct savedData {
+    
+    static var coinCount: Int = 0
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     struct ColliderType {
@@ -24,6 +36,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let bat: UInt32 = 7
         static let spider: UInt32 = 8
         static let rock: UInt32 = 9
+        static let coin: UInt32 = 10
     }
     
     let characterSpeed: TimeInterval = 0.25
@@ -49,6 +62,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var spider: SKSpriteNode = SKSpriteNode()
     var golem: SKSpriteNode = SKSpriteNode()
     var rock: SKSpriteNode = SKSpriteNode()
+    var coin: SKSpriteNode = SKSpriteNode()
     
     var rain: SKEmitterNode = SKEmitterNode()
     var snow: SKEmitterNode = SKEmitterNode()
@@ -74,12 +88,33 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var backgName: String = String()
     var levelNames: [String] = [String]()
     
-    var isLevelPassed: Bool = false
+    var backButton: SKSpriteNode = SKSpriteNode()
+    var nextButton: SKSpriteNode = SKSpriteNode()
+    var replayButton: SKSpriteNode = SKSpriteNode()
+    
+    var isLevelPassed: Bool = true
+    
+    var i: Int = 0
     
     
     override func didMove(to view: SKView) {
         
         physicsWorld.contactDelegate = self
+        
+        GameViewController.gameScene = self
+        scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        (platName, backgName, levelNames) = PlistParser.getLayoutPackage(forKey: terrainKeyword, property1: "platform", property2: "background")
+        selectDifficulty()
+        drawBackground()
+        drawPlatform()
+        drawCharacter()
+        
+        self.addChild(cameraNode)
+    }
+    
+    func initializeGame() {
+        
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
         swipeUp.direction = .up
         self.view?.addGestureRecognizer(swipeUp)
@@ -88,28 +123,60 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swipeDown.direction = .down
         self.view?.addGestureRecognizer(swipeDown)
         
-        (platName, backgName, levelNames) = PlistParser.getLayoutPackage(forKey: terrainKeyword, property1: "platform", property2: "background")
-        
-        
-        GameViewController.gameScene = self
-        scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        
         //selectDifficulty()
         initObjects()
-        drawBackground()
-        drawPlatform()
+    
         //addSnow()
-        drawCharacter()
+        i += 1
+    }
+    
+    func initButtons() {
+        
+        var buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
+        
+        backButton = SKSpriteNode(imageNamed: "bluehome")
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            buttonMultiplier = self.frame.size.width * 0.0007
+        }
+        
+        backButton.size = CGSize(width: backButton.size.width * buttonMultiplier, height: backButton.size.height * buttonMultiplier)
+        backButton.position = CGPoint(x: -self.frame.size.width / 8, y: self.frame.size.height / 32)
+        backButton.zPosition = 3
+        backButton.isUserInteractionEnabled = false
+        backButton.name = "back"
+        
+        nextButton = SKSpriteNode(imageNamed: "bluenext")
+        nextButton.size = CGSize(width: nextButton.size.width * buttonMultiplier, height: nextButton.size.height * buttonMultiplier)
+        nextButton.position = CGPoint(x: self.frame.size.width / 8, y: self.frame.size.height / 32)
+        nextButton.zPosition = 3
+        nextButton.isUserInteractionEnabled = false
+        nextButton.name = "next"
+        
+        replayButton = SKSpriteNode(imageNamed: "bluereplay")
+        replayButton.size = CGSize(width: replayButton.size.width * buttonMultiplier, height: replayButton.size.height * buttonMultiplier)
+        replayButton.position = CGPoint(x: 0, y: self.frame.size.height / 32)
+        replayButton.zPosition = 3
+        replayButton.isUserInteractionEnabled = false
+        replayButton.name = "replay"
+        
+        self.addChild(backButton)
+        self.addChild(nextButton)
+        self.addChild(replayButton)
+        
     }
     
     func selectDifficulty() {
         
+        difficultyBox.isHidden = false
+        
         difficultyBox = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 1.5, height: self.frame.size.width / 5))
-        difficultyBox.fillTexture = SKTexture(imageNamed: "gradient.jpg")
+        difficultyBox.fillTexture = SKTexture(imageNamed: "difficultybackg.jpg")
         difficultyBox.fillColor = .white
         difficultyBox.strokeColor = .white
         difficultyBox.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
-        difficultyBox.lineWidth = 5
+        difficultyBox.lineWidth = 2
         
         self.addChild(difficultyBox)
         
@@ -133,7 +200,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultySubBox1.fillColor = .yellow
         difficultySubBox1.strokeColor = .black
         difficultySubBox1.position = CGPoint(x: 0, y: -self.frame.height / 20)
-        difficultySubBox1.lineWidth = 5
+        difficultySubBox1.lineWidth = 2
+        difficultySubBox1.name = "level-1"
+        difficultySubBox1.isUserInteractionEnabled = false
         
         difficultyBox.addChild(difficultySubBox1)
         
@@ -142,14 +211,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultySubText1.fontSize = self.frame.size.width / 45
         difficultySubText1.text = levelNames[1]
         difficultySubText1.position = CGPoint(x: 0, y: 0)
-        
+        difficultySubText1.name = "level-1text"
+        difficultySubText1.isUserInteractionEnabled = false
+
         difficultyBox.addChild(difficultySubText1)
         
         twoStar = SKSpriteNode(imageNamed: "two-star")
         twoStar.size = CGSize(width: self.frame.size.width / 9, height: self.frame.size.width / 9)
         twoStar.position = CGPoint(x: 0, y: 0)
+        twoStar.name = "twostar"
+        twoStar.isUserInteractionEnabled = false
         
-        self.addChild(twoStar)
+        difficultyBox.addChild(twoStar)
         
         twoStar.position.y = -self.frame.size.height / 9.25
         
@@ -157,7 +230,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultySubBox2.fillColor = .green
         difficultySubBox2.strokeColor = .black
         difficultySubBox2.position = CGPoint(x: -self.frame.size.width / 4, y: -self.frame.height / 20)
-        difficultySubBox2.lineWidth = 5
+        difficultySubBox2.lineWidth = 2
+        difficultySubBox2.name = "level-2"
+        difficultySubBox2.isUserInteractionEnabled = false
         
         difficultyBox.addChild(difficultySubBox2)
         
@@ -166,22 +241,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultySubText2.fontSize = self.frame.size.width / 45
         difficultySubText2.text = levelNames[0]
         difficultySubText2.position = CGPoint(x: -self.frame.size.width / 4, y: 0)
+        difficultySubText2.name = "level-2text"
+        difficultySubText2.isUserInteractionEnabled = false
+
+        
         difficultyBox.addChild(difficultySubText2)
         
         oneStar = SKSpriteNode(imageNamed: "one-star")
         
         oneStar.size = CGSize(width: self.frame.size.width / 15, height: self.frame.size.width / 15)
-        print(oneStar.size)
-        
         oneStar.position = CGPoint(x: -self.frame.size.width / 3.95, y: -self.frame.size.height / 8.75)
+        oneStar.name = "onestar"
+        oneStar.isUserInteractionEnabled = false
         
-        self.addChild(oneStar)
+        difficultyBox.addChild(oneStar)
         
         difficultySubBox3 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
         difficultySubBox3.fillColor = .red
         difficultySubBox3.strokeColor = .black
         difficultySubBox3.position = CGPoint(x: self.frame.size.width / 4, y: -self.frame.height / 20)
-        difficultySubBox3.lineWidth = 5
+        difficultySubBox3.lineWidth = 2
+        difficultySubBox3.name = "level-3"
+        difficultySubBox3.isUserInteractionEnabled = false
         
         difficultyBox.addChild(difficultySubBox3)
         
@@ -190,12 +271,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultySubText3.fontSize = self.frame.size.width / 45
         difficultySubText3.text = levelNames[2]
         difficultySubText3.position = CGPoint(x: self.frame.size.width / 4, y: 0)
-        
+        difficultySubText3.name = "level-3text"
+        difficultySubText3.isUserInteractionEnabled = false
+
         difficultyBox.addChild(difficultySubText3)
         
         threeStar = SKSpriteNode(imageNamed: "three-star")
         threeStar.size = CGSize(width: self.frame.size.width / 6, height: self.frame.size.width / 6)
         threeStar.position = CGPoint(x: self.frame.size.width / 3.8, y: -self.frame.size.height / 8.5)
+        threeStar.name = "threestar"
+        threeStar.isUserInteractionEnabled = false
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
@@ -204,7 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             threeStar.position.y = -self.frame.size.height / 9.5
         }
         
-        self.addChild(threeStar)
+        difficultyBox.addChild(threeStar)
         
     }
 
@@ -233,12 +318,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: 0.5)
+            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: 0.3)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: 0.33)
+            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: 0.2)
         }
         
         let sandstormRepeater = SKAction.repeatForever(sandstormAnim)
@@ -254,7 +339,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var riseAction: SKAction = SKAction()
         var riseRepeater: SKAction = SKAction()
         
-        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
+        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: 0.9)
         
         let shiftRepeater = SKAction.repeat(secondShift, count: 1)
         
@@ -288,6 +373,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func resumeRunning() {
         
         hero.run(heroRunAction)
+    }
+    
+    func pauseRunning() {
+        
+        hero.removeAllActions()
     }
     
     func drawPlatform() {
@@ -342,7 +432,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             icePlatform.run(infinitePlat)
 
             icePlatform.name = "platform" + lowerBound.description
-            self.addChild(icePlatform)
+            cameraNode.addChild(icePlatform)
             lowerBound += 1
 
             // Set background first
@@ -399,7 +489,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             icyBackground.run(infiniteBackg)
 
             icyBackground.name = "background" + lowerBound.description
-            self.addChild(icyBackground)
+            cameraNode.addChild(icyBackground)
             lowerBound += 1
 
             // Set background first
@@ -418,15 +508,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero = SKSpriteNode(imageNamed: "bobby-6")
         
         hero.size = CGSize(width: hero.size.width * (self.frame.size.width * 0.00035), height: hero.size.height * (self.frame.size.width * 0.00035))
-        hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.55)
+        
+        hero.position = CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.35)
+
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            hero.position.y = -self.frame.size.height / 3.5
+        }
         hero.name = "hero"
         
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            hero.position.y = -self.frame.size.height / 3.35
-        }
-        
-        initialYPos = hero.position.y
+        gameData.startingHeroPos = hero.position
         hero.zPosition = 0
 
         
@@ -439,6 +530,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hero.physicsBody?.isDynamic = true
         
         self.addChild(hero)
+    }
+    
+    func drawCoin() {
+        
+        let coinFrames: [SKTexture] = [SKTexture(imageNamed: "goldcoin-1"), SKTexture(imageNamed: "goldcoin-2"), SKTexture(imageNamed: "goldcoin-3"), SKTexture(imageNamed: "goldcoin-4"), SKTexture(imageNamed: "goldcoin-5"), SKTexture(imageNamed: "goldcoin-6"), SKTexture(imageNamed: "goldcoin-7"), SKTexture(imageNamed: "goldcoin-8"), SKTexture(imageNamed: "goldcoin-9")]
+        
+        let coinAnim = SKAction.animate(with: coinFrames, timePerFrame: realCharSpeed)
+        let coinShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2.5)
+        let coinRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        
+        let coinSeq = SKAction.sequence([coinShift, coinRevert])
+        
+        let coinAnimRepeater = SKAction.repeatForever(coinAnim)
+        let shiftRepeater = SKAction.repeat(coinSeq, count: 1)
+    
+        coin.run(coinAnimRepeater)
+        coin.run(shiftRepeater, completion: fadeInCoin)
+    }
+    
+    func fadeInCoin() {
+        
+        coin.alpha = 1.0
+    }
+    
+    func fadeOutCoin() {
+        
+        let fadeOut = SKAction.fadeOut(withDuration: 0.15)
+        
+        let fadeRepeater = SKAction.repeat(fadeOut, count: 1)
+        
+        coin.run(fadeRepeater)
     }
     
     @objc func slideHero() {
@@ -466,7 +588,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
         let duckRepeater = SKAction.repeat(duckAnim, count: 1)
         
-        hero.run(duckRepeater, completion: duckRevert)
+        hero.run(duckRepeater, completion: duckMoveUp)
+        
+    }
+    
+    func duckMoveUp() {
+        
+        var duckReversion: SKAction = SKAction()
+        
+        duckReversion = SKAction.moveTo(y: gameData.startingHeroPos.y, duration: 0.1)
+        
+        hero.run(duckReversion, completion: duckRevert)
         
     }
     
@@ -474,15 +606,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var duckReversion: SKAction = SKAction()
         
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.35), duration: 0.25)
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: -self.frame.size.height / 3.55), duration: 0.25)
-        }
+        duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: gameData.startingHeroPos.y), duration: 0.15)
         
         hero.run(duckReversion, completion: resumeRunning)
     }
@@ -542,7 +666,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var landAnim: SKAction = SKAction()
         
-        landAnim = SKAction.moveTo(y: initialYPos, duration: 0.25)
+        landAnim = SKAction.moveTo(y: gameData.startingHeroPos.y, duration: 0.25)
         
         let landRepeater = SKAction.repeat(landAnim, count: 1)
         
@@ -693,13 +817,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawFallenSnowball() {
         
-        let rand = Int.random(in: 1 ... 2)
+        let rand: Int = 1
         
         let startingY = matchSnowballX(rand: rand)
         
         snowball.position = CGPoint(x: startingY, y: self.frame.size.height)
         
-        let snowballFall = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3.5, y: hero.position.y), duration: 1)
+        let snowballFall = SKAction.move(to: CGPoint(x: gameData.startingHeroPos.x, y: gameData.startingHeroPos.y - 25), duration: 1)
         
         let fallRepeater = SKAction.repeat(snowballFall, count: 1)
         
@@ -708,7 +832,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func fadeSnowball() {
         
-        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.1)
         
         snowball.run(fadeOut, completion: revertSnowball)
     }
@@ -1048,12 +1172,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.5)
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4.75)
         }
         
         batSprite.xScale = -1
         
-        batSprite.physicsBody = SKPhysicsBody(circleOfRadius: batSprite.size.width / 3.25)
+        batSprite.physicsBody = SKPhysicsBody(circleOfRadius: batSprite.size.width / 3.3)
         batSprite.physicsBody?.affectedByGravity = false
         batSprite.physicsBody?.categoryBitMask = ColliderType.bat
         batSprite.physicsBody?.collisionBitMask = ColliderType.hero
@@ -1070,7 +1194,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.85)
+            spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
@@ -1123,6 +1247,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         rock.physicsBody?.isDynamic = false
         
         self.addChild(rock)
+        
+        //Coin
+        
+        coin = SKSpriteNode(imageNamed: "goldcoin-1")
+        coin.size = CGSize(width: coin.size.width * (self.frame.size.width * 0.00015), height: coin.size.height * (self.frame.size.width * 0.00015))
+        coin.position = CGPoint(x: self.frame.size.width, y: gameData.startingHeroPos.y + 150)
+        coin.name = "coin"
+        
+        coin.physicsBody = SKPhysicsBody(circleOfRadius: coin.size.width / 2)
+        coin.physicsBody?.affectedByGravity = false
+        coin.physicsBody?.categoryBitMask = ColliderType.coin
+        coin.physicsBody?.collisionBitMask = ColliderType.hero
+        coin.physicsBody?.contactTestBitMask = ColliderType.hero
+        coin.physicsBody?.isDynamic = false
+        
+        self.addChild(coin)
     }
     
     func performDieAnimation() {
@@ -1153,7 +1293,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func pauseBackgAndPlatform() {
         
-        for child in self.children
+        for child in cameraNode.children
         {
             if((child.name == "background-1.0") || (child.name == "background0.0") || (child.name == "background1.0") || (child.name == "background2.0"))
             {
@@ -1167,33 +1307,107 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func resumeBackgAndPlatform() {
+        
+        for child in cameraNode.children
+        {
+            if((child.name == "background-1.0") || (child.name == "background0.0") || (child.name == "background1.0") || (child.name == "background2.0"))
+            {
+                child.speed = 1
+            }
+            
+            if((child.name == "platform-1.0") || (child.name == "platform0.0") || (child.name == "platform1.0") || (child.name == "platform2.0"))
+            {
+                child.speed = 1
+            }
+        }
+        
+    }
+    
+    func performEndingAnimation() {
+        
+        let characterShift = SKAction.moveTo(x: self.frame.size.width / 2.5, duration: 2)
+        
+        let shiftRepeater = SKAction.repeat(characterShift, count: 1)
+        
+        hero.run(shiftRepeater, completion: pauseRunning)
+    }
+    
     func endGame() {
         
         pauseBackgAndPlatform()
+        performEndingAnimation()
         showEndingMenu()
         
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+                    
+        if let touch = touches.first {
+            
+            let location = touch.previousLocation(in: self)
+            let node = self.nodes(at: location).first
+                        
+            if(node?.name == "replay")
+            {
+                startGame()
+            }
+                
+            else if((difficultySubBox1.contains(location)) || (difficultySubBox2.contains(location)) || (difficultySubBox3.contains(location)))
+            {
+                if((node?.name == "level-1") && (node?.name == "level-1text") || (node?.name == "level-2") || (node?.name == "level-2text") || (node?.name == "level-3") || (node?.name == "level-3text") ||  (node?.name == "onestar") || (node?.name == "twostar") || (node?.name == "threestar"))
+                {
+                    initializeGame()
+                    difficultyBox.isHidden = true
+                }
+            }
+            
+            /*
+            else if(((node?.name == "level-1") && (node?.name == "level-1text")) || ((node?.name == "level-1") && (node?.name == "onestar")))
+            {
+                print("hayo")
+            }
+             */
+            
+            
+            else if((node?.name == "level-1") || (node?.name == "level-1text") || (node?.name == "level-2") || (node?.name == "level-2text") || (node?.name == "level-3") || (node?.name == "level-3text") || (node?.name == "onestar") || (node?.name == "twostar") || (node?.name == "threestar"))
+            {
+                print("sure")
+            }
+       }
+    }
+    
     func showEndingMenu() -> Void {
         
-        gameOverDisplay = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.midY - 20, width: self.frame.width * 2, height: self.frame.height / 3.5))
+        var menuHeight: CGFloat = self.frame.size.height / 3.5
+        var statusSize: CGFloat = self.frame.size.width * 0.05
+        var statusXPos: CGFloat = self.frame.size.width / 10
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            menuHeight = self.frame.height / 4.15
+            statusSize = self.frame.size.width * 0.06
+            statusXPos = self.frame.size.width / 7
+        }
+        
+        gameOverDisplay = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.midY - 20, width: self.frame.width * 2, height: menuHeight))
         gameOverDisplay.fillColor = .black
         gameOverDisplay.alpha = 0.5
                 
         levelAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
         levelAlert.fontColor = .white
-        levelAlert.fontSize = (self.frame.size.width * 0.06)
-        levelAlert.position = CGPoint(x: 0, y: 55)
-        levelAlert.text = "Level BETA:"
+        levelAlert.fontSize = statusSize
+        levelAlert.position = CGPoint(x: -self.frame.size.width / 7.5, y: self.frame.size.height / 8)
+        levelAlert.text = "Beta Run:"
         
         levelStatusAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
-        levelStatusAlert.fontSize = (self.frame.size.width * 0.05)
-        levelStatusAlert.position = CGPoint(x: 0, y: 0)
+        levelStatusAlert.fontSize = statusSize
+        levelStatusAlert.position = CGPoint(x: statusXPos, y: self.frame.size.height / 8)
         
         if(isLevelPassed)
         {
             levelStatusAlert.fontColor = .green
-            levelStatusAlert.text = "PASSED"
+            levelStatusAlert.text = "COMPLETED"
         }
 
         else
@@ -1205,6 +1419,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //initReplayButton()
         //initHomeButton()
         
+        initButtons()
+        
         self.addChild(gameOverDisplay)
         self.addChild(levelAlert)
         self.addChild(levelStatusAlert)
@@ -1215,41 +1431,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
         
-        hero.physicsBody?.isDynamic = false
-        performDieAnimation()
+        if(((nodeA?.name == "hero") && (nodeB?.name == "coin")) || ((nodeA?.name == "coin") && (nodeB?.name == "hero")))
+        {
+            fadeOutCoin()
+            
+            let fillerAction = SKAction.resize(toWidth: coin.size.width, duration: 1)
+
+            hero.physicsBody?.isDynamic = false
+            savedData.coinCount += 1
+            
+            coin.run(fillerAction, completion: makeHeroDynamic)
+            return
+        }
+        else
+        {
+            hero.physicsBody?.isDynamic = false
+            performDieAnimation()
+        }
+    }
+    
+    func makeHeroDynamic() {
         
-        if(((nodeA?.name == "hero") && (nodeB?.name == "snowball")) || ((nodeA?.name == "snowball") && (nodeB?.name == "hero")))
-        {
-            
-        }
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "yeti")) || ((nodeA?.name == "yeti") && (nodeB?.name == "hero")))
-        {
-            
-        }
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "coyote")) || ((nodeA?.name == "coyote") && (nodeB?.name == "hero")))
-        {
-            
-        }
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "snake")) || ((nodeA?.name == "snake") && (nodeB?.name == "hero")))
-        {
-            
-        }
+        hero.physicsBody?.isDynamic = true
+    }
+    
+    func cleanUp() {
         
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "sandstorm")) || ((nodeA?.name == "sandstorm") && (nodeB?.name == "hero")))
-        {
+        for child in self.children {
             
+            if(!child.isEqual(to: cameraNode))
+            {
+                child.removeAllActions()
+                child.removeFromParent()
+            }
         }
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "bat")) || ((nodeA?.name == "bat") && (nodeB?.name == "hero")))
-        {
-            
-        }
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "spider")) || ((nodeA?.name == "spider") && (nodeB?.name == "hero")))
-        {
-            
-        }
-        else if(((nodeA?.name == "hero") && (nodeB?.name == "rock")) || ((nodeA?.name == "rock") && (nodeB?.name == "hero")))
-        {
-            
-        }
+   }
+    
+    func startGame() {
+        
+        cleanUp()
+        resumeBackgAndPlatform()
+        initializeGame()
     }
 }

@@ -6,25 +6,25 @@
 	<array>
 		<string>snowgrounds.png</string>
 		<string>icybackground.png</string>
-		<string>Duluth, MN</string>
-		<string>Fargo, ND</string>
-		<string>Fairbanks, AK</string>
+		<string>Alaska</string>
+		<string>Greenland</string>
+		<string>Arctic Circle</string>
 	</array>
 	<key>desert</key>
 	<array>
 		<string>desertgrounds.png</string>
 		<string>desert.png</string>
-		<string>Tuscon, AZ</string>
-		<string>Thermal, CA</string>
+		<string>Phoenix</string>
+		<string>Havasu City</string>
 		<string>Death Valley</string>
 	</array>
 	<key>cave</key>
 	<array>
 		<string>cavegrounds.png</string>
 		<string>cave.jpg</string>
-		<string>n/a</string>
-		<string>n/a</string>
-		<string>n/a</string>
+		<string>Luray Caverns</string>
+		<string>Wind Cave</string>
+		<string>Mammoth</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>

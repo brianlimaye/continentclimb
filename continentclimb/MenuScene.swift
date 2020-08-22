@@ -89,6 +89,7 @@ class MenuScene: SKScene {
         mainText.text = "Chapters"
         
         mainText.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2.9)
+        mainText.zPosition = 3
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -137,8 +138,8 @@ class MenuScene: SKScene {
         chapterOneText.name = "Northamerica"
         chapterOneText.text = "Chapter 1: North America"
         
+        chapterOneShape.zPosition = 3
         chapterOneShape.addChild(chapterOneText)
-        chapterOneText.isUserInteractionEnabled = false
         chapterOneShape.isUserInteractionEnabled = false
         
         chapterOneText.position.y = self.frame.size.height / 6.85
@@ -164,6 +165,7 @@ class MenuScene: SKScene {
         chapterTwoText.name = "Southamerica"
         chapterTwoText.text = "Chapter 2: South America"
         
+        chapterTwoShape.zPosition = 3
         chapterTwoShape.addChild(chapterTwoText)
         chapterTwoShape.isUserInteractionEnabled = false
         
@@ -190,6 +192,7 @@ class MenuScene: SKScene {
         chapterThreeText.name = "Antarctica"
         chapterThreeText.text = "Chapter 3: Antarctica"
         
+        chapterThreeShape.zPosition = 3
         chapterThreeShape.addChild(chapterThreeText)
         chapterThreeShape.isUserInteractionEnabled = false
         
@@ -216,6 +219,7 @@ class MenuScene: SKScene {
         chapterFourText.name = "Africa"
         chapterFourText.text = "Chapter 4: Africa"
         
+        chapterFourShape.zPosition = 3
         chapterFourShape.addChild(chapterFourText)
         chapterFourShape.isUserInteractionEnabled = false
         
@@ -242,6 +246,7 @@ class MenuScene: SKScene {
         chapterFiveText.name = "Europe"
         chapterFiveText.text = "Chapter 5: Europe"
         
+        chapterFiveShape.zPosition = 3
         chapterFiveShape.addChild(chapterFiveText)
         chapterFiveShape.isUserInteractionEnabled = false
         
@@ -268,6 +273,7 @@ class MenuScene: SKScene {
         chapterSixText.name = "Asia"
         chapterSixText.text = "Chapter 6: Asia"
         
+        chapterSixShape.zPosition = 3
         chapterSixShape.addChild(chapterSixText)
         chapterSixShape.isUserInteractionEnabled = false
         
@@ -294,6 +300,7 @@ class MenuScene: SKScene {
         chapterSevenText.name = "Australia"
         chapterSevenText.text = "Chapter 7: Australia"
         
+        chapterSevenShape.zPosition = 3
         chapterSevenShape.addChild(chapterSevenText)
         chapterSevenShape.isUserInteractionEnabled = false
         
