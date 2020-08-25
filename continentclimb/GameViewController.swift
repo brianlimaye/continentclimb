@@ -9,6 +9,8 @@
 import UIKit
 import SpriteKit
 import GameplayKit
+import AVKit
+import AVFoundation
 
 class GameViewController: UIViewController {
     
@@ -43,6 +45,9 @@ class GameViewController: UIViewController {
             view.showsNodeCount = true
             //view.showsPhysics = true
         }
+        
+        MusicHelper.sharedHelper.prepareToPlay()
+        MusicHelper.sharedHelper.audioPlayer?.play()
 
     }
     

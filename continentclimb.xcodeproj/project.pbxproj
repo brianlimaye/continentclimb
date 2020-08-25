@@ -3,11 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B40DDCF624ECDCAF002A07CB /* cavegrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B40DDCF524ECDCAF002A07CB /* cavegrounds.png */; };
+		175DB4BE0970204DB3B1A0AB /* Pods_continentclimb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E47A25CFA830431D2997B34E /* Pods_continentclimb.framework */; };
+		B41B7AC124F212BF00A12ACC /* Antapani-ExtraBold.ps in Resources */ = {isa = PBXBuildFile; fileRef = B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */; };
 		B4252C7B24DB3B5B0028FE7E /* three-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B4252C7924DB3B5B0028FE7E /* three-star.png */; };
 		B4252C7C24DB3B5B0028FE7E /* two-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B4252C7A24DB3B5B0028FE7E /* two-star.png */; };
 		B42F95AF24E86C0100BE7182 /* cave.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B42F95AE24E86C0100BE7182 /* cave.jpg */; };
@@ -102,7 +103,6 @@
 		B45C7CCC24D0AA7200B5A79E /* purpleskies.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CCB24D0AA7200B5A79E /* purpleskies.jpg */; };
 		B45C7CCE24D0AB5900B5A79E /* junglebackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CCD24D0AB5800B5A79E /* junglebackg.jpg */; };
 		B45C7CD024D0ABEC00B5A79E /* aurorabackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CCF24D0ABEC00B5A79E /* aurorabackg.jpg */; };
-		B45C7CD224D0AD0A00B5A79E /* NationalPark-Heavy.ps in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CD124D0AD0900B5A79E /* NationalPark-Heavy.ps */; };
 		B45C7CD424D0B28D00B5A79E /* ScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B45C7CD324D0B28D00B5A79E /* ScrollView.swift */; };
 		B45C7CD624D0BD6800B5A79E /* leopardbackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CD524D0BD6800B5A79E /* leopardbackg.jpg */; };
 		B45C7CDA24D0C0A600B5A79E /* greecebackg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B45C7CD924D0C0A600B5A79E /* greecebackg.jpg */; };
@@ -111,7 +111,6 @@
 		B4602C4B24C680F300B1E4EE /* desert.png in Resources */ = {isa = PBXBuildFile; fileRef = B4602C4A24C680F300B1E4EE /* desert.png */; };
 		B4602C4F24C69AA500B1E4EE /* desertgrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4602C4E24C69AA500B1E4EE /* desertgrounds.png */; };
 		B4602C5124C69BC300B1E4EE /* PlistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4602C5024C69BC300B1E4EE /* PlistParser.swift */; };
-		B464E6E324CE3C9800DD5B18 /* sniper.png in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E224CE3C9800DD5B18 /* sniper.png */; };
 		B464E6E724CE43C700DD5B18 /* AthenaVKFRegular.ps in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */; };
 		B464E6E924CE4E2500DD5B18 /* HellofreedayDEMO.ps in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */; };
 		B468DAC924CB757500C72BB3 /* sandprev-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC524CB757500C72BB3 /* sandprev-4.png */; };
@@ -127,6 +126,10 @@
 		B479DE7424C2CD4B00E3F2BE /* snowbol-5.png in Resources */ = {isa = PBXBuildFile; fileRef = B479DE6C24C2CD4B00E3F2BE /* snowbol-5.png */; };
 		B479DE7524C2CD4B00E3F2BE /* snowbol-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B479DE6D24C2CD4B00E3F2BE /* snowbol-3.png */; };
 		B479DE7624C2CD4B00E3F2BE /* snowbol-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B479DE6E24C2CD4B00E3F2BE /* snowbol-6.png */; };
+		B47ED57124F47C9C00293311 /* cavemessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED56F24F47C9C00293311 /* cavemessage.png */; };
+		B47ED57224F47C9C00293311 /* desertmessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED57024F47C9C00293311 /* desertmessage.png */; };
+		B47ED57424F47CB800293311 /* snowmessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED57324F47CB800293311 /* snowmessage.png */; };
+		B48D027F24F2DC07000E4E45 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = B48D027E24F2DC07000E4E45 /* Podfile */; };
 		B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9324C23823009AD3FD /* evilsnowman-4.png */; };
 		B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9424C23823009AD3FD /* evilsnowman-8.png */; };
 		B48D2FA024C23823009AD3FD /* evilsnowman-0.5.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9524C23823009AD3FD /* evilsnowman-0.5.png */; };
@@ -145,6 +148,8 @@
 		B493A91624EF682E00C51B62 /* redreplay.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A91024EF682E00C51B62 /* redreplay.png */; };
 		B493A91724EF682E00C51B62 /* rednext.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A91124EF682E00C51B62 /* rednext.png */; };
 		B493A91824EF682E00C51B62 /* redback.png in Resources */ = {isa = PBXBuildFile; fileRef = B493A91224EF682E00C51B62 /* redback.png */; };
+		B495113D24F35817007A8986 /* checkmark.png in Resources */ = {isa = PBXBuildFile; fileRef = B495113624F35817007A8986 /* checkmark.png */; };
+		B495113F24F36BBC007A8986 /* NationalPark-Heavy.ps in Resources */ = {isa = PBXBuildFile; fileRef = B495113E24F36BBB007A8986 /* NationalPark-Heavy.ps */; };
 		B495823E24BC2E4700BC1857 /* bobby-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822E24BC2E4600BC1857 /* bobby-8.png */; };
 		B495823F24BC2E4700BC1857 /* idle-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B495822F24BC2E4600BC1857 /* idle-1.png */; };
 		B495824024BC2E4700BC1857 /* bobby-10.png in Resources */ = {isa = PBXBuildFile; fileRef = B495823024BC2E4600BC1857 /* bobby-10.png */; };
@@ -196,6 +201,8 @@
 		B4BD1F5E24E739B7006C82FB /* GemunuLibre-ExtraBold.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */; };
 		B4BD1F6224E73D6C006C82FB /* gradient.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F6124E73D6B006C82FB /* gradient.jpg */; };
 		B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4C0517D24ED903B009E8B4D /* cavegrounds.png */; };
+		B4C24D9224F37574004F2A74 /* wildones.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4C24D8B24F37574004F2A74 /* wildones.mp3 */; };
+		B4C24D9424F375C9004F2A74 /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C24D9324F375C9004F2A74 /* MusicHelper.swift */; };
 		B4D3D4A524D3956C002AA8E2 /* stormy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4D3D4A424D3956C002AA8E2 /* stormy.jpg */; };
 		B4D3D4A724D39665002AA8E2 /* rainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4D3D4A624D39665002AA8E2 /* rainEffect.sks */; };
 		B4E5F48C24BD8E5D00A5A45D /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F48B24BD8E5D00A5A45D /* globe.png */; };
@@ -220,10 +227,54 @@
 			remoteGlobalIDString = B432F78F24BC1F140062EDB0;
 			remoteInfo = continentclimb;
 		};
+		B496FCB924F2DE4500C53A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496FCB324F2DE4500C53A41 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AC8F84958CCFD0FB83BB177FC9F79F;
+			remoteInfo = "Pods-continentclimb";
+		};
+		B496FCBB24F2DE4500C53A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496FCB324F2DE4500C53A41 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CFF2E4058F858816365EC642C6DD990;
+			remoteInfo = SAConfettiView;
+		};
+		B496FCBD24F2DE4500C53A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496FCB324F2DE4500C53A41 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E94B64C2BD13E14D90FC9CA3977F42AF;
+			remoteInfo = "SAConfettiView-SAConfettiView";
+		};
+		B496FCC524F2DE5000C53A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496FCBF24F2DE5000C53A41 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06AC8F84958CCFD0FB83BB177FC9F79F;
+			remoteInfo = "Pods-continentclimb";
+		};
+		B496FCC724F2DE5000C53A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496FCBF24F2DE5000C53A41 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4CFF2E4058F858816365EC642C6DD990;
+			remoteInfo = SAConfettiView;
+		};
+		B496FCC924F2DE5000C53A41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B496FCBF24F2DE5000C53A41 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E94B64C2BD13E14D90FC9CA3977F42AF;
+			remoteInfo = "SAConfettiView-SAConfettiView";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B40DDCF524ECDCAF002A07CB /* cavegrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = cavegrounds.png; path = ../../../../../../Downloads/cavegrounds.png; sourceTree = "<group>"; };
+		68E24C866F36DADF1355FC03 /* Pods-continentclimb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-continentclimb.debug.xcconfig"; path = "Target Support Files/Pods-continentclimb/Pods-continentclimb.debug.xcconfig"; sourceTree = "<group>"; };
+		7F8FDB1A27A41CEDA1EA8EAF /* Pods-continentclimb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-continentclimb.release.xcconfig"; path = "Target Support Files/Pods-continentclimb/Pods-continentclimb.release.xcconfig"; sourceTree = "<group>"; };
+		B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Antapani-ExtraBold.ps"; sourceTree = "<group>"; };
 		B4252C7924DB3B5B0028FE7E /* three-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three-star.png"; sourceTree = "<group>"; };
 		B4252C7A24DB3B5B0028FE7E /* two-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "two-star.png"; sourceTree = "<group>"; };
 		B42F95AE24E86C0100BE7182 /* cave.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = cave.jpg; sourceTree = "<group>"; };
@@ -322,7 +373,6 @@
 		B45C7CCB24D0AA7200B5A79E /* purpleskies.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = purpleskies.jpg; sourceTree = "<group>"; };
 		B45C7CCD24D0AB5800B5A79E /* junglebackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = junglebackg.jpg; sourceTree = "<group>"; };
 		B45C7CCF24D0ABEC00B5A79E /* aurorabackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = aurorabackg.jpg; sourceTree = "<group>"; };
-		B45C7CD124D0AD0900B5A79E /* NationalPark-Heavy.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NationalPark-Heavy.ps"; sourceTree = "<group>"; };
 		B45C7CD324D0B28D00B5A79E /* ScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollView.swift; sourceTree = "<group>"; };
 		B45C7CD524D0BD6800B5A79E /* leopardbackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = leopardbackg.jpg; sourceTree = "<group>"; };
 		B45C7CD924D0C0A600B5A79E /* greecebackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = greecebackg.jpg; sourceTree = "<group>"; };
@@ -331,7 +381,6 @@
 		B4602C4A24C680F300B1E4EE /* desert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desert.png; sourceTree = "<group>"; };
 		B4602C4E24C69AA500B1E4EE /* desertgrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desertgrounds.png; sourceTree = "<group>"; };
 		B4602C5024C69BC300B1E4EE /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
-		B464E6E224CE3C9800DD5B18 /* sniper.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sniper.png; sourceTree = "<group>"; };
 		B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = AthenaVKFRegular.ps; sourceTree = "<group>"; };
 		B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = HellofreedayDEMO.ps; sourceTree = "<group>"; };
 		B468DAC524CB757500C72BB3 /* sandprev-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-4.png"; sourceTree = "<group>"; };
@@ -347,6 +396,10 @@
 		B479DE6C24C2CD4B00E3F2BE /* snowbol-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowbol-5.png"; sourceTree = "<group>"; };
 		B479DE6D24C2CD4B00E3F2BE /* snowbol-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowbol-3.png"; sourceTree = "<group>"; };
 		B479DE6E24C2CD4B00E3F2BE /* snowbol-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowbol-6.png"; sourceTree = "<group>"; };
+		B47ED56F24F47C9C00293311 /* cavemessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cavemessage.png; sourceTree = "<group>"; };
+		B47ED57024F47C9C00293311 /* desertmessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desertmessage.png; sourceTree = "<group>"; };
+		B47ED57324F47CB800293311 /* snowmessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snowmessage.png; sourceTree = "<group>"; };
+		B48D027E24F2DC07000E4E45 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B48D2F9324C23823009AD3FD /* evilsnowman-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-4.png"; sourceTree = "<group>"; };
 		B48D2F9424C23823009AD3FD /* evilsnowman-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-8.png"; sourceTree = "<group>"; };
 		B48D2F9524C23823009AD3FD /* evilsnowman-0.5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-0.5.png"; sourceTree = "<group>"; };
@@ -365,6 +418,8 @@
 		B493A91024EF682E00C51B62 /* redreplay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redreplay.png; sourceTree = "<group>"; };
 		B493A91124EF682E00C51B62 /* rednext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rednext.png; sourceTree = "<group>"; };
 		B493A91224EF682E00C51B62 /* redback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redback.png; sourceTree = "<group>"; };
+		B495113624F35817007A8986 /* checkmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkmark.png; sourceTree = "<group>"; };
+		B495113E24F36BBB007A8986 /* NationalPark-Heavy.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NationalPark-Heavy.ps"; sourceTree = "<group>"; };
 		B495822E24BC2E4600BC1857 /* bobby-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-8.png"; sourceTree = "<group>"; };
 		B495822F24BC2E4600BC1857 /* idle-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "idle-1.png"; sourceTree = "<group>"; };
 		B495823024BC2E4600BC1857 /* bobby-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bobby-10.png"; sourceTree = "<group>"; };
@@ -390,6 +445,8 @@
 		B495825B24BC437500BC1857 /* volume-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-off.png"; sourceTree = "<group>"; };
 		B495825C24BC437500BC1857 /* volume-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "volume-on.png"; sourceTree = "<group>"; };
 		B495826324BC4BA300BC1857 /* BitPap.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = BitPap.ps; sourceTree = "<group>"; };
+		B496FCB324F2DE4500C53A41 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		B496FCBF24F2DE5000C53A41 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		B4A6BB3C24F1964C00FDEF7D /* difficultybackg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = difficultybackg.jpg; sourceTree = "<group>"; };
 		B4AF093124F1BC4C00EC97D6 /* goldcoin-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-1.png"; sourceTree = "<group>"; };
 		B4AF093224F1BC4C00EC97D6 /* goldcoin-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "goldcoin-4.png"; sourceTree = "<group>"; };
@@ -416,6 +473,8 @@
 		B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GemunuLibre-ExtraBold.ps"; sourceTree = "<group>"; };
 		B4BD1F6124E73D6B006C82FB /* gradient.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gradient.jpg; sourceTree = "<group>"; };
 		B4C0517D24ED903B009E8B4D /* cavegrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cavegrounds.png; sourceTree = "<group>"; };
+		B4C24D8B24F37574004F2A74 /* wildones.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wildones.mp3; sourceTree = "<group>"; };
+		B4C24D9324F375C9004F2A74 /* MusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
 		B4D3D4A424D3956C002AA8E2 /* stormy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = stormy.jpg; path = ../../../../../../Downloads/stormy.jpg; sourceTree = "<group>"; };
 		B4D3D4A624D39665002AA8E2 /* rainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = rainEffect.sks; sourceTree = "<group>"; };
 		B4E5F48B24BD8E5D00A5A45D /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
@@ -423,6 +482,7 @@
 		B4F270F624CB798E0042788B /* sandtwister-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandtwister-4.png"; sourceTree = "<group>"; };
 		B4F270F724CB798E0042788B /* sandtwister-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandtwister-3.png"; sourceTree = "<group>"; };
 		B4F270F824CB798E0042788B /* sandtwister-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandtwister-2.png"; sourceTree = "<group>"; };
+		E47A25CFA830431D2997B34E /* Pods_continentclimb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_continentclimb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +490,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				175DB4BE0970204DB3B1A0AB /* Pods_continentclimb.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -450,14 +511,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2A4C73A4D53C866FF8EDDC76 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				68E24C866F36DADF1355FC03 /* Pods-continentclimb.debug.xcconfig */,
+				7F8FDB1A27A41CEDA1EA8EAF /* Pods-continentclimb.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8DE74E93C67FF12241D2EF85 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E47A25CFA830431D2997B34E /* Pods_continentclimb.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B432F78724BC1F140062EDB0 = {
 			isa = PBXGroup;
 			children = (
+				B496FCBF24F2DE5000C53A41 /* Pods.xcodeproj */,
+				B48D027E24F2DC07000E4E45 /* Podfile */,
+				B496FCB324F2DE4500C53A41 /* Pods.xcodeproj */,
 				B43D02D924C02F6E008BB9DE /* Particles */,
 				B432F79224BC1F140062EDB0 /* continentclimb */,
 				B432F7AD24BC1F160062EDB0 /* continentclimbTests */,
 				B432F7B824BC1F160062EDB0 /* continentclimbUITests */,
 				B432F79124BC1F140062EDB0 /* Products */,
+				2A4C73A4D53C866FF8EDDC76 /* Pods */,
+				8DE74E93C67FF12241D2EF85 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -485,6 +568,7 @@
 				B432F7C924BC269D0062EDB0 /* MenuScene.swift */,
 				B432F79924BC1F140062EDB0 /* GameScene.swift */,
 				B432F79B24BC1F140062EDB0 /* GameViewController.swift */,
+				B4C24D9324F375C9004F2A74 /* MusicHelper.swift */,
 				B432F79D24BC1F140062EDB0 /* Main.storyboard */,
 				B432F7A024BC1F160062EDB0 /* Assets.xcassets */,
 				B495825424BC3E5F00BC1857 /* Fonts */,
@@ -515,6 +599,10 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B47ED57324F47CB800293311 /* snowmessage.png */,
+				B47ED56F24F47C9C00293311 /* cavemessage.png */,
+				B47ED57024F47C9C00293311 /* desertmessage.png */,
+				B495113624F35817007A8986 /* checkmark.png */,
 				B4AF093124F1BC4C00EC97D6 /* goldcoin-1.png */,
 				B4AF093524F1BC4C00EC97D6 /* goldcoin-2.png */,
 				B4AF093324F1BC4C00EC97D6 /* goldcoin-3.png */,
@@ -565,7 +653,6 @@
 				B42F95AE24E86C0100BE7182 /* cave.jpg */,
 				B4BD1F6124E73D6B006C82FB /* gradient.jpg */,
 				B46E96FB24E4FC07009777F9 /* one-star.png */,
-				B40DDCF524ECDCAF002A07CB /* cavegrounds.png */,
 				B4252C7A24DB3B5B0028FE7E /* two-star.png */,
 				B4252C7924DB3B5B0028FE7E /* three-star.png */,
 				B4D3D4A424D3956C002AA8E2 /* stormy.jpg */,
@@ -576,7 +663,6 @@
 				B45C7CCF24D0ABEC00B5A79E /* aurorabackg.jpg */,
 				B45C7CCD24D0AB5800B5A79E /* junglebackg.jpg */,
 				B45C7CCB24D0AA7200B5A79E /* purpleskies.jpg */,
-				B464E6E224CE3C9800DD5B18 /* sniper.png */,
 				B4F270F524CB798E0042788B /* sandtwister-1.png */,
 				B4F270F824CB798E0042788B /* sandtwister-2.png */,
 				B4F270F724CB798E0042788B /* sandtwister-3.png */,
@@ -690,6 +776,7 @@
 		B432F7CE24BC28E20062EDB0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				B4C24D8B24F37574004F2A74 /* wildones.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -707,10 +794,11 @@
 		B495825424BC3E5F00BC1857 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */,
 				B48FB68C24EDC6DD00C2FF01 /* CarbonBl-Regular.ps */,
 				B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */,
-				B45C7CD124D0AD0900B5A79E /* NationalPark-Heavy.ps */,
 				B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */,
+				B495113E24F36BBB007A8986 /* NationalPark-Heavy.ps */,
 				B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */,
 				B43D02CF24BEB0E1008BB9DE /* Brendohand-Regular.ps */,
 				B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */,
@@ -720,6 +808,26 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		B496FCB424F2DE4500C53A41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B496FCBA24F2DE4500C53A41 /* Pods_continentclimb.framework */,
+				B496FCBC24F2DE4500C53A41 /* SAConfettiView.framework */,
+				B496FCBE24F2DE4500C53A41 /* SAConfettiView.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B496FCC024F2DE5000C53A41 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B496FCC624F2DE5000C53A41 /* Pods_continentclimb.framework */,
+				B496FCC824F2DE5000C53A41 /* SAConfettiView.framework */,
+				B496FCCA24F2DE5000C53A41 /* SAConfettiView.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -727,9 +835,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B432F7BE24BC1F160062EDB0 /* Build configuration list for PBXNativeTarget "continentclimb" */;
 			buildPhases = (
+				E89FA45ECA3CE890253F5BFA /* [CP] Check Pods Manifest.lock */,
 				B432F78C24BC1F140062EDB0 /* Sources */,
 				B432F78D24BC1F140062EDB0 /* Frameworks */,
 				B432F78E24BC1F140062EDB0 /* Resources */,
+				7A9AA9283CE346B1DFE3D947 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -810,6 +920,16 @@
 			mainGroup = B432F78724BC1F140062EDB0;
 			productRefGroup = B432F79124BC1F140062EDB0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = B496FCB424F2DE4500C53A41 /* Products */;
+					ProjectRef = B496FCB324F2DE4500C53A41 /* Pods.xcodeproj */;
+				},
+				{
+					ProductGroup = B496FCC024F2DE5000C53A41 /* Products */;
+					ProjectRef = B496FCBF24F2DE5000C53A41 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				B432F78F24BC1F140062EDB0 /* continentclimb */,
@@ -818,6 +938,51 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		B496FCBA24F2DE4500C53A41 /* Pods_continentclimb.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_continentclimb.framework;
+			remoteRef = B496FCB924F2DE4500C53A41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B496FCBC24F2DE4500C53A41 /* SAConfettiView.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SAConfettiView.framework;
+			remoteRef = B496FCBB24F2DE4500C53A41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B496FCBE24F2DE4500C53A41 /* SAConfettiView.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SAConfettiView.bundle;
+			remoteRef = B496FCBD24F2DE4500C53A41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B496FCC624F2DE5000C53A41 /* Pods_continentclimb.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods_continentclimb.framework;
+			remoteRef = B496FCC524F2DE5000C53A41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B496FCC824F2DE5000C53A41 /* SAConfettiView.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SAConfettiView.framework;
+			remoteRef = B496FCC724F2DE5000C53A41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B496FCCA24F2DE5000C53A41 /* SAConfettiView.bundle */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SAConfettiView.bundle;
+			remoteRef = B496FCC924F2DE5000C53A41 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B432F78E24BC1F140062EDB0 /* Resources */ = {
@@ -835,12 +1000,12 @@
 				B43EC5E424C539D700B3EB47 /* snowyeti-5.png in Resources */,
 				B4F270FC24CB798E0042788B /* sandtwister-2.png in Resources */,
 				B495826124BC437500BC1857 /* volume-off.png in Resources */,
-				B40DDCF624ECDCAF002A07CB /* cavegrounds.png in Resources */,
 				B43EC5E324C539D700B3EB47 /* snowyeti-9.png in Resources */,
 				B432F79F24BC1F140062EDB0 /* Main.storyboard in Resources */,
 				B468DACA24CB757500C72BB3 /* sandprev-3.png in Resources */,
 				B42FF96924ECC26A00B35118 /* roc-3.png in Resources */,
 				B479DE6F24C2CD4B00E3F2BE /* snowbol-4.png in Resources */,
+				B495113D24F35817007A8986 /* checkmark.png in Resources */,
 				B43EC5E124C539D700B3EB47 /* snowyeti-10.png in Resources */,
 				B42FF9AA24ECC4DE00B35118 /* snake-6.png in Resources */,
 				B479DE7024C2CD4B00E3F2BE /* snowbol-1.png in Resources */,
@@ -857,7 +1022,6 @@
 				B495823F24BC2E4700BC1857 /* idle-1.png in Resources */,
 				B43D02D024BEB0E1008BB9DE /* Brendohand-Regular.ps in Resources */,
 				B43EC5DC24C539D700B3EB47 /* snowyeti-8.png in Resources */,
-				B464E6E324CE3C9800DD5B18 /* sniper.png in Resources */,
 				B4504D4724BE281A007E9014 /* mapp.png in Resources */,
 				B42FF98924ECC2D600B35118 /* coy-6.png in Resources */,
 				B43D02D424BEB7F3008BB9DE /* lock.png in Resources */,
@@ -914,6 +1078,7 @@
 				B495824424BC2E4700BC1857 /* bobby-15.png in Resources */,
 				B42FF99A24ECC39300B35118 /* coy-18.png in Resources */,
 				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
+				B4C24D9224F37574004F2A74 /* wildones.mp3 in Resources */,
 				B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */,
 				B4AF093F24F1BC4D00EC97D6 /* goldcoin-8.png in Resources */,
 				B45C7CCE24D0AB5900B5A79E /* junglebackg.jpg in Resources */,
@@ -930,7 +1095,7 @@
 				B45C7CD024D0ABEC00B5A79E /* aurorabackg.jpg in Resources */,
 				B43D02DF24C03366008BB9DE /* snowgrounds.png in Resources */,
 				B43D02DD24C02F90008BB9DE /* Assets.xcassets in Resources */,
-				B45C7CD224D0AD0A00B5A79E /* NationalPark-Heavy.ps in Resources */,
+				B41B7AC124F212BF00A12ACC /* Antapani-ExtraBold.ps in Resources */,
 				B479DE7124C2CD4B00E3F2BE /* snowbol-2.png in Resources */,
 				B42FF95F24ECC22F00B35118 /* golem-6.png in Resources */,
 				B4B1278324EA3001000EA6CF /* spider-8.png in Resources */,
@@ -959,6 +1124,7 @@
 				B43EC5E924C539D700B3EB47 /* snowyeti-2.png in Resources */,
 				B42FF95C24ECC22F00B35118 /* golem-2.png in Resources */,
 				B432F7A424BC1F160062EDB0 /* LaunchScreen.storyboard in Resources */,
+				B47ED57124F47C9C00293311 /* cavemessage.png in Resources */,
 				B4B1277E24EA3001000EA6CF /* spider-5.png in Resources */,
 				B495826224BC437500BC1857 /* volume-on.png in Resources */,
 				B48D2FA224C23823009AD3FD /* evilsnowman-2.png in Resources */,
@@ -967,6 +1133,7 @@
 				B495826424BC4BA300BC1857 /* BitPap.ps in Resources */,
 				B45C7CDE24D0C51800B5A79E /* sydneybackg.jpg in Resources */,
 				B42FF99824ECC2D600B35118 /* coy-12.png in Resources */,
+				B47ED57424F47CB800293311 /* snowmessage.png in Resources */,
 				B464E6E924CE4E2500DD5B18 /* HellofreedayDEMO.ps in Resources */,
 				B42FF9AE24ECC4DE00B35118 /* snake-4.png in Resources */,
 				B45C7CDC24D0C38100B5A79E /* fugibackg.jpg in Resources */,
@@ -976,6 +1143,7 @@
 				B42FF96C24ECC26A00B35118 /* roc-5.png in Resources */,
 				B495825F24BC437500BC1857 /* like-icon.png in Resources */,
 				B495825324BC3A1700BC1857 /* starry.jpg in Resources */,
+				B48D027F24F2DC07000E4E45 /* Podfile in Resources */,
 				B4B1278124EA3001000EA6CF /* spider-10.png in Resources */,
 				B495826024BC437500BC1857 /* menu-icon.png in Resources */,
 				B4F270FB24CB798E0042788B /* sandtwister-3.png in Resources */,
@@ -983,6 +1151,7 @@
 				B4B1278224EA3001000EA6CF /* spider-12.png in Resources */,
 				B43EC5E724C539D700B3EB47 /* snowyeti-17.png in Resources */,
 				B495824724BC2E4700BC1857 /* idle-4.png in Resources */,
+				B47ED57224F47C9C00293311 /* desertmessage.png in Resources */,
 				B42FF99124ECC2D600B35118 /* coy-1.png in Resources */,
 				B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */,
 				B479DE7324C2CD4B00E3F2BE /* snowbol-8.png in Resources */,
@@ -990,6 +1159,7 @@
 				B495824024BC2E4700BC1857 /* bobby-10.png in Resources */,
 				B4AF094124F1BC4D00EC97D6 /* goldcoin-6.png in Resources */,
 				B468DACC24CB757500C72BB3 /* sandprev-1.png in Resources */,
+				B495113F24F36BBC007A8986 /* NationalPark-Heavy.ps in Resources */,
 				B42FF99224ECC2D600B35118 /* coy-14.png in Resources */,
 				B43EC5E824C539D700B3EB47 /* snowyeti-18.png in Resources */,
 				B48D2FA824C23823009AD3FD /* evilsnowman-5.png in Resources */,
@@ -1028,6 +1198,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7A9AA9283CE346B1DFE3D947 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-continentclimb/Pods-continentclimb-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-continentclimb/Pods-continentclimb-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-continentclimb/Pods-continentclimb-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E89FA45ECA3CE890253F5BFA /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-continentclimb-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B432F78C24BC1F140062EDB0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -1038,6 +1250,7 @@
 				B4504D4924BE3770007E9014 /* Extensions.swift in Sources */,
 				B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */,
 				B432F7CA24BC269D0062EDB0 /* MenuScene.swift in Sources */,
+				B4C24D9424F375C9004F2A74 /* MusicHelper.swift in Sources */,
 				B45C7CD424D0B28D00B5A79E /* ScrollView.swift in Sources */,
 				B432F79C24BC1F140062EDB0 /* GameViewController.swift in Sources */,
 				B432F79424BC1F140062EDB0 /* AppDelegate.swift in Sources */,
@@ -1212,6 +1425,7 @@
 		};
 		B432F7BF24BC1F160062EDB0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 68E24C866F36DADF1355FC03 /* Pods-continentclimb.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -1231,6 +1445,7 @@
 		};
 		B432F7C024BC1F160062EDB0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7F8FDB1A27A41CEDA1EA8EAF /* Pods-continentclimb.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
