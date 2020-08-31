@@ -31,12 +31,6 @@ struct gameData {
     static var caveLevelThree: [Int] = [8, 8, 0, 9, 8, 9, 8, 7, 7, 8, 9, 7, 8, 8, 9]
 }
 
-struct savedData {
-    
-    static var coinCount: Int = 0
-    static var completedLevels: [Bool] = [false, false, false, false, false, false, false, false, false]
-}
-
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     struct ColliderType {
@@ -1873,7 +1867,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 break
         }
         
-        GameScene.defaults.array(forKey: "completedLevels")
+        GameScene.defaults.set(savedData.completedLevels, forKey: "completedLevels")
     }
     
     func endGame() {
@@ -2063,7 +2057,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
             hero.physicsBody?.isDynamic = false
             savedData.coinCount += 1
-            GameScene.defaults.integer(forKey: "coins")
+            GameScene.defaults.set(savedData.coinCount, forKey: "coins")
             updateCoins()
             
             coin.run(fillerAction, completion: makeHeroDynamic)

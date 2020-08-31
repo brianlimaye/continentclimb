@@ -12,6 +12,13 @@ import AVFoundation
 import StoreKit
 
 var terrainKeyword: String = ""
+
+struct savedData {
+    
+    static var coinCount: Int = 0
+    static var completedLevels: [Bool] = [false, false, false, false, false, false, false, false, false]
+}
+
 class HomeScene: SKScene {
     
     let heroSpeed = 0.25
@@ -52,6 +59,9 @@ class HomeScene: SKScene {
         
         let coins = GameScene.defaults.integer(forKey: "coins")
         let completedLevels = GameScene.defaults.array(forKey: "completedLevels") as? [Bool]
+        
+        print(coins)
+        print(completedLevels)
         
         if(coins > 0)
         {
