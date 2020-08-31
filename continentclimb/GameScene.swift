@@ -16,6 +16,8 @@ var cameraNode: SKCameraNode = SKCameraNode()
 
 struct gameData {
     
+    static var hasPopups: Bool = true
+    static var gameIsOver: Bool = true
     static var levelNumeral: Int = 0
     static var startingHeroPos: CGPoint = CGPoint(x: 0, y: 0)
     static var snowLevelOne: [Int] = [1, 1, 1, 0, 2, 2, 3, 1, 2, 3]
@@ -52,6 +54,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let coin: UInt32 = 10
     }
 
+    var swipeUpToJump: SKLabelNode = SKLabelNode()
+    var swipeDownToSlide: SKLabelNode = SKLabelNode()
+    
+    var jumpIcon: SKSpriteNode = SKSpriteNode()
+    var slideIcon: SKSpriteNode = SKSpriteNode()
+    
     var confetti: SAConfettiView = SAConfettiView()
     var levelLoader: Timer = Timer()
     var objNum: Int = 0
@@ -63,6 +71,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var recordedTime: Int = 0
     var initialYPos: CGFloat = 0
+    
+    static let defaults = UserDefaults.standard
 
     var heroRunAction: SKAction = SKAction()
     var yetiRunAction: SKAction = SKAction()
@@ -140,11 +150,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         selectDifficulty()
         drawBackground()
         drawPlatform()
-        
+
         self.addChild(cameraNode)
     }
     
+    func initHelpers() {
+        
+        if(gameData.levelNumeral != 0)
+        {
+            return
+        }
+        
+        
+        swipeUpToJump = SKLabelNode(fontNamed: "MaassslicerItalic")
+        swipeUpToJump.fontSize = self.frame.size.width * 0.025
+        swipeUpToJump.fontColor = .black
+        swipeUpToJump.text = "Swipe up on screen to jump"
+        swipeUpToJump.position = CGPoint(x: self.frame.size.width / 10, y: 100)
+        
+        jumpIcon = SKSpriteNode(imageNamed: "swipe-up")
+        jumpIcon.size = CGSize(width: jumpIcon.size.width * (self.frame.size.width * 0.0001), height: jumpIcon.size.height * (self.frame.size.width * 0.0001))
+        jumpIcon.position = CGPoint(x: self.frame.size.width / 2.5, y: 100)
+        
+        swipeDownToSlide = SKLabelNode(fontNamed: "MaassslicerItalic")
+        swipeDownToSlide.fontSize = self.frame.size.width * 0.025
+        swipeDownToSlide.fontColor = .black
+        swipeDownToSlide.text = "Swipe down on screen to slide"
+        swipeDownToSlide.position = CGPoint(x: self.frame.size.width / 10, y: 0)
+        
+        slideIcon = SKSpriteNode(imageNamed: "swipe-below")
+        slideIcon.size = CGSize(width: slideIcon.size.width * (self.frame.size.width * 0.0001), height: slideIcon.size.height * (self.frame.size.width * 0.0001))
+        slideIcon.position = CGPoint(x: self.frame.size.width / 2.5, y: 0)
+        
+        self.addChild(jumpIcon)
+        self.addChild(swipeUpToJump)
+        self.addChild(slideIcon)
+        self.addChild(swipeDownToSlide)
+        
+        let filler = SKAction.resize(toWidth: slideIcon.size.width, duration: 3)
+        
+        slideIcon.run(filler, completion: fadeOutHelpers)
+    }
+    
+    func fadeOutHelpers() {
+        
+        let fadeOut = SKAction.fadeOut(withDuration: 1)
+        
+        let fadeRepeater = SKAction.repeat(fadeOut, count: 1)
+        
+        swipeUpToJump.run(fadeRepeater)
+        swipeDownToSlide.run(fadeRepeater)
+        jumpIcon.run(fadeRepeater)
+        slideIcon.run(fadeRepeater)
+    }
+    
     func initializeGame() {
+        
+        gameData.gameIsOver = false
         
         let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
         swipeUp.direction = .up
@@ -165,6 +227,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
         switch (terrainKeyword) {
             case "snow":
+                addSnow()
                 chatBubble = SKSpriteNode(imageNamed: "snowmessage")
                 break
             case "desert":
@@ -195,11 +258,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let fadeRepeater = SKAction.repeat(fadeOut, count: 1)
         
-        chatBubble.run(fadeRepeater)
-        startLevel()
+        chatBubble.run(fadeRepeater, completion: startLevel)
     }
     func startLevel() {
         
+        gameData.hasPopups = false
         loadLevel(level: levelLiteral)
     }
     
@@ -258,7 +321,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let fadeRepeater = SKAction.repeat(fadeOut, count: 1)
         
-        levelPopup.run(fadeRepeater)
+        levelPopup.run(fadeRepeater, completion: initHelpers)
         levelText.run(fadeRepeater)
         miniHero.run(fadeRepeater)
         livesText.run(fadeRepeater)
@@ -353,9 +416,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if let intValue = levelNum.wholeNumberValue {
             levelNo = intValue
-            print("Value is \(intValue)")
         } else {
-            print("Not an integer")
         }
         
         if(schedule.count == 0)
@@ -414,8 +475,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             default:
                 break
         }
-        
-        objNum += 1
     }
     
     
@@ -582,20 +641,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawSandstorm() {
         
+        let randSpeed = Double.random(in: 0.3 ... 0.5)
+        
         var sandstormShift: SKAction = SKAction()
+        var sandstormAnim: SKAction = SKAction()
         
         let sandstormFrames: [SKTexture] = [SKTexture(imageNamed: "sandtwister-1"), SKTexture(imageNamed: "sandtwister-2"), SKTexture(imageNamed: "sandtwister-3"), SKTexture(imageNamed: "sandtwister-4")]
         
-        let sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3)
-        
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: 0.3)
+            sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3.6)
+            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: randSpeed)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: 0.2)
+            sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3.4)
+            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: randSpeed - 0.1)
         }
         
         let sandstormRepeater = SKAction.repeatForever(sandstormAnim)
@@ -608,10 +670,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func determineSandstormDirection() {
         
         let rand = Int.random(in: 1 ... 2)
+        let randSpeed = Double.random(in: 1.25 ... 1.5)
         var riseAction: SKAction = SKAction()
         var riseRepeater: SKAction = SKAction()
         
-        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.3)
+        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         
         let shiftRepeater = SKAction.repeat(secondShift, count: 1)
         
@@ -640,6 +703,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             sandstorm.position.y = -self.frame.size.height / 4
         }
+        
+        objNum += 1
     }
     
     func resumeRunning() {
@@ -710,7 +775,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             // Set background first
             icePlatform.zPosition = -1
         }
-        
     }
     
     func updateCoins() {
@@ -824,6 +888,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func fadeInCoin() {
         
         coin.alpha = 1.0
+        objNum += 1
     }
     
     func fadeOutCoin() {
@@ -839,7 +904,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(!isReady())
         {
-            print("in-motion")
             return
         }
         
@@ -850,12 +914,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            duckAnim = SKAction.moveBy(x: 250, y: -30, duration: 0.25)
+            duckAnim = SKAction.moveBy(x: 250, y: -30, duration: 0.3)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            duckAnim = SKAction.moveBy(x: 300, y: -30, duration: 0.25)
+            duckAnim = SKAction.moveBy(x: 300, y: -30, duration: 0.3)
         }
                 
         let duckRepeater = SKAction.repeat(duckAnim, count: 1)
@@ -878,7 +942,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var duckReversion: SKAction = SKAction()
         
-        duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: gameData.startingHeroPos.y), duration: 0.15)
+        duckReversion = SKAction.move(to: CGPoint(x: -self.frame.size.width / 3, y: gameData.startingHeroPos.y), duration: 0.2)
         
         hero.run(duckReversion, completion: resumeRunning)
     }
@@ -894,7 +958,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let currentTime = currentTimeInMilliSeconds()
         
-        if((recordedTime == 0) || (abs(currentTime - recordedTime) >= 500))
+        if((recordedTime == 0) || (abs(currentTime - recordedTime) >= 600))
         {
             recordedTime = currentTime
             return true
@@ -908,7 +972,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(!isReady())
         {
-            print("in-motion")
             return
         }
         
@@ -919,12 +982,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.25)
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.3)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.25)
+            jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.3)
         }
         
         let jumpRepeater = SKAction.repeat(jumpAnim, count: 1)
@@ -938,7 +1001,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         var landAnim: SKAction = SKAction()
         
-        landAnim = SKAction.moveTo(y: gameData.startingHeroPos.y, duration: 0.25)
+        landAnim = SKAction.moveTo(y: gameData.startingHeroPos.y, duration: 0.3)
         
         let landRepeater = SKAction.repeat(landAnim, count: 1)
         
@@ -966,13 +1029,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawYeti() {
         
+        let randSpeed = Double.random(in: 1.9 ... 2.0)
+        
         let yetiFrames: [SKTexture] = [SKTexture(imageNamed: "snowyeti-1"), SKTexture(imageNamed: "snowyeti-2"), SKTexture(imageNamed: "snowyeti-3"), SKTexture(imageNamed: "snowyeti-4"), SKTexture(imageNamed: "snowyeti-5"), SKTexture(imageNamed: "snowyeti-6"), SKTexture(imageNamed: "snowyeti-7"), SKTexture(imageNamed: "snowyeti-8"), SKTexture(imageNamed: "snowyeti-9"), SKTexture(imageNamed: "snowyeti-10"), SKTexture(imageNamed: "snowyeti-11")]
         
         //let yetiFrames: [SKTexture] = [SKTexture(imageNamed: "snowyeti-12"), SKTexture(imageNamed: "snowyeti-13"), SKTexture(imageNamed: "snowyeti-14"), SKTexture(imageNamed: "snowyeti-15"), SKTexture(imageNamed: "snowyeti-16"), SKTexture(imageNamed: "snowyeti-17"), SKTexture(imageNamed: "snowyeti-18")]
         
-        let yetiAnimate = SKAction.animate(with: yetiFrames, timePerFrame: characterSpeed / 7)
+        let yetiAnimate = SKAction.animate(with: yetiFrames, timePerFrame: randSpeed / 56)
         self.yetiRunAction = yetiAnimate
-        let yetiShift = SKAction.moveTo(x: -self.frame.size.width, duration: 2)
+        let yetiShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         let yetiRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([yetiShift, yetiRevert])
@@ -1006,6 +1071,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         snowYeti.removeAllActions()
         snowYeti.position.x = self.frame.size.width
+        
+        objNum += 1
     }
     
     func disappearSnowman() {
@@ -1035,11 +1102,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         thrownSnowball.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.75)
         fallenSnowball.alpha = 1.0
         fallenSnowball.position = CGPoint(x: gameData.startingHeroPos.x, y: self.frame.size.height)
+        objNum += 1
     }
     
     func drawThrownSnowball() {
         
         let rand = Int.random(in: 1 ... 2)
+        let randSpeed = Double.random(in: 1.1 ... 1.5)
         var extraAnim: [SKTexture]?
         
         evilSnowman.removeAllActions()
@@ -1065,7 +1134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let snowBallFrames: [SKTexture] = [SKTexture(imageNamed: "snowbol-1"), SKTexture(imageNamed: "snowbol-2"), SKTexture(imageNamed: "snowbol-3"), SKTexture(imageNamed: "snowbol-4"), SKTexture(imageNamed: "snowbol-5"), SKTexture(imageNamed: "snowbol-6"), SKTexture(imageNamed: "snowbol-7"), SKTexture(imageNamed: "snowbol-8")]
         
         let animate = SKAction.animate(with: snowBallFrames, timePerFrame: characterSpeed / 2)
-        let snowballShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.25)
+        let snowballShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         let snowballRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([snowballShift, snowballRevert])
@@ -1077,23 +1146,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(rand == 1)
         {
-            thrownSnowball.position.y = -self.frame.size.height / 8
+            thrownSnowball.position.y = gameData.startingHeroPos.y + 75
         }
         
         if(rand == 2)
         {
-            thrownSnowball.position.y = -self.frame.size.height / 3.5
+            thrownSnowball.position.y = gameData.startingHeroPos.y
         }
 
         thrownSnowball.run(shiftRepeater)
         thrownSnowball.run(animateRepeater)
+        
+        objNum += 1
     }
     
     func drawFallenSnowball() {
         
+        let randSpeed = Double.random(in: 1.0 ... 1.3)
+        
         fallenSnowball.position = CGPoint(x: gameData.startingHeroPos.x, y: self.frame.size.height)
         
-        let snowballFall = SKAction.move(to: CGPoint(x: gameData.startingHeroPos.x, y: gameData.startingHeroPos.y - 25), duration: 0.9)
+        let snowballFall = SKAction.move(to: CGPoint(x: gameData.startingHeroPos.x, y: gameData.startingHeroPos.y - 25), duration: randSpeed)
         
         let fallRepeater = SKAction.repeat(snowballFall, count: 1)
         
@@ -1115,11 +1188,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             case 1:
                 startingX = gameData.startingHeroPos.x
+                break
             case 2:
                 startingX = self.frame.size.width
                 break
             default:
-                print("other")
+                break
         }
         
         return startingX
@@ -1128,11 +1202,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawCoyote() {
         
+        let randSpeed = Double.random(in: 1.65 ... 2.00)
+        
         let coyoteFrames: [SKTexture] = [SKTexture(imageNamed: "coy-1"), SKTexture(imageNamed: "coy-2"), SKTexture(imageNamed: "coy-3"), SKTexture(imageNamed: "coy-4"), SKTexture(imageNamed: "coy-5"), SKTexture(imageNamed: "coy-6"), SKTexture(imageNamed: "coy-7"), SKTexture(imageNamed: "coy-8"), SKTexture(imageNamed: "coy-9")]//, SKTexture(imageNamed: "coyote-10")]//, SKTexture(imageNamed: "coyote-11"), SKTexture(imageNamed: "coyote-12"), SKTexture(imageNamed: "coyote-13"), SKTexture(imageNamed: "coyote-14"), SKTexture(imageNamed: "coyote-15"), SKTexture(imageNamed: "coyote-16"), SKTexture(imageNamed: "coyote-17"), SKTexture(imageNamed: "coyote-18")]
         
-        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: characterSpeed / 4)
+        let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: randSpeed / 25)
         self.coyoteDashAction = coyoteAnimate
-        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.25)
+        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         let coyoteRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([coyoteShift, coyoteRevert])
@@ -1150,8 +1226,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let attackFrames: [SKTexture] = [SKTexture(imageNamed: "coy-11"), SKTexture(imageNamed: "coy-12"), SKTexture(imageNamed: "coy-13"), SKTexture(imageNamed: "coy-14"), SKTexture(imageNamed: "coy-15"), SKTexture(imageNamed: "coy-16"), SKTexture(imageNamed: "coy-17"), SKTexture(imageNamed: "coy-18")]
         
         let attackAnimate = SKAction.animate(with: attackFrames, timePerFrame: characterSpeed / 3)
-        let rise = SKAction.moveTo(y: self.frame.size.height / 8, duration: characterSpeed / 1.5)
-        let drop = SKAction.moveTo(y: -self.frame.size.height / 3.65, duration: characterSpeed / 1.5)
+        let rise = SKAction.moveTo(y: self.frame.size.height / 8, duration: characterSpeed)
+        let drop = SKAction.moveTo(y: -self.frame.size.height / 3.65, duration: characterSpeed)
         
         let riseSeq = SKAction.sequence([rise, drop])
         
@@ -1165,14 +1241,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func coyoteResumeRunning() {
         
         coyote.run(coyoteDashAction)
+        
+        objNum += 1
     }
     
     func drawSnake() {
         
+        let randSpeed = Double.random(in: 1.55 ... 1.9)
+        
         let snakeFrames: [SKTexture] = [SKTexture(imageNamed: "snake-1"), SKTexture(imageNamed: "snake-2"), SKTexture(imageNamed: "snake-3"), SKTexture(imageNamed: "snake-4"), SKTexture(imageNamed: "snake-5"), SKTexture(imageNamed: "snake-6"), SKTexture(imageNamed: "snake-7"), SKTexture(imageNamed: "snake-8"), SKTexture(imageNamed: "snake-9"), SKTexture(imageNamed: "snake-10"), SKTexture(imageNamed: "snake-11")]//, SKTexture(imageNamed: "snake-12")]//, SKTexture(imageNamed: "snake-13"), SKTexture(imageNamed: "snake-14"), SKTexture(imageNamed: "snake-15")]
         
-        let snakeAnimate = SKAction.animate(with: snakeFrames, timePerFrame: 0.15)
-        let snakeShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
+        let snakeAnimate = SKAction.animate(with: snakeFrames, timePerFrame: randSpeed / 10)
+        let snakeShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         let snakeRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let snakeSeq = SKAction.sequence([snakeShift, snakeRevert])
@@ -1182,15 +1262,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         snake.run(snakeRepeater)
         snake.run(shiftRepeater)
+        
+        objNum += 1
     }
     
     func drawBat() {
+        
+        let randSpeed = Double.random(in: 1.5 ... 1.9)
         
         let batFrames: [SKTexture] = [SKTexture(imageNamed: "bat-1"), SKTexture(imageNamed: "bat-2"), SKTexture(imageNamed: "bat-3"), SKTexture(imageNamed: "bat-4")]
         
         let batAnim = SKAction.animate(with: batFrames, timePerFrame: 0.2)
         let batAnimRepeater = SKAction.repeatForever(batAnim)
-        let batShift = SKAction.moveTo(x: -self.frame.width, duration: 1.75)
+        let batShift = SKAction.moveTo(x: -self.frame.width, duration: randSpeed)
         
         let batReversion = SKAction.moveTo(x: self.frame.width, duration: 0)
         let batSeq = SKAction.sequence([batShift, batReversion])
@@ -1198,15 +1282,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
         batSprite.run(batAnimRepeater)
         batSprite.run(reversionRepeater)
+        
+        objNum += 1
     }
     
     func drawSpider() {
+        
+        let randSpeed = Double.random(in: 1.5 ... 1.7)
         
         let spiderFrames: [SKTexture] = [SKTexture(imageNamed: "spider-1"), SKTexture(imageNamed: "spider-2"), SKTexture(imageNamed: "spider-3"), SKTexture(imageNamed: "spider-4"), SKTexture(imageNamed: "spider-5"), SKTexture(imageNamed: "spider-6"), SKTexture(imageNamed: "spider-7")]//, SKTexture(imageNamed: "spider-8"), SKTexture(imageNamed: "spider-9"), SKTexture(imageNamed: "spider-10"), SKTexture(imageNamed: "spider-11"), SKTexture(imageNamed: "spider-12"), SKTexture(imageNamed: "spider-13")]
         
         let spiderAnimate = SKAction.animate(with: spiderFrames, timePerFrame: characterSpeed / 2)
         
-        let spiderShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.5)
+        let spiderShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         
         let spiderRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
@@ -1217,6 +1305,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         spider.run(animateRepeater)
         spider.run(shiftRepeater)
+        
+        objNum += 1
     }
     
     func drawGolem() {
@@ -1240,6 +1330,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func drawThrownRock() {
         
         let rand = Int.random(in: 1 ... 2)
+        let randSpeed = Double.random(in: 1.00 ... 1.45)
         var extraAnim: [SKTexture]?
         
         golem.removeAllActions()
@@ -1265,7 +1356,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let rockFrames: [SKTexture] = [SKTexture(imageNamed: "roc-1"), SKTexture(imageNamed: "roc-2"), SKTexture(imageNamed: "roc-3"), SKTexture(imageNamed: "roc-4"), SKTexture(imageNamed: "roc-5"), SKTexture(imageNamed: "roc-6"), SKTexture(imageNamed: "roc-7")]
         
         let animate = SKAction.animate(with: rockFrames, timePerFrame: characterSpeed / 2)
-        let rockShift = SKAction.moveTo(x: -self.frame.size.width, duration: 1.15)
+        let rockShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
         let rockRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([rockShift, rockRevert])
@@ -1277,16 +1368,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(rand == 1)
         {
-            rock.position.y = -self.frame.size.height / 8
+            rock.position.y = gameData.startingHeroPos.y + 75
         }
         
         if(rand == 2)
         {
-            rock.position.y = -self.frame.size.height / 3.5
+            rock.position.y = gameData.startingHeroPos.y
         }
 
         rock.run(shiftRepeater)
         rock.run(animateRepeater)
+        
+        objNum += 1
     }
     
     func initChecks() {
@@ -1400,7 +1493,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         fallenSnowball.position = CGPoint(x: gameData.startingHeroPos.x, y: self.frame.size.height)
         fallenSnowball.name = "fallensnowball"
         
-        fallenSnowball.size = CGSize(width: thrownSnowball.size.width * (self.frame.size.width * 0.001), height: thrownSnowball.size.height * (self.frame.size.width * 0.001))
+        fallenSnowball.size = CGSize(width: thrownSnowball.size.width * (self.frame.size.width * 0.0012), height: thrownSnowball.size.height * (self.frame.size.width * 0.0012))
         
         thrownSnowball.physicsBody = SKPhysicsBody(circleOfRadius: thrownSnowball.size.width / 2)
         thrownSnowball.physicsBody?.affectedByGravity = false
@@ -1775,12 +1868,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 {
                     savedData.completedLevels[8] = true
                 }
+                break
             default:
                 break
         }
+        
+        GameScene.defaults.array(forKey: "completedLevels")
     }
     
     func endGame() {
+                
+        gameData.gameIsOver = true
         
         if(isLevelPassed)
         {
@@ -1826,8 +1924,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             else if(node?.name == "return")
             {
                 cleanUp()
-                let continentLoader = ContinentLoader(fileNamed: "ContinentLoader")
-                continentLoader?.scaleMode = .aspectFill
+                cameraNode.removeAllChildren()
+                let continentLoader = ContinentLoader(size: (view?.bounds.size)!)
+                continentLoader.scaleMode = .aspectFill
                 self.view?.presentScene(continentLoader)
             }
                 
@@ -1886,50 +1985,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
        }
     }
     
+    func getUIColor(literal: String) -> UIColor {
+        
+        if(literal == "green")
+        {
+            return UIColor.green
+        }
+        
+        if(literal == "red")
+        {
+            return UIColor.red
+        }
+        
+        return UIColor.black
+    }
+    
     func showEndingMenu() -> Void {
+        
+        levelLoader.invalidate()
         
         var menuHeight: CGFloat = self.frame.size.height / 3.5
         var statusSize: CGFloat = self.frame.size.width * 0.05
-        var statusXPos: CGFloat = self.frame.size.width / 7
+        var statusText: String = ""
+        var statusColor: String = ""
+        let currentLevelName: String = levelNames[gameData.levelNumeral]
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             menuHeight = self.frame.height / 4.15
             statusSize = self.frame.size.width * 0.06
-            statusXPos = self.frame.size.width / 5.3
         }
         
         gameOverDisplay = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.midY - 20, width: self.frame.width * 2, height: menuHeight))
         gameOverDisplay.fillColor = .black
         gameOverDisplay.alpha = 0.5
-                
-        levelAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
-        levelAlert.fontColor = .white
-        levelAlert.fontSize = statusSize
-        levelAlert.position = CGPoint(x: -self.frame.size.width / 7.5, y: self.frame.size.height / 8)
-        levelAlert.text = levelNames[gameData.levelNumeral] + ":"
-        
-        levelStatusAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
-        levelStatusAlert.fontSize = statusSize
-        levelStatusAlert.position = CGPoint(x: statusXPos, y: self.frame.size.height / 8)
         
         if(isLevelPassed)
         {
-            levelStatusAlert.fontColor = .green
-            levelStatusAlert.text = "COMPLETED"
+            statusColor = "green"
+            statusText = "COMPLETED"
         }
 
         else
         {
-            levelStatusAlert.fontColor = .red
-            levelStatusAlert.text = "INCOMPLETE"
+            statusColor = "red"
+            statusText = "INCOMPLETE"
         }
+        
+        let newString = currentLevelName + ": " + statusText
+        let attributedText = NSMutableAttributedString(string: newString)
+        attributedText.addAttribute(.foregroundColor, value: UIColor.white, range: NSRange(location: 0, length: currentLevelName.count + 2))
+        attributedText.addAttribute(.foregroundColor, value: getUIColor(literal: statusColor), range: NSRange(location: currentLevelName.count + 2, length: statusText.count))
+        attributedText.addAttribute(.font, value: UIFont(name: "CarbonBl-Regular", size: statusSize)!, range: NSRange(location: 0, length: newString.count))
+    
+        levelAlert = SKLabelNode(fontNamed: "CarbonBl-Regular")
+        levelAlert.fontColor = .white
+        levelAlert.fontSize = statusSize
+        levelAlert.attributedText = attributedText
+        levelAlert.position = CGPoint(x: 0, y: self.frame.size.height / 8)
     
         initButtons()
         
         self.addChild(gameOverDisplay)
         self.addChild(levelAlert)
-        self.addChild(levelStatusAlert)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -1945,6 +2063,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
             hero.physicsBody?.isDynamic = false
             savedData.coinCount += 1
+            GameScene.defaults.integer(forKey: "coins")
             updateCoins()
             
             coin.run(fillerAction, completion: makeHeroDynamic)
@@ -1982,6 +2101,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func startGame() {
 
+        gameData.gameIsOver = false
+        gameData.hasPopups = true
         cleanUp()
         resumeBackgAndPlatform()
         initializeGame()

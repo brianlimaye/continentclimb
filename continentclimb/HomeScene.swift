@@ -17,6 +17,7 @@ class HomeScene: SKScene {
     let heroSpeed = 0.25
     
     var clickToStart: SKLabelNode = SKLabelNode()
+    var clickToStart2: SKLabelNode = SKLabelNode()
     var iconHolder: SKShapeNode = SKShapeNode()
     var rateButton: SKSpriteNode = SKSpriteNode()
     var rateButtonShape: SKShapeNode = SKShapeNode()
@@ -34,16 +35,33 @@ class HomeScene: SKScene {
     override func didMove(to view: SKView) {
         
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        pullSavedData()
         drawMainText()
         initHero()
         initEarth()
         initGalaxy()
-        drawIconRect()
-        drawLikeButton()
-        drawMenuButton()
-        drawTutorialButton()
-        drawSoundButton()
-        //initClickToStart()
+        //drawIconRect()
+        //drawLikeButton()
+        //drawMenuButton()
+        //drawTutorialButton()
+        //drawSoundButton()
+        initClickToStart()
+    }
+    
+    func pullSavedData() {
+        
+        let coins = GameScene.defaults.integer(forKey: "coins")
+        let completedLevels = GameScene.defaults.array(forKey: "completedLevels") as? [Bool]
+        
+        if(coins > 0)
+        {
+            savedData.coinCount = coins
+        }
+        
+        if(completedLevels != nil)
+        {
+            savedData.completedLevels = completedLevels ?? [false, false, false, false, false, false, false, false, false]
+        }
     }
     
     func initClickToStart() {
@@ -58,19 +76,21 @@ class HomeScene: SKScene {
         clickToStart = SKLabelNode(fontNamed: "BitPap")
         clickToStart.text = "Click to start"
         clickToStart.fontColor = .white
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            clickToStart.fontSize = 30
-        }
+        clickToStart.fontSize = self.frame.size.width * 0.05
+        clickToStart.position = CGPoint(x: 0, y: -self.frame.size.height / 2.5)
         
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            clickToStart.fontSize = 40
-        }
-        clickToStart.position = CGPoint(x: self.frame.width / 4, y: -self.frame.height / 3.5)
+        clickToStart2 = SKLabelNode(fontNamed: "BitPap")
+        clickToStart2.text = "Click to start"
+        clickToStart2.fontColor = .white
+        clickToStart2.fontSize = self.frame.size.width * 0.05
+        clickToStart2.position = CGPoint(x: -self.frame.width / 3, y: -10)
+        
+        
         
         clickToStart.run(fadeRepeater)
+        //clickToStart2.run(fadeRepeater)
         self.addChild(clickToStart)
+        //self.addChild(clickToStart2)
     }
     
     func initGalaxy() {
@@ -85,16 +105,8 @@ class HomeScene: SKScene {
     func initEarth() {
         
         earth = SKSpriteNode(imageNamed: "globe")
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            earth.size = CGSize(width: earth.size.width / 2.5, height: earth.size.height / 2.5)
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            earth.size = CGSize(width: earth.size.width / 1.25, height: earth.size.height / 1.25)
-        }
-        earth.position = CGPoint(x: 0, y: -15)
+        earth.size = CGSize(width: earth.size.width * (self.frame.size.width * 0.0004), height: earth.size.height * (self.frame.size.width * 0.0004))
+        earth.position = CGPoint(x: 0, y: 0)
         earth.zPosition = 0
         self.addChild(earth)
     }
@@ -127,21 +139,9 @@ class HomeScene: SKScene {
     func drawMainText() {
         
         mainTitleScreen = SKLabelNode(fontNamed: "MaassslicerItalic")
-        
         mainTitleScreen.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2.9)
-        
+        mainTitleScreen.fontSize = self.frame.size.width * 0.07
         mainTitleScreen.fontColor = .white
-        
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            mainTitleScreen.fontSize = 60
-        }
-        
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            mainTitleScreen.fontSize = 90
-        }
-        mainTitleScreen.numberOfLines = 1
         mainTitleScreen.text = "Continent Climb"
         mainTitleScreen.zPosition = 2
         
@@ -165,18 +165,11 @@ class HomeScene: SKScene {
         rateButton = SKSpriteNode(imageNamed: "like-icon.png")
         rateButton.name = "ratebutton"
         rateButton.isUserInteractionEnabled = false
-        if(UIDevice.current.userInterfaceIdiom == .phone)
-        {
-            rateButton.size = CGSize(width: rateButton.size.width / 29, height: rateButton.size.height / 29)
-        }
+        rateButton.size = CGSize(width: rateButton.size.width * (self.frame.size.width * 0.00001), height: rateButton.size.height * (self.frame.size.width * 0.00001))
         
-        if(UIDevice.current.userInterfaceIdiom == .pad)
-        {
-            rateButton.size = CGSize(width: rateButton.size.width / 15, height: rateButton.size.height / 15)
-        }
         rateButton.position = CGPoint(x: 0, y: 0)
         
-        rateButtonShape = SKShapeNode(circleOfRadius: self.size.height * 0.09)
+        rateButtonShape = SKShapeNode(circleOfRadius: self.frame.size.width * 0.06)
         rateButtonShape.name = "rateshape"
         rateButtonShape.isUserInteractionEnabled = false
         rateButtonShape.fillColor = .white
@@ -188,7 +181,7 @@ class HomeScene: SKScene {
         
         iconHolder.addChild(rateButtonShape)
         
-        rateButtonShape.position.x = -self.size.width / 3
+        rateButtonShape.position.x = -self.size.width / 4
         rateButtonShape.position.y = -self.frame.height / 2.5
     }
     
@@ -251,7 +244,7 @@ class HomeScene: SKScene {
         
         iconHolder.addChild(soundButtonShape)
         
-        soundButtonShape.position.x = self.size.width / 3
+        soundButtonShape.position.x = self.frame.size.width / 4
         soundButtonShape.position.y = -self.frame.height / 2.5
     }
     
@@ -282,7 +275,7 @@ class HomeScene: SKScene {
         
         iconHolder.addChild(menuButtonShape)
         
-        menuButtonShape.position.x = self.size.width / 9
+        menuButtonShape.position.x = 0
         menuButtonShape.position.y = -self.frame.height / 2.5
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
@@ -300,6 +293,8 @@ class HomeScene: SKScene {
         
         iconHolder.isHidden = true
         mainTitleScreen.isHidden = true
+        clickToStart.removeFromParent()
+        clickToStart2.removeFromParent()
         
         hero.removeAllActions()
         hero.texture = SKTexture(imageNamed: "bobby-15")
@@ -329,7 +324,7 @@ class HomeScene: SKScene {
     
     func goToMenuScene() {
         
-        let menuScene = MenuScene(size: self.size)
+        let menuScene = MenuScene(size: (view?.bounds.size)!)
         menuScene.scaleMode = .aspectFill
         view?.presentScene(menuScene)
     }

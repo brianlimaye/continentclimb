@@ -17,6 +17,8 @@ class MenuScene: SKScene {
     var scrollView: ScrollView!
     let moveableNode = SKNode()
     
+    var returnButton: SKSpriteNode = SKSpriteNode()
+    
     
     var background: SKSpriteNode = SKSpriteNode()
     var mainText: SKLabelNode = SKLabelNode()
@@ -66,12 +68,8 @@ class MenuScene: SKScene {
         addBackground()
         addMainText()
         initScrollView()
+        initReturnButton()
         addChapters()
-        //loadMap()
-        //addLockOn()
-        //addMatrices()
-        //addTargets()
-        //displayID()
     }
     
     func addBackground() {
@@ -80,6 +78,25 @@ class MenuScene: SKScene {
         background.size = (view?.bounds.size)!
         
         self.addChild(background)
+    }
+    
+    func initReturnButton() {
+        
+        var buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
+                
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            buttonMultiplier = self.frame.size.width * 0.0007
+        }
+        
+        returnButton = SKSpriteNode(imageNamed: "redback")
+        returnButton.size = CGSize(width: returnButton.size.width * buttonMultiplier, height: returnButton.size.height * buttonMultiplier)
+        returnButton.position = CGPoint(x: -self.frame.size.width / 2.25, y: -self.frame.size.height / 2.5)
+        returnButton.zPosition = 3
+        returnButton.isUserInteractionEnabled = false
+        returnButton.name = "return"
+        
+        self.addChild(returnButton)
     }
     
     func addMainText() {
@@ -146,6 +163,7 @@ class MenuScene: SKScene {
         
         moveableNode.addChild(chapterOneShape)
         
+        /*
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
             chapterTwoShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 8, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
@@ -307,6 +325,7 @@ class MenuScene: SKScene {
         chapterSevenText.position = CGPoint(x: -self.frame.size.width / 17, y: -self.frame.size.height * 1.1)
         
         moveableNode.addChild(chapterSevenShape)
+ */
         
     }
 
@@ -582,9 +601,17 @@ class MenuScene: SKScene {
                         
             if((node?.name == "Northamericashape") || (node?.name == "Northamerica"))
             {
-                let terrainScene = ContinentLoader(size: view!.bounds.size)
+                let terrainScene = ContinentLoader(size: (view?.bounds.size)!)
                 terrainScene.scaleMode = .aspectFill
                 view?.presentScene(terrainScene)
+                scrollView.removeFromSuperview()
+            }
+            
+            else if(node?.name == "return")
+            {
+                let homeScene = HomeScene(size: (view?.bounds.size)!)
+                homeScene.scaleMode = .aspectFill
+                view?.presentScene(homeScene)
                 scrollView.removeFromSuperview()
             }
        }

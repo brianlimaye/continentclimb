@@ -15,7 +15,7 @@ class MusicHelper {
 
     func prepareToPlay() {
         
-        let aSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "wildones", ofType: "mp3")!)
+        let aSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "sax", ofType: "mp3")!)
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: aSound as URL)
             audioPlayer!.numberOfLoops = -1

@@ -40,15 +40,15 @@ class GameViewController: UIViewController {
             scene.scaleMode = .aspectFill
             view.presentScene(scene)
             
+            let notificationCenter = NotificationCenter.default
+            notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+            notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
+            
             view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
+            //view.showsFPS = true
+            //view.showsNodeCount = true
             //view.showsPhysics = true
         }
-        
-        MusicHelper.sharedHelper.prepareToPlay()
-        MusicHelper.sharedHelper.audioPlayer?.play()
-
     }
     
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
@@ -179,4 +179,26 @@ class GameViewController: UIViewController {
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
+    @objc func appMovedToBackground() {
+
+        GameViewController.gameScene?.levelLoader.invalidate()
+        MusicHelper.sharedHelper.audioPlayer?.pause()
+        GameViewController.gameScene?.isPaused = true
+    }
+    
+    @objc func appMovedToForeground() {
+        
+        GameViewController.gameScene?.isPaused = false
+        MusicHelper.sharedHelper.prepareToPlay()
+        MusicHelper.sharedHelper.audioPlayer?.play()
+        //GameViewController.gameScene?.levelLoader.invalidate()
+        
+        if((!gameData.gameIsOver) && (!gameData.hasPopups))
+        {
+            GameViewController.gameScene?.startLevel()
+        }
+    }
+    
+    
 }

@@ -113,6 +113,8 @@
 		B4602C5124C69BC300B1E4EE /* PlistParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4602C5024C69BC300B1E4EE /* PlistParser.swift */; };
 		B464E6E724CE43C700DD5B18 /* AthenaVKFRegular.ps in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */; };
 		B464E6E924CE4E2500DD5B18 /* HellofreedayDEMO.ps in Resources */ = {isa = PBXBuildFile; fileRef = B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */; };
+		B465587424FC2C0D0040D1F9 /* sax.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B465587324FC2C0D0040D1F9 /* sax.mp3 */; };
+		B465587A24FC2E000040D1F9 /* bluemenu.png in Resources */ = {isa = PBXBuildFile; fileRef = B465587924FC2E000040D1F9 /* bluemenu.png */; };
 		B468DAC924CB757500C72BB3 /* sandprev-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC524CB757500C72BB3 /* sandprev-4.png */; };
 		B468DACA24CB757500C72BB3 /* sandprev-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC624CB757500C72BB3 /* sandprev-3.png */; };
 		B468DACB24CB757500C72BB3 /* sandprev-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B468DAC724CB757500C72BB3 /* sandprev-2.png */; };
@@ -201,7 +203,6 @@
 		B4BD1F5E24E739B7006C82FB /* GemunuLibre-ExtraBold.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */; };
 		B4BD1F6224E73D6C006C82FB /* gradient.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F6124E73D6B006C82FB /* gradient.jpg */; };
 		B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4C0517D24ED903B009E8B4D /* cavegrounds.png */; };
-		B4C24D9224F37574004F2A74 /* wildones.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B4C24D8B24F37574004F2A74 /* wildones.mp3 */; };
 		B4C24D9424F375C9004F2A74 /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C24D9324F375C9004F2A74 /* MusicHelper.swift */; };
 		B4D3D4A524D3956C002AA8E2 /* stormy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4D3D4A424D3956C002AA8E2 /* stormy.jpg */; };
 		B4D3D4A724D39665002AA8E2 /* rainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4D3D4A624D39665002AA8E2 /* rainEffect.sks */; };
@@ -210,6 +211,8 @@
 		B4F270FA24CB798E0042788B /* sandtwister-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F270F624CB798E0042788B /* sandtwister-4.png */; };
 		B4F270FB24CB798E0042788B /* sandtwister-3.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F270F724CB798E0042788B /* sandtwister-3.png */; };
 		B4F270FC24CB798E0042788B /* sandtwister-2.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F270F824CB798E0042788B /* sandtwister-2.png */; };
+		B4F3D61824FC7676004F0E54 /* swipe-up.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F3D61124FC7676004F0E54 /* swipe-up.png */; };
+		B4F3D61A24FC7697004F0E54 /* swipe-below.png in Resources */ = {isa = PBXBuildFile; fileRef = B4F3D61924FC7696004F0E54 /* swipe-below.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -383,6 +386,8 @@
 		B4602C5024C69BC300B1E4EE /* PlistParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlistParser.swift; sourceTree = "<group>"; };
 		B464E6E624CE43C700DD5B18 /* AthenaVKFRegular.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = AthenaVKFRegular.ps; sourceTree = "<group>"; };
 		B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = HellofreedayDEMO.ps; sourceTree = "<group>"; };
+		B465587324FC2C0D0040D1F9 /* sax.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sax.mp3; sourceTree = "<group>"; };
+		B465587924FC2E000040D1F9 /* bluemenu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bluemenu.png; sourceTree = "<group>"; };
 		B468DAC524CB757500C72BB3 /* sandprev-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-4.png"; sourceTree = "<group>"; };
 		B468DAC624CB757500C72BB3 /* sandprev-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-3.png"; sourceTree = "<group>"; };
 		B468DAC724CB757500C72BB3 /* sandprev-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandprev-2.png"; sourceTree = "<group>"; };
@@ -473,7 +478,6 @@
 		B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GemunuLibre-ExtraBold.ps"; sourceTree = "<group>"; };
 		B4BD1F6124E73D6B006C82FB /* gradient.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gradient.jpg; sourceTree = "<group>"; };
 		B4C0517D24ED903B009E8B4D /* cavegrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cavegrounds.png; sourceTree = "<group>"; };
-		B4C24D8B24F37574004F2A74 /* wildones.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wildones.mp3; sourceTree = "<group>"; };
 		B4C24D9324F375C9004F2A74 /* MusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
 		B4D3D4A424D3956C002AA8E2 /* stormy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = stormy.jpg; path = ../../../../../../Downloads/stormy.jpg; sourceTree = "<group>"; };
 		B4D3D4A624D39665002AA8E2 /* rainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = rainEffect.sks; sourceTree = "<group>"; };
@@ -482,6 +486,8 @@
 		B4F270F624CB798E0042788B /* sandtwister-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandtwister-4.png"; sourceTree = "<group>"; };
 		B4F270F724CB798E0042788B /* sandtwister-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandtwister-3.png"; sourceTree = "<group>"; };
 		B4F270F824CB798E0042788B /* sandtwister-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "sandtwister-2.png"; sourceTree = "<group>"; };
+		B4F3D61124FC7676004F0E54 /* swipe-up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swipe-up.png"; sourceTree = "<group>"; };
+		B4F3D61924FC7696004F0E54 /* swipe-below.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "swipe-below.png"; sourceTree = "<group>"; };
 		E47A25CFA830431D2997B34E /* Pods_continentclimb.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_continentclimb.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -599,6 +605,8 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B4F3D61124FC7676004F0E54 /* swipe-up.png */,
+				B4F3D61924FC7696004F0E54 /* swipe-below.png */,
 				B47ED57324F47CB800293311 /* snowmessage.png */,
 				B47ED56F24F47C9C00293311 /* cavemessage.png */,
 				B47ED57024F47C9C00293311 /* desertmessage.png */,
@@ -613,6 +621,7 @@
 				B4AF093624F1BC4C00EC97D6 /* goldcoin-8.png */,
 				B4AF093924F1BC4D00EC97D6 /* goldcoin-9.png */,
 				B4A6BB3C24F1964C00FDEF7D /* difficultybackg.jpg */,
+				B465587924FC2E000040D1F9 /* bluemenu.png */,
 				B493A90E24EF682E00C51B62 /* bluehome.png */,
 				B493A90D24EF682E00C51B62 /* bluenext.png */,
 				B493A90F24EF682E00C51B62 /* bluereplay.png */,
@@ -776,7 +785,7 @@
 		B432F7CE24BC28E20062EDB0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				B4C24D8B24F37574004F2A74 /* wildones.mp3 */,
+				B465587324FC2C0D0040D1F9 /* sax.mp3 */,
 			);
 			path = Sounds;
 			sourceTree = "<group>";
@@ -996,6 +1005,7 @@
 				B495824524BC2E4700BC1857 /* bobby-7.png in Resources */,
 				B4B1277924EA3001000EA6CF /* spider-11.png in Resources */,
 				B42FF99624ECC2D600B35118 /* coy-11.png in Resources */,
+				B465587424FC2C0D0040D1F9 /* sax.mp3 in Resources */,
 				B4F270F924CB798E0042788B /* sandtwister-1.png in Resources */,
 				B43EC5E424C539D700B3EB47 /* snowyeti-5.png in Resources */,
 				B4F270FC24CB798E0042788B /* sandtwister-2.png in Resources */,
@@ -1078,7 +1088,6 @@
 				B495824424BC2E4700BC1857 /* bobby-15.png in Resources */,
 				B42FF99A24ECC39300B35118 /* coy-18.png in Resources */,
 				B495824B24BC2E4700BC1857 /* bobby-16.png in Resources */,
-				B4C24D9224F37574004F2A74 /* wildones.mp3 in Resources */,
 				B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */,
 				B4AF093F24F1BC4D00EC97D6 /* goldcoin-8.png in Resources */,
 				B45C7CCE24D0AB5900B5A79E /* junglebackg.jpg in Resources */,
@@ -1092,6 +1101,7 @@
 				B4B1278524EA3001000EA6CF /* spider-13.png in Resources */,
 				B4F270FA24CB798E0042788B /* sandtwister-4.png in Resources */,
 				B464E6E724CE43C700DD5B18 /* AthenaVKFRegular.ps in Resources */,
+				B4F3D61A24FC7697004F0E54 /* swipe-below.png in Resources */,
 				B45C7CD024D0ABEC00B5A79E /* aurorabackg.jpg in Resources */,
 				B43D02DF24C03366008BB9DE /* snowgrounds.png in Resources */,
 				B43D02DD24C02F90008BB9DE /* Assets.xcassets in Resources */,
@@ -1163,6 +1173,7 @@
 				B42FF99224ECC2D600B35118 /* coy-14.png in Resources */,
 				B43EC5E824C539D700B3EB47 /* snowyeti-18.png in Resources */,
 				B48D2FA824C23823009AD3FD /* evilsnowman-5.png in Resources */,
+				B465587A24FC2E000040D1F9 /* bluemenu.png in Resources */,
 				B468DACB24CB757500C72BB3 /* sandprev-2.png in Resources */,
 				B468DAC924CB757500C72BB3 /* sandprev-4.png in Resources */,
 				B42FF95D24ECC22F00B35118 /* golem-3.png in Resources */,
@@ -1173,6 +1184,7 @@
 				B4B1277A24EA3001000EA6CF /* spider-7.png in Resources */,
 				B48D2FA724C23823009AD3FD /* evilsnowman-9.png in Resources */,
 				B495824C24BC2E4700BC1857 /* idle-2.png in Resources */,
+				B4F3D61824FC7676004F0E54 /* swipe-up.png in Resources */,
 				B42FF9AB24ECC4DE00B35118 /* snake-2.png in Resources */,
 				B4AF093C24F1BC4D00EC97D6 /* goldcoin-3.png in Resources */,
 				B42FF99724ECC2D600B35118 /* coy-5.png in Resources */,
