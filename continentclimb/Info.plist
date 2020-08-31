@@ -2,30 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>snow</key>
-	<array>
-		<string>snowgrounds.png</string>
-		<string>icybackground.png</string>
-		<string>Alaska</string>
-		<string>Greenland</string>
-		<string>Arctic Circle</string>
-	</array>
-	<key>desert</key>
-	<array>
-		<string>desertgrounds.png</string>
-		<string>desert.png</string>
-		<string>Phoenix</string>
-		<string>Havasu City</string>
-		<string>Death Valley</string>
-	</array>
-	<key>cave</key>
-	<array>
-		<string>cavegrounds.png</string>
-		<string>cave.jpg</string>
-		<string>Luray Caverns</string>
-		<string>Wind Cave</string>
-		<string>Mammoth</string>
-	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -64,6 +40,8 @@
 	<array>
 		<string>armv7</string>
 	</array>
+	<key>UIRequiresFullScreen</key>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<false/>
 	<key>UISupportedInterfaceOrientations</key>
@@ -75,6 +53,30 @@
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>cave</key>
+	<array>
+		<string>cavegrounds.png</string>
+		<string>cave.jpg</string>
+		<string>Luray Caverns</string>
+		<string>Wind Cave</string>
+		<string>Mammoth</string>
+	</array>
+	<key>desert</key>
+	<array>
+		<string>desertgrounds.png</string>
+		<string>desert.png</string>
+		<string>Phoenix</string>
+		<string>Havasu City</string>
+		<string>Death Valley</string>
+	</array>
+	<key>snow</key>
+	<array>
+		<string>snowgrounds.png</string>
+		<string>icybackground.png</string>
+		<string>Alaska</string>
+		<string>Greenland</string>
+		<string>Arctic Circle</string>
 	</array>
 </dict>
 </plist>
