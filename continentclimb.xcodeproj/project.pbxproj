@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		175DB4BE0970204DB3B1A0AB /* Pods_continentclimb.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E47A25CFA830431D2997B34E /* Pods_continentclimb.framework */; };
+		B40968102529A1EC003540A1 /* LapsusPro-Bold.ps in Resources */ = {isa = PBXBuildFile; fileRef = B40968092529A1EB003540A1 /* LapsusPro-Bold.ps */; };
+		B40968182529A6D0003540A1 /* desertheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B40968172529A6D0003540A1 /* desertheme.mp3 */; };
+		B40968202529AEA9003540A1 /* snowtheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B409681F2529AEA9003540A1 /* snowtheme.mp3 */; };
+		B40968252529B125003540A1 /* cavetheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B40968242529B125003540A1 /* cavetheme.mp3 */; };
 		B41B7AC124F212BF00A12ACC /* Antapani-ExtraBold.ps in Resources */ = {isa = PBXBuildFile; fileRef = B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */; };
 		B4252C7B24DB3B5B0028FE7E /* three-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B4252C7924DB3B5B0028FE7E /* three-star.png */; };
 		B4252C7C24DB3B5B0028FE7E /* two-star.png in Resources */ = {isa = PBXBuildFile; fileRef = B4252C7A24DB3B5B0028FE7E /* two-star.png */; };
@@ -97,6 +101,7 @@
 		B43EC5ED24C539D700B3EB47 /* snowyeti-6.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5DB24C539D700B3EB47 /* snowyeti-6.png */; };
 		B43EC5EF24C541F000B3EB47 /* snowyeti-11.png in Resources */ = {isa = PBXBuildFile; fileRef = B43EC5EE24C541F000B3EB47 /* snowyeti-11.png */; };
 		B44108FE24D39B8D007BF53B /* ContinentLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B44108FD24D39B8D007BF53B /* ContinentLoader.swift */; };
+		B44C902624FF765B00D06D99 /* wildones.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B44C901F24FF765A00D06D99 /* wildones.mp3 */; };
 		B4504D4724BE281A007E9014 /* mapp.png in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4624BE281A007E9014 /* mapp.png */; };
 		B4504D4924BE3770007E9014 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4504D4824BE3770007E9014 /* Extensions.swift */; };
 		B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */; };
@@ -131,6 +136,8 @@
 		B47ED57124F47C9C00293311 /* cavemessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED56F24F47C9C00293311 /* cavemessage.png */; };
 		B47ED57224F47C9C00293311 /* desertmessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED57024F47C9C00293311 /* desertmessage.png */; };
 		B47ED57424F47CB800293311 /* snowmessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED57324F47CB800293311 /* snowmessage.png */; };
+		B48C844B2504787100F1B809 /* cartoonlock.png in Resources */ = {isa = PBXBuildFile; fileRef = B48C844A2504787100F1B809 /* cartoonlock.png */; };
+		B48C844F25047CAC00F1B809 /* completed.png in Resources */ = {isa = PBXBuildFile; fileRef = B48C844E25047CAC00F1B809 /* completed.png */; };
 		B48D027F24F2DC07000E4E45 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = B48D027E24F2DC07000E4E45 /* Podfile */; };
 		B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9324C23823009AD3FD /* evilsnowman-4.png */; };
 		B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9424C23823009AD3FD /* evilsnowman-8.png */; };
@@ -204,6 +211,7 @@
 		B4BD1F6224E73D6C006C82FB /* gradient.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F6124E73D6B006C82FB /* gradient.jpg */; };
 		B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4C0517D24ED903B009E8B4D /* cavegrounds.png */; };
 		B4C24D9424F375C9004F2A74 /* MusicHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4C24D9324F375C9004F2A74 /* MusicHelper.swift */; };
+		B4CFD4E02526FD8B00F88F7E /* black-check.png in Resources */ = {isa = PBXBuildFile; fileRef = B4CFD4D92526FD8B00F88F7E /* black-check.png */; };
 		B4D3D4A524D3956C002AA8E2 /* stormy.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4D3D4A424D3956C002AA8E2 /* stormy.jpg */; };
 		B4D3D4A724D39665002AA8E2 /* rainEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = B4D3D4A624D39665002AA8E2 /* rainEffect.sks */; };
 		B4E5F48C24BD8E5D00A5A45D /* globe.png in Resources */ = {isa = PBXBuildFile; fileRef = B4E5F48B24BD8E5D00A5A45D /* globe.png */; };
@@ -277,6 +285,10 @@
 /* Begin PBXFileReference section */
 		68E24C866F36DADF1355FC03 /* Pods-continentclimb.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-continentclimb.debug.xcconfig"; path = "Target Support Files/Pods-continentclimb/Pods-continentclimb.debug.xcconfig"; sourceTree = "<group>"; };
 		7F8FDB1A27A41CEDA1EA8EAF /* Pods-continentclimb.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-continentclimb.release.xcconfig"; path = "Target Support Files/Pods-continentclimb/Pods-continentclimb.release.xcconfig"; sourceTree = "<group>"; };
+		B40968092529A1EB003540A1 /* LapsusPro-Bold.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LapsusPro-Bold.ps"; sourceTree = "<group>"; };
+		B40968172529A6D0003540A1 /* desertheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = desertheme.mp3; sourceTree = "<group>"; };
+		B409681F2529AEA9003540A1 /* snowtheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = snowtheme.mp3; sourceTree = "<group>"; };
+		B40968242529B125003540A1 /* cavetheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = cavetheme.mp3; sourceTree = "<group>"; };
 		B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Antapani-ExtraBold.ps"; sourceTree = "<group>"; };
 		B4252C7924DB3B5B0028FE7E /* three-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "three-star.png"; sourceTree = "<group>"; };
 		B4252C7A24DB3B5B0028FE7E /* two-star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "two-star.png"; sourceTree = "<group>"; };
@@ -370,6 +382,7 @@
 		B43EC5DB24C539D700B3EB47 /* snowyeti-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-6.png"; sourceTree = "<group>"; };
 		B43EC5EE24C541F000B3EB47 /* snowyeti-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "snowyeti-11.png"; sourceTree = "<group>"; };
 		B44108FD24D39B8D007BF53B /* ContinentLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinentLoader.swift; sourceTree = "<group>"; };
+		B44C901F24FF765A00D06D99 /* wildones.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = wildones.mp3; sourceTree = "<group>"; };
 		B4504D4624BE281A007E9014 /* mapp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = mapp.png; path = ../../../../../../Downloads/mapp.png; sourceTree = "<group>"; };
 		B4504D4824BE3770007E9014 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		B4504D4A24BE4317007E9014 /* LazenbyComputer-Liquid.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "LazenbyComputer-Liquid.ps"; sourceTree = "<group>"; };
@@ -404,6 +417,8 @@
 		B47ED56F24F47C9C00293311 /* cavemessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cavemessage.png; sourceTree = "<group>"; };
 		B47ED57024F47C9C00293311 /* desertmessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desertmessage.png; sourceTree = "<group>"; };
 		B47ED57324F47CB800293311 /* snowmessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snowmessage.png; sourceTree = "<group>"; };
+		B48C844A2504787100F1B809 /* cartoonlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartoonlock.png; sourceTree = "<group>"; };
+		B48C844E25047CAC00F1B809 /* completed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = completed.png; sourceTree = "<group>"; };
 		B48D027E24F2DC07000E4E45 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B48D2F9324C23823009AD3FD /* evilsnowman-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-4.png"; sourceTree = "<group>"; };
 		B48D2F9424C23823009AD3FD /* evilsnowman-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-8.png"; sourceTree = "<group>"; };
@@ -479,6 +494,7 @@
 		B4BD1F6124E73D6B006C82FB /* gradient.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gradient.jpg; sourceTree = "<group>"; };
 		B4C0517D24ED903B009E8B4D /* cavegrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cavegrounds.png; sourceTree = "<group>"; };
 		B4C24D9324F375C9004F2A74 /* MusicHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicHelper.swift; sourceTree = "<group>"; };
+		B4CFD4D92526FD8B00F88F7E /* black-check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "black-check.png"; sourceTree = "<group>"; };
 		B4D3D4A424D3956C002AA8E2 /* stormy.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = stormy.jpg; path = ../../../../../../Downloads/stormy.jpg; sourceTree = "<group>"; };
 		B4D3D4A624D39665002AA8E2 /* rainEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = rainEffect.sks; sourceTree = "<group>"; };
 		B4E5F48B24BD8E5D00A5A45D /* globe.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = globe.png; sourceTree = "<group>"; };
@@ -605,6 +621,8 @@
 		B432F7CB24BC28B40062EDB0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				B48C844A2504787100F1B809 /* cartoonlock.png */,
+				B4CFD4D92526FD8B00F88F7E /* black-check.png */,
 				B4F3D61124FC7676004F0E54 /* swipe-up.png */,
 				B4F3D61924FC7696004F0E54 /* swipe-below.png */,
 				B47ED57324F47CB800293311 /* snowmessage.png */,
@@ -785,6 +803,10 @@
 		B432F7CE24BC28E20062EDB0 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				B44C901F24FF765A00D06D99 /* wildones.mp3 */,
+				B409681F2529AEA9003540A1 /* snowtheme.mp3 */,
+				B40968242529B125003540A1 /* cavetheme.mp3 */,
+				B40968172529A6D0003540A1 /* desertheme.mp3 */,
 				B465587324FC2C0D0040D1F9 /* sax.mp3 */,
 			);
 			path = Sounds;
@@ -803,7 +825,9 @@
 		B495825424BC3E5F00BC1857 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				B48C844E25047CAC00F1B809 /* completed.png */,
 				B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */,
+				B40968092529A1EB003540A1 /* LapsusPro-Bold.ps */,
 				B48FB68C24EDC6DD00C2FF01 /* CarbonBl-Regular.ps */,
 				B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */,
 				B464E6E824CE4E2500DD5B18 /* HellofreedayDEMO.ps */,
@@ -1040,6 +1064,7 @@
 				B493A91324EF682E00C51B62 /* bluenext.png in Resources */,
 				B45C7CCC24D0AA7200B5A79E /* purpleskies.jpg in Resources */,
 				B495824D24BC2E4700BC1857 /* bobby-6.png in Resources */,
+				B4CFD4E02526FD8B00F88F7E /* black-check.png in Resources */,
 				B4504D4B24BE4317007E9014 /* LazenbyComputer-Liquid.ps in Resources */,
 				B42FF95B24ECC22F00B35118 /* golem-7.png in Resources */,
 				B4252C7B24DB3B5B0028FE7E /* three-star.png in Resources */,
@@ -1065,6 +1090,7 @@
 				B43D02DC24C02F90008BB9DE /* snowEffect.sks in Resources */,
 				B42FF9A624ECC4DE00B35118 /* snake-1.png in Resources */,
 				B42FF96824ECC26A00B35118 /* roc-6.png in Resources */,
+				B40968102529A1EC003540A1 /* LapsusPro-Bold.ps in Resources */,
 				B43EC5DE24C539D700B3EB47 /* snowyeti-16.png in Resources */,
 				B493A91424EF682E00C51B62 /* bluehome.png in Resources */,
 				B45C7CDA24D0C0A600B5A79E /* greecebackg.jpg in Resources */,
@@ -1077,8 +1103,10 @@
 				B4E5F48C24BD8E5D00A5A45D /* globe.png in Resources */,
 				B42FF97524ECC28E00B35118 /* bat-1.png in Resources */,
 				B42FF9A924ECC4DE00B35118 /* snake-5.png in Resources */,
+				B40968202529AEA9003540A1 /* snowtheme.mp3 in Resources */,
 				B48D2FA624C23823009AD3FD /* evilsnowman-6.png in Resources */,
 				B495824624BC2E4700BC1857 /* idle-3.png in Resources */,
+				B44C902624FF765B00D06D99 /* wildones.mp3 in Resources */,
 				B43D02CE24BEA1B9008BB9DE /* target.png in Resources */,
 				B4BD1F6224E73D6C006C82FB /* gradient.jpg in Resources */,
 				B43EC5EF24C541F000B3EB47 /* snowyeti-11.png in Resources */,
@@ -1142,6 +1170,7 @@
 				B493A91724EF682E00C51B62 /* rednext.png in Resources */,
 				B495826424BC4BA300BC1857 /* BitPap.ps in Resources */,
 				B45C7CDE24D0C51800B5A79E /* sydneybackg.jpg in Resources */,
+				B40968182529A6D0003540A1 /* desertheme.mp3 in Resources */,
 				B42FF99824ECC2D600B35118 /* coy-12.png in Resources */,
 				B47ED57424F47CB800293311 /* snowmessage.png in Resources */,
 				B464E6E924CE4E2500DD5B18 /* HellofreedayDEMO.ps in Resources */,
@@ -1162,7 +1191,9 @@
 				B43EC5E724C539D700B3EB47 /* snowyeti-17.png in Resources */,
 				B495824724BC2E4700BC1857 /* idle-4.png in Resources */,
 				B47ED57224F47C9C00293311 /* desertmessage.png in Resources */,
+				B48C844F25047CAC00F1B809 /* completed.png in Resources */,
 				B42FF99124ECC2D600B35118 /* coy-1.png in Resources */,
+				B40968252529B125003540A1 /* cavetheme.mp3 in Resources */,
 				B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */,
 				B479DE7324C2CD4B00E3F2BE /* snowbol-8.png in Resources */,
 				B495824824BC2E4700BC1857 /* bobby-5.png in Resources */,
@@ -1188,6 +1219,7 @@
 				B42FF9AB24ECC4DE00B35118 /* snake-2.png in Resources */,
 				B4AF093C24F1BC4D00EC97D6 /* goldcoin-3.png in Resources */,
 				B42FF99724ECC2D600B35118 /* coy-5.png in Resources */,
+				B48C844B2504787100F1B809 /* cartoonlock.png in Resources */,
 				B48D2FA124C23823009AD3FD /* evilsnowman-7.png in Resources */,
 				B43EC5E624C539D700B3EB47 /* snowyeti-15.png in Resources */,
 				B4602C4F24C69AA500B1E4EE /* desertgrounds.png in Resources */,
@@ -1448,6 +1480,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
 				PRODUCT_NAME = "Continent Climb";
 				SWIFT_VERSION = 5.0;
@@ -1468,6 +1501,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
 				PRODUCT_NAME = "Continent Climb";
 				SWIFT_VERSION = 5.0;

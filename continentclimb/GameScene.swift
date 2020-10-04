@@ -48,6 +48,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let coin: UInt32 = 10
     }
 
+    let percentageLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Start"
+        label.textColor = .white
+        label.textAlignment = .center
+        label.font = UIFont.boldSystemFont(ofSize: 32)
+        return label
+    }()
+    
+    var shapeLayer: CAShapeLayer = CAShapeLayer()
+    
+    var progressObj: Progress = Progress()
+    var progressBar: UIProgressView = UIProgressView()
+    
+    var swipeUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
+    var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
+    
     var swipeUpToJump: SKLabelNode = SKLabelNode()
     var swipeDownToSlide: SKLabelNode = SKLabelNode()
     
@@ -111,9 +128,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var levelText: SKLabelNode = SKLabelNode()
     var miniHero: SKSpriteNode = SKSpriteNode()
     var livesText: SKLabelNode = SKLabelNode()
+    
     var checkMark1: SKSpriteNode = SKSpriteNode()
     var checkMark2: SKSpriteNode = SKSpriteNode()
     var checkMark3: SKSpriteNode = SKSpriteNode()
+    
+    var lock1: SKSpriteNode = SKSpriteNode()
+    var lock2: SKSpriteNode = SKSpriteNode()
+    var lock3: SKSpriteNode = SKSpriteNode()
     
     
     var oneStar: SKSpriteNode = SKSpriteNode()
@@ -148,6 +170,92 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(cameraNode)
     }
     
+    func updateStars() {
+        
+        oneStar.alpha = 0.0
+        twoStar.alpha = 0.0
+        threeStar.alpha = 0.0
+                
+        difficultySubBox1.fillColor = .yellow
+        difficultySubBox2.fillColor = .green
+        difficultySubBox3.fillColor = .red
+        
+        difficultySubText1.fontColor = .black
+        difficultySubText2.fontColor = .black
+        difficultySubText3.fontColor = .black
+        
+        difficultyText.text = "Levels Completed: 0/3"
+        difficultyText.fontColor = .white
+        
+        var startIndex: Int = 0
+        var endIndex: Int = 0
+        var completedLevels: Int = 0
+        
+        switch(terrainKeyword) {
+            
+            case "snow":
+                lock1.isHidden = true
+                startIndex = 0
+                endIndex = 2
+                break;
+            case "desert":
+                if(savedData.completedLevels[2]) {
+                    
+                    lock1.isHidden = true;
+                }
+                startIndex = 3
+                endIndex = 5
+                break;
+            case "cave":
+                if(savedData.completedLevels[5]) {
+                    
+                    lock1.isHidden = true;
+                }
+                startIndex = 6
+                endIndex = 8
+                break;
+            default:
+                print("keyword not detected")
+                break;
+          }
+        
+        for i in startIndex ... endIndex
+        {
+            if(savedData.completedLevels[i])
+            {
+                completedLevels += 1
+                
+                if(i % 3 == 0)
+                {
+                    oneStar.alpha = 1.0
+                    lock2.alpha = 0.0
+                }
+                
+                if(i % 3 == 1)
+                {
+                    twoStar.alpha = 1.0
+                    lock3.alpha = 0.0
+                }
+                
+                if(i % 3 == 2)
+                {
+                    threeStar.alpha = 1.0
+                }
+            }
+        }
+        
+        if(completedLevels == 3)
+        {
+            difficultyText.text = "MAXED"
+            difficultyText.fontColor = .green
+            
+        }
+        else
+        {
+            difficultyText.text = "Levels Completed: " + String(completedLevels) + "/3"
+        }
+    }
+    
     func initHelpers() {
         
         if(gameData.levelNumeral != 0)
@@ -155,8 +263,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        
-        swipeUpToJump = SKLabelNode(fontNamed: "MaassslicerItalic")
+        swipeUpToJump = SKLabelNode(fontNamed: "LapsusPro-Bold")
         swipeUpToJump.fontSize = self.frame.size.width * 0.025
         swipeUpToJump.fontColor = .black
         swipeUpToJump.text = "Swipe up on screen to jump"
@@ -164,9 +271,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         jumpIcon = SKSpriteNode(imageNamed: "swipe-up")
         jumpIcon.size = CGSize(width: jumpIcon.size.width * (self.frame.size.width * 0.0001), height: jumpIcon.size.height * (self.frame.size.width * 0.0001))
-        jumpIcon.position = CGPoint(x: self.frame.size.width / 2.5, y: 100)
+        jumpIcon.position = CGPoint(x: self.frame.size.width / 3.5, y: 100)
         
-        swipeDownToSlide = SKLabelNode(fontNamed: "MaassslicerItalic")
+        swipeDownToSlide = SKLabelNode(fontNamed: "LapsusPro-Bold")
         swipeDownToSlide.fontSize = self.frame.size.width * 0.025
         swipeDownToSlide.fontColor = .black
         swipeDownToSlide.text = "Swipe down on screen to slide"
@@ -174,7 +281,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         slideIcon = SKSpriteNode(imageNamed: "swipe-below")
         slideIcon.size = CGSize(width: slideIcon.size.width * (self.frame.size.width * 0.0001), height: slideIcon.size.height * (self.frame.size.width * 0.0001))
-        slideIcon.position = CGPoint(x: self.frame.size.width / 2.5, y: 0)
+        slideIcon.position = CGPoint(x: self.frame.size.width / 3.5, y: 0)
         
         self.addChild(jumpIcon)
         self.addChild(swipeUpToJump)
@@ -202,19 +309,76 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         gameData.gameIsOver = false
         
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
+        swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
         swipeUp.direction = .up
         self.view?.addGestureRecognizer(swipeUp)
 
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(slideHero))
+        swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(slideHero))
         swipeDown.direction = .down
         self.view?.addGestureRecognizer(swipeDown)
+        
+        /*
+        view?.addSubview(percentageLabel)
+        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        percentageLabel.center = (view?.center)!
+        
+        
+        shapeLayer = CAShapeLayer()
+        let center = (view?.center)!
+        
+        //Track Layer
+        
+        let trackLayer = CAShapeLayer()
+        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: (3 * CGFloat.pi) / 2, clockwise: true)
+        
+        trackLayer.path = circularPath.cgPath
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.strokeEnd = 0
+        trackLayer.lineWidth = 10
+        trackLayer.lineCap = CAShapeLayerLineCap.round
+        view?.layer.addSublayer(trackLayer)
+        
+        
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.strokeEnd = 0
+        shapeLayer.lineWidth = 10
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        
+        view?.layer.addSublayer(shapeLayer)
+        
+        view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTaps)))
+        
+        progressBar = UIProgressView(progressViewStyle: .default)
+        progressBar.progress = 0
+        progressBar.setProgress(100, animated: true)
+        progressBar.observedProgress = progressObj
+        progressBar.progressTintColor = .green
+        progressBar.trackTintColor = .red
+        view?.addSubview(progressBar)
+ */
+        
+        hideLocks()
         removeCheckMarks()
         showLevelPopup()
         drawCharacter()
         initObjects()
+    }
     
-        //addSnow()
+    @objc func handleTaps() {
+        
+        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        
+        basicAnimation.toValue = 1
+        basicAnimation.duration = 2
+        basicAnimation.fillMode = CAMediaTimingFillMode.forwards
+        basicAnimation.isRemovedOnCompletion = false
+        
+        shapeLayer.add(basicAnimation, forKey: "basic")
+        
+        
+        
+        
     }
     
     func addBubbleMessage() {
@@ -471,17 +635,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    
-    
     func selectDifficulty() {
+        
+        var difficultyHeight: CGFloat = self.frame.size.width / 5
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            difficultyHeight = self.frame.size.width / 4
+        }
         
         removeCheckMarks()
         initChecks()
         addCheckMarks()
         difficultyBox.isHidden = false
         
-        difficultyBox = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 1.5, height: self.frame.size.width / 5))
-        difficultyBox.fillTexture = SKTexture(imageNamed: "difficultybackg.jpg")
+        difficultyBox = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 1.5, height: difficultyHeight))
+        difficultyBox.fillTexture = SKTexture(imageNamed: "starry.jpg")
         difficultyBox.fillColor = .white
         difficultyBox.strokeColor = .white
         difficultyBox.position = CGPoint(x: self.frame.midX, y: self.frame.midY)
@@ -490,11 +659,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(difficultyBox)
         
         difficultyText = SKLabelNode(fontNamed: "NationalPark-Heavy")
-        difficultyText.fontColor = .white
         difficultyText.fontSize = self.frame.width / 24
-        difficultyText.text = "Level Difficulty"
-        difficultyText.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 9.5)
-        
+        difficultyText.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 7.5)
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
@@ -504,24 +670,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultyBox.addChild(difficultyText)
         
         
-        
         difficultySubBox1 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
-        difficultySubBox1.fillColor = .yellow
         difficultySubBox1.strokeColor = .black
         difficultySubBox1.position = CGPoint(x: 0, y: -self.frame.height / 20)
         difficultySubBox1.lineWidth = 2
+        difficultySubBox1.alpha = 1.0
         difficultySubBox1.name = "level-2"
         difficultySubBox1.isUserInteractionEnabled = false
         
         difficultyBox.addChild(difficultySubBox1)
         
         difficultySubText1 = SKLabelNode(fontNamed: "GemunuLibre-ExtraBold")
-        difficultySubText1.fontColor = .black
         difficultySubText1.fontSize = self.frame.size.width / 45
         difficultySubText1.text = levelNames[1]
         difficultySubText1.position = CGPoint(x: 0, y: 0)
+        difficultySubText1.alpha = 1.0
         difficultySubText1.name = "level-2text"
         difficultySubText1.isUserInteractionEnabled = false
+        difficultySubText1.zPosition = 3
 
         difficultyBox.addChild(difficultySubText1)
         
@@ -536,7 +702,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         twoStar.position.y = -self.frame.size.height / 9.25
         
         difficultySubBox2 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
-        difficultySubBox2.fillColor = .green
         difficultySubBox2.strokeColor = .black
         difficultySubBox2.position = CGPoint(x: -self.frame.size.width / 4, y: -self.frame.height / 20)
         difficultySubBox2.lineWidth = 2
@@ -546,12 +711,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultyBox.addChild(difficultySubBox2)
         
         difficultySubText2 = SKLabelNode(fontNamed: "GemunuLibre-ExtraBold")
-        difficultySubText2.fontColor = .black
         difficultySubText2.fontSize = self.frame.size.width / 45
         difficultySubText2.text = levelNames[0]
         difficultySubText2.position = CGPoint(x: -self.frame.size.width / 4, y: 0)
         difficultySubText2.name = "level-1text"
         difficultySubText2.isUserInteractionEnabled = false
+        difficultySubText2.zPosition = 3
 
         
         difficultyBox.addChild(difficultySubText2)
@@ -564,9 +729,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         oneStar.isUserInteractionEnabled = false
         
         difficultyBox.addChild(oneStar)
-        
+                
         difficultySubBox3 = SKShapeNode(rectOf: CGSize(width: self.frame.size.width / 8, height: self.frame.size.width / 8))
-        difficultySubBox3.fillColor = .red
         difficultySubBox3.strokeColor = .black
         difficultySubBox3.position = CGPoint(x: self.frame.size.width / 4, y: -self.frame.height / 20)
         difficultySubBox3.lineWidth = 2
@@ -576,12 +740,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultyBox.addChild(difficultySubBox3)
         
         difficultySubText3 = SKLabelNode(fontNamed: "GemunuLibre-ExtraBold")
-        difficultySubText3.fontColor = .black
         difficultySubText3.fontSize = self.frame.size.width / 45
         difficultySubText3.text = levelNames[2]
         difficultySubText3.position = CGPoint(x: self.frame.size.width / 4, y: 0)
         difficultySubText3.name = "level-3text"
+        difficultySubText3.alpha = 1.0
         difficultySubText3.isUserInteractionEnabled = false
+        difficultySubText3.zPosition = 3
 
         difficultyBox.addChild(difficultySubText3)
         
@@ -590,6 +755,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         threeStar.position = CGPoint(x: self.frame.size.width / 3.8, y: -self.frame.size.height / 8.5)
         threeStar.name = "threestar"
         threeStar.isUserInteractionEnabled = false
+        
+        lock1 = SKSpriteNode(imageNamed: "cartoonlock")
+        lock1.size = CGSize(width: lock1.size.width * (self.frame.size.width * 0.0002), height: lock1.size.height * (self.frame.size.width * 0.0002))
+        lock1.position = CGPoint(x: -self.frame.size.width / 4, y: -self.frame.size.height / 20)
+        lock1.zPosition = 2
+        
+        self.addChild(lock1)
+        
+        lock2 = SKSpriteNode(imageNamed: "cartoonlock")
+        lock2.size = CGSize(width: lock2.size.width * (self.frame.size.width * 0.0002), height: lock2.size.height * (self.frame.size.width * 0.0002))
+        lock2.position = CGPoint(x: 0, y: -self.frame.size.height / 20)
+        lock2.zPosition = 2
+        
+        self.addChild(lock2)
+        
+        lock3 = SKSpriteNode(imageNamed: "cartoonlock")
+        lock3.size = CGSize(width: lock3.size.width * (self.frame.size.width * 0.0002), height: lock3.size.height * (self.frame.size.width * 0.0002))
+        lock3.position = CGPoint(x: self.frame.size.width / 4, y: -self.frame.size.height / 20)
+        lock3.zPosition = 2
+        
+        self.addChild(lock3)
+        
+        updateStars()
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
@@ -616,6 +804,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         returnButton.name = "return"
         
         self.addChild(returnButton)
+        
+    }
+    
+    func hideLocks() {
+        
+        lock1.isHidden = true
+        lock2.isHidden = true
+        lock3.isHidden = true
     }
 
     func addSnow() {
@@ -635,7 +831,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawSandstorm() {
         
-        let randSpeed = Double.random(in: 0.3 ... 0.5)
+        let speed: Double = 0.5
         
         var sandstormShift: SKAction = SKAction()
         var sandstormAnim: SKAction = SKAction()
@@ -645,13 +841,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
             sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3.6)
-            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: randSpeed)
+            sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: speed)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3.4)
-            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: randSpeed - 0.1)
+            sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: speed - 0.1)
         }
         
         let sandstormRepeater = SKAction.repeatForever(sandstormAnim)
@@ -664,11 +860,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func determineSandstormDirection() {
         
         let rand = Int.random(in: 1 ... 2)
-        let randSpeed = Double.random(in: 1.25 ... 1.5)
+        let speed: Double = 1.5
         var riseAction: SKAction = SKAction()
         var riseRepeater: SKAction = SKAction()
         
-        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
+        let secondShift = SKAction.moveTo(x: -self.frame.size.width, duration: speed)
         
         let shiftRepeater = SKAction.repeat(secondShift, count: 1)
         
@@ -682,7 +878,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         sandstorm.run(shiftRepeater, completion: sandstormRevert)
     }
-    
     
     func sandstormRevert() {
         
@@ -1202,7 +1397,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let coyoteAnimate = SKAction.animate(with: coyoteFrames, timePerFrame: randSpeed / 25)
         self.coyoteDashAction = coyoteAnimate
-        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
+        let coyoteShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed * 0.9)
         let coyoteRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
         
         let shiftSeq = SKAction.sequence([coyoteShift, coyoteRevert])
@@ -1379,7 +1574,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func initChecks() {
         
         checkMark1 = SKSpriteNode(imageNamed: "checkmark")
-        checkMark1.size = CGSize(width: checkMark1.size.width * (self.frame.size.width * 0.0003), height: checkMark1.size.height * (self.frame.size.width * 0.0003))
+        checkMark1.size = CGSize(width: checkMark1.size.width * (self.frame.size.width * 0.00025), height: checkMark1.size.height * (self.frame.size.width * 0.00025))
         checkMark1.position = CGPoint(x: -self.frame.size.width / 4, y: 0)
         checkMark1.zPosition = 5
         checkMark1.alpha = 0.0
@@ -1387,7 +1582,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(checkMark1)
         
         checkMark2 = SKSpriteNode(imageNamed: "checkmark")
-        checkMark2.size = CGSize(width: checkMark2.size.width * (self.frame.size.width * 0.0003), height: checkMark2.size.height * (self.frame.size.width * 0.0003))
+        checkMark2.size = CGSize(width: checkMark2.size.width * (self.frame.size.width * 0.00025), height: checkMark2.size.height * (self.frame.size.width * 0.00025))
         checkMark2.position = CGPoint(x: 0, y: 0)
         checkMark2.zPosition = 5
         checkMark2.alpha = 0.0
@@ -1395,7 +1590,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(checkMark2)
         
         checkMark3 = SKSpriteNode(imageNamed: "checkmark")
-        checkMark3.size = CGSize(width: checkMark3.size.width * (self.frame.size.width * 0.0003), height: checkMark3.size.height * (self.frame.size.width * 0.0003))
+        checkMark3.size = CGSize(width: checkMark3.size.width * (self.frame.size.width * 0.00025), height: checkMark3.size.height * (self.frame.size.width * 0.00025))
         checkMark3.position = CGPoint(x: self.frame.size.width / 4, y: 0)
         checkMark3.zPosition = 5
         checkMark3.alpha = 0.0
@@ -1404,7 +1599,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initObjects() {
-        
+    
         //ScoreBox
         
         scoreBox = SKShapeNode(rect: CGRect(x: self.frame.size.width / 3.5, y: self.frame.size.height / 3, width: self.frame.size.width / 5, height: self.frame.size.height / 7), cornerRadius: 10)
@@ -1745,6 +1940,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func performEndingAnimation() {
         
         isLevelPassed = true
+        
+        view?.removeGestureRecognizer(swipeUp)
+        view?.removeGestureRecognizer(swipeDown)
+        
         pauseBackgAndPlatform()
         let characterShift = SKAction.moveTo(x: self.frame.size.width / 2.5, duration: 1)
         
@@ -1897,9 +2096,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         objNum = 0
     }
     
+    func getLevelIndex(index: Int) -> Int {
+        
+        switch(terrainKeyword) {
+        
+            case "snow":
+                return index;
+            case "desert":
+                return index + 3;
+            case "cave":
+                return index + 6;
+            default:
+                print("Other terrain keyword...");
+                return index;
+        }
+    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-                    
+                            
         if let touch = touches.first {
             
             let location = touch.previousLocation(in: self)
@@ -1917,6 +2132,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             else if(node?.name == "return")
             {
+                terrainKeyword = ""
+                MusicHelper.sharedHelper.stopPlaying()
+                MusicHelper.sharedHelper.prepareToPlay()
+                MusicHelper.sharedHelper.audioPlayer?.play()
+                
                 cleanUp()
                 cameraNode.removeAllChildren()
                 let continentLoader = ContinentLoader(size: (view?.bounds.size)!)
@@ -1950,10 +2170,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
             else if((difficultySubBox1.contains(location)) || (difficultySubBox2.contains(location)) || (difficultySubBox3.contains(location)))
             {
-                returnButton.removeFromParent()
-                
+
                 if((node?.name == "level-1") || (node?.name == "level-1text") || (node?.name == "onestar"))
                 {
+                    let levelIndex = getLevelIndex(index: 0)
+                    
+                    if(levelIndex != 0) {
+                        
+                        if(!savedData.completedLevels[levelIndex - 1]) {
+                            
+                            return
+                        }
+                    }
+                    
+                    returnButton.removeFromParent()
                     levelLiteral = terrainKeyword + "level1"
                     gameData.levelNumeral = 0
                     initializeGame()
@@ -1962,6 +2192,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 else if((node?.name == "level-2") || (node?.name == "level-2text") || (node?.name == "twostar"))
                 {
+                    let levelIndex = getLevelIndex(index: 1)
+                    
+                    if(!savedData.completedLevels[levelIndex - 1]) {
+                        
+                        return
+                    }
+                    
+                    returnButton.removeFromParent()
                     levelLiteral = terrainKeyword + "level2"
                     gameData.levelNumeral = 1
                     initializeGame()
@@ -1970,6 +2208,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 
                 else if((node?.name == "level-3") || (node?.name == "level-3text") || (node?.name == "threestar"))
                 {
+                    let levelIndex = getLevelIndex(index: 2)
+                    
+                    if(!savedData.completedLevels[levelIndex - 1]) {
+                        
+                        return
+                    }
+                    
+                    returnButton.removeFromParent()
                     levelLiteral = terrainKeyword + "level3"
                     gameData.levelNumeral = 2
                     initializeGame()

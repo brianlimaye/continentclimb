@@ -16,7 +16,7 @@ var terrainKeyword: String = ""
 struct savedData {
     
     static var coinCount: Int = 0
-    static var completedLevels: [Bool] = [false, false, false, false, false, false, false, false, false]
+    static var completedLevels: [Bool] = [true, true, true, false, false, false, false, false, false]
 }
 
 class HomeScene: SKScene {
@@ -40,9 +40,9 @@ class HomeScene: SKScene {
     var earth: SKSpriteNode = SKSpriteNode()
     
     override func didMove(to view: SKView) {
-        
+                
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        pullSavedData()
+        //wipeData()
         drawMainText()
         initHero()
         initEarth()
@@ -53,6 +53,12 @@ class HomeScene: SKScene {
         //drawTutorialButton()
         //drawSoundButton()
         initClickToStart()
+    }
+    
+    func wipeData() {
+        
+        GameScene.defaults.removeObject(forKey: "coins")
+        GameScene.defaults.removeObject(forKey: "completedLevels")
     }
     
     func pullSavedData() {
@@ -84,23 +90,13 @@ class HomeScene: SKScene {
         let fadeRepeater = SKAction.repeatForever(fadeSeq)
         
         clickToStart = SKLabelNode(fontNamed: "BitPap")
-        clickToStart.text = "Click to start"
+        clickToStart.text = "Tap to start"
         clickToStart.fontColor = .white
         clickToStart.fontSize = self.frame.size.width * 0.05
         clickToStart.position = CGPoint(x: 0, y: -self.frame.size.height / 2.5)
         
-        clickToStart2 = SKLabelNode(fontNamed: "BitPap")
-        clickToStart2.text = "Click to start"
-        clickToStart2.fontColor = .white
-        clickToStart2.fontSize = self.frame.size.width * 0.05
-        clickToStart2.position = CGPoint(x: -self.frame.width / 3, y: -10)
-        
-        
-        
         clickToStart.run(fadeRepeater)
-        //clickToStart2.run(fadeRepeater)
         self.addChild(clickToStart)
-        //self.addChild(clickToStart2)
     }
     
     func initGalaxy() {

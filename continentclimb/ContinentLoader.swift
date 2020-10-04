@@ -207,6 +207,10 @@ class ContinentLoader: SKScene {
             
           if(doesExist)
           {
+              MusicHelper.sharedHelper.stopPlaying()
+              MusicHelper.sharedHelper.prepareToPlay()
+              MusicHelper.sharedHelper.audioPlayer?.play()
+            
               let gameScene = GameScene(size: view!.bounds.size)
               gameScene.scaleMode = .aspectFill
               view?.presentScene(gameScene)

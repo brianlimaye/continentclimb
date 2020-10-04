@@ -15,7 +15,26 @@ class MusicHelper {
 
     func prepareToPlay() {
         
-        let aSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: "sax", ofType: "mp3")!)
+        var resourceKeyword: String?
+        
+        switch(terrainKeyword) {
+        
+            
+            case "snow":
+                resourceKeyword = "snowtheme"
+                break;
+            case "desert":
+                resourceKeyword = "desertheme"
+                break;
+            case "cave":
+                resourceKeyword = "cavetheme"
+                break;
+            default:
+                resourceKeyword = "sax"
+                break;
+        }
+        
+        let aSound = NSURL(fileURLWithPath: Bundle.main.path(forResource: resourceKeyword, ofType: "mp3")!)
         do {
             audioPlayer = try AVAudioPlayer(contentsOf: aSound as URL)
             audioPlayer!.numberOfLoops = -1
@@ -23,5 +42,10 @@ class MusicHelper {
         } catch {
             print("Cannot play the file")
         }
+    }
+    
+    func stopPlaying() {
+        
+        audioPlayer?.stop()
     }
 }

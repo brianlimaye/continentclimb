@@ -192,7 +192,7 @@ class GameViewController: UIViewController {
         GameViewController.gameScene?.isPaused = false
         MusicHelper.sharedHelper.prepareToPlay()
         MusicHelper.sharedHelper.audioPlayer?.play()
-        //GameViewController.gameScene?.levelLoader.invalidate()
+        GameViewController.gameScene?.levelLoader.invalidate()
         
         if((!gameData.gameIsOver) && (!gameData.hasPopups))
         {
