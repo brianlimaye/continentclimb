@@ -137,7 +137,6 @@
 		B47ED57224F47C9C00293311 /* desertmessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED57024F47C9C00293311 /* desertmessage.png */; };
 		B47ED57424F47CB800293311 /* snowmessage.png in Resources */ = {isa = PBXBuildFile; fileRef = B47ED57324F47CB800293311 /* snowmessage.png */; };
 		B48C844B2504787100F1B809 /* cartoonlock.png in Resources */ = {isa = PBXBuildFile; fileRef = B48C844A2504787100F1B809 /* cartoonlock.png */; };
-		B48C844F25047CAC00F1B809 /* completed.png in Resources */ = {isa = PBXBuildFile; fileRef = B48C844E25047CAC00F1B809 /* completed.png */; };
 		B48D027F24F2DC07000E4E45 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = B48D027E24F2DC07000E4E45 /* Podfile */; };
 		B48D2F9E24C23823009AD3FD /* evilsnowman-4.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9324C23823009AD3FD /* evilsnowman-4.png */; };
 		B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B48D2F9424C23823009AD3FD /* evilsnowman-8.png */; };
@@ -418,7 +417,6 @@
 		B47ED57024F47C9C00293311 /* desertmessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = desertmessage.png; sourceTree = "<group>"; };
 		B47ED57324F47CB800293311 /* snowmessage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snowmessage.png; sourceTree = "<group>"; };
 		B48C844A2504787100F1B809 /* cartoonlock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cartoonlock.png; sourceTree = "<group>"; };
-		B48C844E25047CAC00F1B809 /* completed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = completed.png; sourceTree = "<group>"; };
 		B48D027E24F2DC07000E4E45 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		B48D2F9324C23823009AD3FD /* evilsnowman-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-4.png"; sourceTree = "<group>"; };
 		B48D2F9424C23823009AD3FD /* evilsnowman-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "evilsnowman-8.png"; sourceTree = "<group>"; };
@@ -825,7 +823,6 @@
 		B495825424BC3E5F00BC1857 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
-				B48C844E25047CAC00F1B809 /* completed.png */,
 				B41B7AC024F212BF00A12ACC /* Antapani-ExtraBold.ps */,
 				B40968092529A1EB003540A1 /* LapsusPro-Bold.ps */,
 				B48FB68C24EDC6DD00C2FF01 /* CarbonBl-Regular.ps */,
@@ -1191,7 +1188,6 @@
 				B43EC5E724C539D700B3EB47 /* snowyeti-17.png in Resources */,
 				B495824724BC2E4700BC1857 /* idle-4.png in Resources */,
 				B47ED57224F47C9C00293311 /* desertmessage.png in Resources */,
-				B48C844F25047CAC00F1B809 /* completed.png in Resources */,
 				B42FF99124ECC2D600B35118 /* coy-1.png in Resources */,
 				B40968252529B125003540A1 /* cavetheme.mp3 in Resources */,
 				B48D2F9F24C23823009AD3FD /* evilsnowman-8.png in Resources */,

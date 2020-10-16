@@ -21,13 +21,13 @@ struct gameData {
     static var levelNumeral: Int = 0
     static var startingHeroPos: CGPoint = CGPoint(x: 0, y: 0)
     static var snowLevelOne: [Int] = [1, 1, 1, 0, 2, 2, 3, 1, 2, 3]
-    static var snowLevelTwo: [Int] = [2, 3, 1, 0, 2, 1, 3, 2, 2, 1]
+    static var snowLevelTwo: [Int] = [2, 3, 1, 0, 2, 1, 3, 3, 2, 1, 2, 1]
     static var snowLevelThree: [Int] = [2, 3, 3, 2, 1, 0, 3, 2, 2, 1, 2, 2, 2, 1, 3]
     static var desertLevelOne: [Int] = [4, 5, 4, 0, 5, 6, 4, 5, 6, 5]
-    static var desertLevelTwo: [Int] = [6, 4, 5, 0, 4, 6, 5, 4, 6, 6]
+    static var desertLevelTwo: [Int] = [6, 4, 5, 0, 4, 6, 5, 0, 4, 5, 4, 6]
     static var desertLevelThree: [Int] = [4, 5, 0, 6, 6, 6, 4, 6, 6, 4, 5, 6, 6, 5, 4]
     static var caveLevelOne: [Int] = [7, 8, 9, 0, 7, 9, 7, 7, 8, 7]
-    static var caveLevelTwo: [Int] = [8, 0, 7, 9, 7, 7, 9, 9, 8, 7]
+    static var caveLevelTwo: [Int] = [8, 0, 7, 9, 7, 7, 8, 9, 9, 8, 0, 9]
     static var caveLevelThree: [Int] = [8, 8, 0, 9, 8, 9, 8, 7, 7, 8, 9, 7, 8, 8, 9]
 }
 
@@ -47,20 +47,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let rock: UInt32 = 9
         static let coin: UInt32 = 10
     }
-
+    
     let percentageLabel: UILabel = {
+        
         let label = UILabel()
-        label.text = "Start"
-        label.textColor = .white
+        label.text = "0%"
+        label.font = UIFont(name: "Antapani-ExtraBold", size: 30)
         label.textAlignment = .center
-        label.font = UIFont.boldSystemFont(ofSize: 32)
         return label
     }()
     
-    var shapeLayer: CAShapeLayer = CAShapeLayer()
+    let completedLabel: UILabel = {
+        
+        let label = UILabel()
+        label.text = "Completed"
+        label.font = UIFont(name: "NationalPark-Heavy", size: 12)
+        label.textAlignment = .center
+        return label
+    }()
     
-    var progressObj: Progress = Progress()
-    var progressBar: UIProgressView = UIProgressView()
+    let startValue: Int = 0
+    var current: Int = 0
+    let endValue: Int = 100
+    var animationDuration: TimeInterval = TimeInterval()
+        
+    var coinDisplayLink: CADisplayLink = CADisplayLink()
+    var progressDisplayLink: CADisplayLink = CADisplayLink()
+    
+    var shapeLayer: CAShapeLayer = CAShapeLayer()
+    var trackLayer: CAShapeLayer = CAShapeLayer()
     
     var swipeUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
     var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
@@ -82,6 +97,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var recordedTime: Int = 0
     var initialYPos: CGFloat = 0
+    
+    var levelDuration: TimeInterval = 0
     
     static let defaults = UserDefaults.standard
 
@@ -128,6 +145,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var levelText: SKLabelNode = SKLabelNode()
     var miniHero: SKSpriteNode = SKSpriteNode()
     var livesText: SKLabelNode = SKLabelNode()
+    var scoreBonus: SKLabelNode = SKLabelNode()
     
     var checkMark1: SKSpriteNode = SKSpriteNode()
     var checkMark2: SKSpriteNode = SKSpriteNode()
@@ -151,8 +169,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var replayButton: SKSpriteNode = SKSpriteNode()
     
     var returnButton: SKSpriteNode = SKSpriteNode()
-    
+
     var isLevelPassed: Bool = true
+    var bonusCoinAmount: Int = 0
+    var levelIdentifier: Int = 0
+    var oldCoinCount: Int = 0
     
     override func didMove(to view: SKView) {
         
@@ -167,7 +188,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         drawBackground()
         drawPlatform()
 
-        self.addChild(cameraNode)
+        if(!self.children.contains(cameraNode)) {
+            
+            print("Yes")
+            self.addChild(cameraNode)
+        }
     }
     
     func updateStars() {
@@ -258,7 +283,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func initHelpers() {
         
-        if(gameData.levelNumeral != 0)
+        if((terrainKeyword != "snow") || (gameData.levelNumeral != 0))
         {
             return
         }
@@ -267,11 +292,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swipeUpToJump.fontSize = self.frame.size.width * 0.025
         swipeUpToJump.fontColor = .black
         swipeUpToJump.text = "Swipe up on screen to jump"
-        swipeUpToJump.position = CGPoint(x: self.frame.size.width / 10, y: 100)
+        swipeUpToJump.position = CGPoint(x: self.frame.size.width / 10, y: 75)
         
         jumpIcon = SKSpriteNode(imageNamed: "swipe-up")
         jumpIcon.size = CGSize(width: jumpIcon.size.width * (self.frame.size.width * 0.0001), height: jumpIcon.size.height * (self.frame.size.width * 0.0001))
-        jumpIcon.position = CGPoint(x: self.frame.size.width / 3.5, y: 100)
+        jumpIcon.position = CGPoint(x: self.frame.size.width / 3.5, y: 75)
         
         swipeDownToSlide = SKLabelNode(fontNamed: "LapsusPro-Bold")
         swipeDownToSlide.fontSize = self.frame.size.width * 0.025
@@ -307,6 +332,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func initializeGame() {
         
+        percentageLabel.text = "0%"
+        
         gameData.gameIsOver = false
         
         swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(jumpHero))
@@ -316,48 +343,46 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(slideHero))
         swipeDown.direction = .down
         self.view?.addGestureRecognizer(swipeDown)
+    
         
-        /*
         view?.addSubview(percentageLabel)
-        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
-        percentageLabel.center = (view?.center)!
+        view?.addSubview(completedLabel)
         
+        let center = CGPoint(x: (view?.bounds.width)! / 2, y: (view?.bounds.height)! / 8)
+
+        
+        percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        percentageLabel.center = center
+        
+        completedLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
+        completedLabel.center = CGPoint(x: (view?.bounds.width)! / 2, y: (view?.bounds.height)! / 5.8)
         
         shapeLayer = CAShapeLayer()
-        let center = (view?.center)!
         
         //Track Layer
         
-        let trackLayer = CAShapeLayer()
-        let circularPath = UIBezierPath(arcCenter: center, radius: 100, startAngle: -CGFloat.pi / 2, endAngle: (3 * CGFloat.pi) / 2, clockwise: true)
-        
+        trackLayer = CAShapeLayer()
+        let circularPath = UIBezierPath(arcCenter: center, radius: self.frame.size.width * 0.05, startAngle: -CGFloat.pi / 2, endAngle: (3 * CGFloat.pi) / 2, clockwise: true)
         trackLayer.path = circularPath.cgPath
-        trackLayer.strokeColor = UIColor.lightGray.cgColor
-        trackLayer.strokeEnd = 0
-        trackLayer.lineWidth = 10
-        trackLayer.lineCap = CAShapeLayerLineCap.round
-        view?.layer.addSublayer(trackLayer)
         
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.lineWidth = 10
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = CAShapeLayerLineCap.round
+        trackLayer.zPosition = 6
+        
+        view?.layer.addSublayer(trackLayer)
         
         shapeLayer.path = circularPath.cgPath
         shapeLayer.strokeColor = UIColor.red.cgColor
-        shapeLayer.strokeEnd = 0
         shapeLayer.lineWidth = 10
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeEnd = 0
         shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.zPosition = 6
         
         view?.layer.addSublayer(shapeLayer)
-        
-        view?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTaps)))
-        
-        progressBar = UIProgressView(progressViewStyle: .default)
-        progressBar.progress = 0
-        progressBar.setProgress(100, animated: true)
-        progressBar.observedProgress = progressObj
-        progressBar.progressTintColor = .green
-        progressBar.trackTintColor = .red
-        view?.addSubview(progressBar)
- */
-        
+                
         hideLocks()
         removeCheckMarks()
         showLevelPopup()
@@ -365,20 +390,58 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         initObjects()
     }
     
-    @objc func handleTaps() {
+    func updateStatusPercentage() {
         
+        if(gameData.levelNumeral == 2) {
+            
+            current = 200
+        }
+        
+        animationDuration = levelDuration
+        progressDisplayLink = CADisplayLink(target: self, selector: #selector(handleUpdate))
+        progressDisplayLink.add(to: .main, forMode: .default)
+        
+    }
+    
+    @objc func handleUpdate() {
+        
+        let percentage = current / endValue
+        self.percentageLabel.text = "\(percentage)" + "%"
+        current += Int(animationDuration / 5.05)
+        
+        if(percentage >= endValue) {
+            
+            self.percentageLabel.text = "\(endValue)" + "%"
+        }
+    }
+    
+    func pauseAnimation(layer: CAShapeLayer){
+        
+      let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
+      layer.speed = 0.0
+      layer.timeOffset = pausedTime
+    }
+
+    func resumeAnimation(layer: CAShapeLayer){
+      let pausedTime = layer.timeOffset
+      layer.speed = 1.0
+      layer.timeOffset = 0.0
+      layer.beginTime = 0.0
+      let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
+      layer.beginTime = timeSincePause
+    }
+    
+    func handleTaps() {
+        
+        updateStatusPercentage()
         let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         
         basicAnimation.toValue = 1
-        basicAnimation.duration = 2
+        basicAnimation.duration = levelDuration * 1.17
         basicAnimation.fillMode = CAMediaTimingFillMode.forwards
         basicAnimation.isRemovedOnCompletion = false
         
         shapeLayer.add(basicAnimation, forKey: "basic")
-        
-        
-        
-        
     }
     
     func addBubbleMessage() {
@@ -534,31 +597,50 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             case "snowlevel1":
                 arr = gameData.snowLevelOne
+                bonusCoinAmount = 30
+                levelIdentifier = 0
                 break
             case "snowlevel2":
                 arr = gameData.snowLevelTwo
+                bonusCoinAmount = 40
+                levelIdentifier = 1
                 break
             case "snowlevel3":
                 arr = gameData.snowLevelThree
+                bonusCoinAmount = 50
+                levelIdentifier = 2
             case "desertlevel1":
                 arr = gameData.desertLevelOne
+                bonusCoinAmount = 30
+                levelIdentifier = 3
                 break
             case "desertlevel2":
                 arr = gameData.desertLevelTwo
+                bonusCoinAmount = 40
+                levelIdentifier = 4
                 break
             case "desertlevel3":
                 arr = gameData.desertLevelThree
+                bonusCoinAmount = 50
+                levelIdentifier = 5
                 break
             case "cavelevel1":
                 arr = gameData.caveLevelOne
+                bonusCoinAmount = 10
+                levelIdentifier = 6
                 break
             case "cavelevel2":
                 arr = gameData.caveLevelTwo
+                bonusCoinAmount = 20
+                levelIdentifier = 7
                 break
             case "cavelevel3":
                 arr = gameData.caveLevelThree
+                bonusCoinAmount = 30
+                levelIdentifier = 8
                 break
             default:
+                print("uh oh")
                 break
         }
         
@@ -584,6 +666,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let levelSpeed: TimeInterval = TimeInterval((-0.5 * Double(levelNo)) + 3.5)
         
+        levelDuration = (levelSpeed * Double(schedule.count))
+        handleTaps()
         levelLoader = Timer.scheduledTimer(timeInterval: levelSpeed, target: self, selector: #selector(runCorrespondingAction), userInfo: nil, repeats: true)
     }
     
@@ -1578,6 +1662,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         checkMark1.position = CGPoint(x: -self.frame.size.width / 4, y: 0)
         checkMark1.zPosition = 5
         checkMark1.alpha = 0.0
+        checkMark1.name = "check-1"
+        checkMark1.isUserInteractionEnabled = false
         
         self.addChild(checkMark1)
         
@@ -1586,6 +1672,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         checkMark2.position = CGPoint(x: 0, y: 0)
         checkMark2.zPosition = 5
         checkMark2.alpha = 0.0
+        checkMark2.name = "check-2"
+        checkMark2.isUserInteractionEnabled = false
+
         
         self.addChild(checkMark2)
         
@@ -1594,6 +1683,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         checkMark3.position = CGPoint(x: self.frame.size.width / 4, y: 0)
         checkMark3.zPosition = 5
         checkMark3.alpha = 0.0
+        checkMark3.name = "check-3"
+        checkMark3.isUserInteractionEnabled = false
+        
         
         self.addChild(checkMark3)
     }
@@ -1779,7 +1871,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.8)
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.82)
         }
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
@@ -1941,6 +2033,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         isLevelPassed = true
         
+        addCoinBonus()
+        
         view?.removeGestureRecognizer(swipeUp)
         view?.removeGestureRecognizer(swipeDown)
         
@@ -2069,8 +2163,62 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         GameScene.defaults.set(savedData.completedLevels, forKey: "completedLevels")
     }
     
+    func addCoinBonus() {
+    
+        if(!savedData.completedLevels[levelIdentifier]) {
+            
+            scoreBonus = SKLabelNode(fontNamed: "Antapani-ExtraBold")
+            scoreBonus.fontColor = .white
+            scoreBonus.fontSize = self.frame.size.width * 0.03
+            scoreBonus.text = "+" + String(bonusCoinAmount)
+            scoreBonus.position = CGPoint(x: self.frame.size.width / 2.165, y: self.frame.size.height / 2.76)
+            
+            if(UIDevice.current.userInterfaceIdiom == .pad)
+            {
+                scoreBonus.position.y = self.frame.size.height / 2.68
+            }
+            
+            scoreBonus.zPosition = 5
+            scoreBonus.alpha = 0.0
+            scoreBox.addChild(scoreBonus)
+            
+            let fadeIn = SKAction.fadeIn(withDuration: 1)
+            let fadeOut = SKAction.fadeOut(withDuration: 1)
+            
+            let fadeSequencer = SKAction.sequence([fadeIn, fadeOut])
+            
+            scoreBonus.run(fadeSequencer)
+            
+            performCoinAdjustion()
+        }
+            
+    }
+    
+    func performCoinAdjustion() {
+        
+        oldCoinCount = savedData.coinCount
+        coinDisplayLink = CADisplayLink(target: self, selector: #selector(incrementScore))
+        coinDisplayLink.add(to: .main, forMode: .default)
+    }
+    
+    @objc func incrementScore() {
+        
+        savedData.coinCount += 1
+        scoreLabel.text = String(savedData.coinCount)
+        
+        if(savedData.coinCount >= oldCoinCount + bonusCoinAmount) {
+            
+            coinDisplayLink.invalidate()
+        }
+    }
+    
     func endGame() {
-                
+    
+        progressDisplayLink.invalidate()
+        //trackLayer.removeAllAnimations()
+        pauseAnimation(layer: trackLayer)
+        pauseAnimation(layer: shapeLayer)
+        
         gameData.gameIsOver = true
         
         if(isLevelPassed)
@@ -2093,7 +2241,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func resetModifiers() {
         
+        animationDuration = 0
+        current = 0
         objNum = 0
+        levelIdentifier = 0
     }
     
     func getLevelIndex(index: Int) -> Int {
@@ -2136,9 +2287,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 MusicHelper.sharedHelper.stopPlaying()
                 MusicHelper.sharedHelper.prepareToPlay()
                 MusicHelper.sharedHelper.audioPlayer?.play()
-                
                 cleanUp()
-                cameraNode.removeAllChildren()
+                cleanCameraNode()
                 let continentLoader = ContinentLoader(size: (view?.bounds.size)!)
                 continentLoader.scaleMode = .aspectFill
                 self.view?.presentScene(continentLoader)
@@ -2171,7 +2321,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             else if((difficultySubBox1.contains(location)) || (difficultySubBox2.contains(location)) || (difficultySubBox3.contains(location)))
             {
 
-                if((node?.name == "level-1") || (node?.name == "level-1text") || (node?.name == "onestar"))
+                if((node?.name == "level-1") || (node?.name == "check-1") || (node?.name == "level-1text") || (node?.name == "onestar"))
                 {
                     let levelIndex = getLevelIndex(index: 0)
                     
@@ -2190,7 +2340,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     difficultyBox.isHidden = true
                 }
                 
-                else if((node?.name == "level-2") || (node?.name == "level-2text") || (node?.name == "twostar"))
+                else if((node?.name == "level-2")  || (node?.name == "check-2") || (node?.name == "level-2text") || (node?.name == "twostar"))
                 {
                     let levelIndex = getLevelIndex(index: 1)
                     
@@ -2206,7 +2356,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     difficultyBox.isHidden = true
                 }
                 
-                else if((node?.name == "level-3") || (node?.name == "level-3text") || (node?.name == "threestar"))
+                else if((node?.name == "level-3")  || (node?.name == "check-3") || (node?.name == "level-3text") || (node?.name == "threestar"))
                 {
                     let levelIndex = getLevelIndex(index: 2)
                     
@@ -2330,6 +2480,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 child.removeFromParent()
             }
         }
+        
+        shapeLayer.removeFromSuperlayer()
+        trackLayer.removeFromSuperlayer()
+        percentageLabel.removeFromSuperview()
+        completedLabel.removeFromSuperview()
+    }
+    
+    func cleanCameraNode() {
+        
+        for child in cameraNode.children {
+            
+            child.removeFromParent()
+        }
+    
+        cameraNode.removeFromParent()
     }
     
     func removeCheckMarks() {
@@ -2340,9 +2505,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func startGame() {
-
+        
         gameData.gameIsOver = false
         gameData.hasPopups = true
+        resetModifiers()
         cleanUp()
         resumeBackgAndPlatform()
         initializeGame()

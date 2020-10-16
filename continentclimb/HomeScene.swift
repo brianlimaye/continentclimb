@@ -16,7 +16,7 @@ var terrainKeyword: String = ""
 struct savedData {
     
     static var coinCount: Int = 0
-    static var completedLevels: [Bool] = [true, true, true, false, false, false, false, false, false]
+    static var completedLevels: [Bool] = [false, false, false, false, false, false, false, false, false]
 }
 
 class HomeScene: SKScene {
@@ -47,11 +47,6 @@ class HomeScene: SKScene {
         initHero()
         initEarth()
         initGalaxy()
-        //drawIconRect()
-        //drawLikeButton()
-        //drawMenuButton()
-        //drawTutorialButton()
-        //drawSoundButton()
         initClickToStart()
     }
     

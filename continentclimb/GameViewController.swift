@@ -45,8 +45,8 @@ class GameViewController: UIViewController {
             notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
             
             view.ignoresSiblingOrder = true
-            //view.showsFPS = true
-            //view.showsNodeCount = true
+            view.showsFPS = true
+            view.showsNodeCount = true
             //view.showsPhysics = true
         }
     }
@@ -183,6 +183,9 @@ class GameViewController: UIViewController {
     @objc func appMovedToBackground() {
 
         GameViewController.gameScene?.levelLoader.invalidate()
+        GameViewController.gameScene?.progressDisplayLink.invalidate()
+        GameViewController.gameScene?.pauseAnimation(layer: GameViewController.gameScene?.shapeLayer ?? CAShapeLayer())
+        GameViewController.gameScene?.pauseAnimation(layer: GameViewController.gameScene?.trackLayer ?? CAShapeLayer())
         MusicHelper.sharedHelper.audioPlayer?.pause()
         GameViewController.gameScene?.isPaused = true
     }
@@ -192,6 +195,8 @@ class GameViewController: UIViewController {
         GameViewController.gameScene?.isPaused = false
         MusicHelper.sharedHelper.prepareToPlay()
         MusicHelper.sharedHelper.audioPlayer?.play()
+        GameViewController.gameScene?.resumeAnimation(layer: GameViewController.gameScene?.shapeLayer ?? CAShapeLayer())
+        GameViewController.gameScene?.resumeAnimation(layer: GameViewController.gameScene?.trackLayer ?? CAShapeLayer())
         GameViewController.gameScene?.levelLoader.invalidate()
         
         if((!gameData.gameIsOver) && (!gameData.hasPopups))

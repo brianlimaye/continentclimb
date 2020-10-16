@@ -18,8 +18,7 @@ class MusicHelper {
         var resourceKeyword: String?
         
         switch(terrainKeyword) {
-        
-            
+
             case "snow":
                 resourceKeyword = "snowtheme"
                 break;
