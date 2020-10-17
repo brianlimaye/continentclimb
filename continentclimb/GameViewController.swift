@@ -34,6 +34,8 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        MusicHelper.sharedHelper.prepareToPlay()
+        
         if let view = self.view as! SKView? {
             
             let scene = HomeScene(size: view.bounds.size)
@@ -181,23 +183,38 @@ class GameViewController: UIViewController {
     }
     
     @objc func appMovedToBackground() {
-
-        GameViewController.gameScene?.levelLoader.invalidate()
-        GameViewController.gameScene?.progressDisplayLink.invalidate()
-        GameViewController.gameScene?.pauseAnimation(layer: GameViewController.gameScene?.shapeLayer ?? CAShapeLayer())
-        GameViewController.gameScene?.pauseAnimation(layer: GameViewController.gameScene?.trackLayer ?? CAShapeLayer())
-        MusicHelper.sharedHelper.audioPlayer?.pause()
+        
+        if(GameViewController.gameScene?.levelLoader != nil) {
+            
+            GameViewController.gameScene?.levelLoader?.invalidate()
+        }
+        
+        if(GameViewController.gameScene?.progressDisplayLink != nil) {
+            
+            GameViewController.gameScene?.progressDisplayLink?.invalidate()
+        }
+        
+        if((MusicHelper.sharedHelper.audioPlayer?.isPlaying) != nil) {
+            
+            MusicHelper.sharedHelper.audioPlayer?.stop()
+        }
         GameViewController.gameScene?.isPaused = true
     }
     
     @objc func appMovedToForeground() {
         
         GameViewController.gameScene?.isPaused = false
-        MusicHelper.sharedHelper.prepareToPlay()
         MusicHelper.sharedHelper.audioPlayer?.play()
-        GameViewController.gameScene?.resumeAnimation(layer: GameViewController.gameScene?.shapeLayer ?? CAShapeLayer())
-        GameViewController.gameScene?.resumeAnimation(layer: GameViewController.gameScene?.trackLayer ?? CAShapeLayer())
-        GameViewController.gameScene?.levelLoader.invalidate()
+        
+        if(GameViewController.gameScene?.levelLoader != nil) {
+            
+            GameViewController.gameScene?.levelLoader?.invalidate()
+        }
+        
+        if(GameViewController.gameScene?.progressDisplayLink != nil) {
+            
+            GameViewController.gameScene?.pauseProgressBar()
+        }
         
         if((!gameData.gameIsOver) && (!gameData.hasPopups))
         {

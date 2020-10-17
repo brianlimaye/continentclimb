@@ -69,10 +69,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let startValue: Int = 0
     var current: Int = 0
     let endValue: Int = 100
+    var resumedAngle: CGFloat = -CGFloat.pi / 2
     var animationDuration: TimeInterval = TimeInterval()
+    var basicAnimation: CABasicAnimation?
+    var basicAnimation2: CABasicAnimation?
+    
+    var startedProgress: Bool = false
         
     var coinDisplayLink: CADisplayLink = CADisplayLink()
-    var progressDisplayLink: CADisplayLink = CADisplayLink()
+    var progressDisplayLink: CADisplayLink?
     
     var shapeLayer: CAShapeLayer = CAShapeLayer()
     var trackLayer: CAShapeLayer = CAShapeLayer()
@@ -87,13 +92,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var slideIcon: SKSpriteNode = SKSpriteNode()
     
     var confetti: SAConfettiView = SAConfettiView()
-    var levelLoader: Timer = Timer()
+    var levelLoader: Timer?
     var objNum: Int = 0
     var schedule: [Int] = []
     var levelLiteral: String = ""
     
     let characterSpeed: TimeInterval = 0.25
     let realCharSpeed: TimeInterval = 0.1
+    var levelSpeed: TimeInterval = 0
     
     var recordedTime: Int = 0
     var initialYPos: CGFloat = 0
@@ -330,6 +336,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         slideIcon.run(fadeRepeater)
     }
     
+    func pauseProgressBar() {
+        
+        pauseAnimation(layer: shapeLayer)
+        let fillerAnim = SKAction.resize(toWidth: hero.size.width, duration: Double(levelSpeed) * 0.5)
+        let fillerRepeater = SKAction.repeat(fillerAnim, count: 1)
+        
+        hero.run(fillerRepeater, completion: resumeLayerAnim)
+    }
+    
+    private func resumeLayerAnim() {
+        
+        resumeAnimation(layer: shapeLayer)
+    }
+    
     func initializeGame() {
         
         percentageLabel.text = "0%"
@@ -350,7 +370,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let center = CGPoint(x: (view?.bounds.width)! / 2, y: (view?.bounds.height)! / 8)
 
-        
         percentageLabel.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         percentageLabel.center = center
         
@@ -399,7 +418,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         animationDuration = levelDuration
         progressDisplayLink = CADisplayLink(target: self, selector: #selector(handleUpdate))
-        progressDisplayLink.add(to: .main, forMode: .default)
+        progressDisplayLink?.add(to: .main, forMode: .default)
         
     }
     
@@ -431,17 +450,66 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       layer.beginTime = timeSincePause
     }
     
-    func handleTaps() {
+    func redrawLayers() {
+        
+        shapeLayer.removeFromSuperlayer()
+        trackLayer.removeFromSuperlayer()
+        
+        shapeLayer = CAShapeLayer()
+        
+        //Track Layer
+        
+        let center = CGPoint(x: (view?.bounds.width)! / 2, y: (view?.bounds.height)! / 8)
+
+        trackLayer = CAShapeLayer()
+        let circularPath = UIBezierPath(arcCenter: center, radius: self.frame.size.width * 0.05, startAngle: -CGFloat.pi / 2, endAngle: (3 * CGFloat.pi) / 2, clockwise: true)
+        trackLayer.path = circularPath.cgPath
+        
+        trackLayer.strokeColor = UIColor.lightGray.cgColor
+        trackLayer.lineWidth = 10
+        trackLayer.fillColor = UIColor.clear.cgColor
+        trackLayer.lineCap = CAShapeLayerLineCap.round
+        trackLayer.zPosition = 6
+        
+        view?.layer.addSublayer(trackLayer)
+        
+        shapeLayer.path = circularPath.cgPath
+        shapeLayer.strokeColor = UIColor.red.cgColor
+        shapeLayer.lineWidth = 10
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.strokeEnd = 0
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
+        shapeLayer.zPosition = 6
+        
+        view?.layer.addSublayer(shapeLayer)
+    }
+    
+    private func startProgressBar() {
+        
+        startedProgress = true
+        
+        let percentageCompleted = CGFloat(current) / 10000
+        
+        basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
+        basicAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
+        
+        basicAnimation2?.toValue = CGFloat(CGFloat(current) / 10000)
+        basicAnimation2?.duration = 0
+        basicAnimation2?.fillMode = CAMediaTimingFillMode.forwards
+        basicAnimation2?.isRemovedOnCompletion = true
+        
+        shapeLayer.add(basicAnimation2!, forKey: "basic2")
+                        
+        basicAnimation?.fromValue = CGFloat(CGFloat(current) / 10000)
+        basicAnimation?.toValue = percentageCompleted + 1
+        basicAnimation?.duration = (levelDuration * 1.14)
+        basicAnimation?.fillMode = CAMediaTimingFillMode.forwards
+        basicAnimation?.isRemovedOnCompletion = false
+        
+        shapeLayer.add(basicAnimation!, forKey: "basic1")
         
         updateStatusPercentage()
-        let basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        
-        basicAnimation.toValue = 1
-        basicAnimation.duration = levelDuration * 1.17
-        basicAnimation.fillMode = CAMediaTimingFillMode.forwards
-        basicAnimation.isRemovedOnCompletion = false
-        
-        shapeLayer.add(basicAnimation, forKey: "basic")
+
     }
     
     func addBubbleMessage() {
@@ -664,18 +732,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        let levelSpeed: TimeInterval = TimeInterval((-0.5 * Double(levelNo)) + 3.5)
-        
+        levelSpeed = TimeInterval((-0.5 * Double(levelNo)) + 3.5)
         levelDuration = (levelSpeed * Double(schedule.count))
-        handleTaps()
+        
+        if(startedProgress) {
+            
+            performProgressPause()
+        }
+        else {
+            
+            startProgressBar()
+        }
+        
         levelLoader = Timer.scheduledTimer(timeInterval: levelSpeed, target: self, selector: #selector(runCorrespondingAction), userInfo: nil, repeats: true)
+    }
+    
+    func performProgressPause() {
+        
+        let filler = SKAction.resize(toWidth: hero.size.width, duration: levelSpeed * 0.5)
+        let fillerRepeater = SKAction.repeat(filler, count: 1)
+        
+        hero.run(fillerRepeater, completion: startProgressBar)
     }
     
     @objc func runCorrespondingAction() {
         
         if(objNum >= schedule.count)
         {
-            levelLoader.invalidate()
+            levelLoader?.invalidate()
             performEndingAnimation()
             return
         }
@@ -1973,7 +2057,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.view?.gestureRecognizers?.removeAll()
         isLevelPassed = false
-        levelLoader.invalidate()
+        levelLoader?.invalidate()
         hero.removeAllActions()
         
         let rotation = SKAction.rotate(byAngle: ((3 * CGFloat.pi) / 2), duration: 0.3)
@@ -2214,8 +2298,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func endGame() {
     
-        progressDisplayLink.invalidate()
-        //trackLayer.removeAllAnimations()
+        progressDisplayLink?.invalidate()
         pauseAnimation(layer: trackLayer)
         pauseAnimation(layer: shapeLayer)
         
@@ -2241,6 +2324,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func resetModifiers() {
         
+        basicAnimation = nil
+        startedProgress = false
+        resumedAngle = (-CGFloat.pi / 2)
         animationDuration = 0
         current = 0
         objNum = 0
@@ -2392,7 +2478,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func showEndingMenu() -> Void {
         
-        levelLoader.invalidate()
+        levelLoader?.invalidate()
         
         var menuHeight: CGFloat = self.frame.size.height / 3.5
         var statusSize: CGFloat = self.frame.size.width * 0.05
