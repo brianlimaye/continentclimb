@@ -21,28 +21,28 @@ struct savedData {
 
 class HomeScene: SKScene {
     
-    let heroSpeed = 0.25
+    private let heroSpeed = 0.25
     
-    var clickToStart: SKLabelNode = SKLabelNode()
-    var clickToStart2: SKLabelNode = SKLabelNode()
-    var iconHolder: SKShapeNode = SKShapeNode()
-    var rateButton: SKSpriteNode = SKSpriteNode()
-    var rateButtonShape: SKShapeNode = SKShapeNode()
-    var tutorialButton: SKSpriteNode = SKSpriteNode()
-    var tutorialButtonShape: SKShapeNode = SKShapeNode()
-    var soundButton: SKSpriteNode = SKSpriteNode()
-    var soundButtonShape: SKShapeNode = SKShapeNode()
-    var menuButton: SKSpriteNode = SKSpriteNode()
-    var menuButtonShape: SKShapeNode = SKShapeNode()
-    var mainTitleScreen: SKLabelNode = SKLabelNode()
-    var galaxy: SKSpriteNode = SKSpriteNode()
-    var hero: SKSpriteNode = SKSpriteNode()
-    var earth: SKSpriteNode = SKSpriteNode()
+    private var clickToStart: SKLabelNode = SKLabelNode()
+    private var clickToStart2: SKLabelNode = SKLabelNode()
+    private var iconHolder: SKShapeNode = SKShapeNode()
+    private var rateButton: SKSpriteNode = SKSpriteNode()
+    private var rateButtonShape: SKShapeNode = SKShapeNode()
+    private var tutorialButton: SKSpriteNode = SKSpriteNode()
+    private var tutorialButtonShape: SKShapeNode = SKShapeNode()
+    private var soundButton: SKSpriteNode = SKSpriteNode()
+    private var soundButtonShape: SKShapeNode = SKShapeNode()
+    private var menuButton: SKSpriteNode = SKSpriteNode()
+    private var menuButtonShape: SKShapeNode = SKShapeNode()
+    private var mainTitleScreen: SKLabelNode = SKLabelNode()
+    private var galaxy: SKSpriteNode = SKSpriteNode()
+    private var hero: SKSpriteNode = SKSpriteNode()
+    private var earth: SKSpriteNode = SKSpriteNode()
     
     override func didMove(to view: SKView) {
                 
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        wipeData()
+        pullSavedData()
         drawMainText()
         initHero()
         initEarth()

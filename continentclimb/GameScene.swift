@@ -48,125 +48,126 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let coin: UInt32 = 10
     }
     
-    var percentageLabel: UILabel = UILabel()
+    private var percentageLabel: UILabel = UILabel()
     
-    var completedLabel: UILabel = UILabel()
+    private var completedLabel: UILabel = UILabel()
     
-    let startValue: Int = 0
-    var current: Int = 0
-    let endValue: Int = 100
-    var resumedAngle: CGFloat = -CGFloat.pi / 2
-    var animationDuration: TimeInterval = TimeInterval()
-    var basicAnimation: CABasicAnimation?
-    var basicAnimation2: CABasicAnimation?
+    private let startValue: Int = 0
+    private var current: Int = 0
+    private let endValue: Int = 100
+    private var resumedAngle: CGFloat = -CGFloat.pi / 2
+    private var animationDuration: TimeInterval = TimeInterval()
+    private var basicAnimation: CABasicAnimation?
+    private var basicAnimation2: CABasicAnimation?
     
-    var startedProgress: Bool = false
+    private var startedProgress: Bool = false
     var displayLinkIsValid: Bool = false
+    private var linkIsAdded: Bool = false
         
-    var coinDisplayLink: CADisplayLink = CADisplayLink()
+    private var coinDisplayLink: CADisplayLink = CADisplayLink()
     var progressDisplayLink: CADisplayLink?
     
-    var shapeLayer: CAShapeLayer = CAShapeLayer()
-    var trackLayer: CAShapeLayer = CAShapeLayer()
+    private var shapeLayer: CAShapeLayer = CAShapeLayer()
+    private var trackLayer: CAShapeLayer = CAShapeLayer()
     
-    var swipeUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
-    var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
+    private var swipeUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
+    private var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
     
-    var swipeUpToJump: SKLabelNode = SKLabelNode()
-    var swipeDownToSlide: SKLabelNode = SKLabelNode()
+    private var swipeUpToJump: SKLabelNode = SKLabelNode()
+    private var swipeDownToSlide: SKLabelNode = SKLabelNode()
     
-    var jumpIcon: SKSpriteNode = SKSpriteNode()
-    var slideIcon: SKSpriteNode = SKSpriteNode()
+    private var jumpIcon: SKSpriteNode = SKSpriteNode()
+    private var slideIcon: SKSpriteNode = SKSpriteNode()
     
-    var confetti: SAConfettiView = SAConfettiView()
+    private var confetti: SAConfettiView = SAConfettiView()
     var levelLoader: Timer?
-    var objNum: Int = 0
-    var schedule: [Int] = []
-    var levelLiteral: String = ""
+    private var objNum: Int = 0
+    private var schedule: [Int] = []
+    private var levelLiteral: String = ""
     
-    let characterSpeed: TimeInterval = 0.25
-    let realCharSpeed: TimeInterval = 0.1
-    var levelSpeed: TimeInterval = 0
+    private let characterSpeed: TimeInterval = 0.25
+    private let realCharSpeed: TimeInterval = 0.1
+    private var levelSpeed: TimeInterval = 0
     
-    var recordedTime: Int = 0
-    var initialYPos: CGFloat = 0
+    private var recordedTime: Int = 0
+    private var initialYPos: CGFloat = 0
     
-    var levelDuration: TimeInterval = 0
+    private var levelDuration: TimeInterval = 0
     
     static let defaults = UserDefaults.standard
 
-    var heroRunAction: SKAction = SKAction()
-    var yetiRunAction: SKAction = SKAction()
-    var coyoteDashAction: SKAction = SKAction()
-    var icyBackground: SKSpriteNode = SKSpriteNode()
-    var icyBackground2: SKSpriteNode = SKSpriteNode()
-    var icePlatform: SKSpriteNode = SKSpriteNode()
-    var hero: SKSpriteNode = SKSpriteNode()
-    var evilSnowman: SKSpriteNode = SKSpriteNode()
-    var snowYeti: SKSpriteNode = SKSpriteNode()
-    var thrownSnowball: SKSpriteNode = SKSpriteNode()
-    var fallenSnowball: SKSpriteNode = SKSpriteNode()
-    var coyote: SKSpriteNode = SKSpriteNode()
-    var snake: SKSpriteNode = SKSpriteNode()
-    var sandstorm: SKSpriteNode = SKSpriteNode()
-    var batSprite: SKSpriteNode = SKSpriteNode()
-    var spider: SKSpriteNode = SKSpriteNode()
-    var golem: SKSpriteNode = SKSpriteNode()
-    var rock: SKSpriteNode = SKSpriteNode()
-    var coin: SKSpriteNode = SKSpriteNode()
-    var chatBubble: SKSpriteNode = SKSpriteNode()
+    private var heroRunAction: SKAction = SKAction()
+    private var yetiRunAction: SKAction = SKAction()
+    private var coyoteDashAction: SKAction = SKAction()
+    private var icyBackground: SKSpriteNode = SKSpriteNode()
+    private var icyBackground2: SKSpriteNode = SKSpriteNode()
+    private var icePlatform: SKSpriteNode = SKSpriteNode()
+    private var hero: SKSpriteNode = SKSpriteNode()
+    private var evilSnowman: SKSpriteNode = SKSpriteNode()
+    private var snowYeti: SKSpriteNode = SKSpriteNode()
+    private var thrownSnowball: SKSpriteNode = SKSpriteNode()
+    private var fallenSnowball: SKSpriteNode = SKSpriteNode()
+    private var coyote: SKSpriteNode = SKSpriteNode()
+    private var snake: SKSpriteNode = SKSpriteNode()
+    private var sandstorm: SKSpriteNode = SKSpriteNode()
+    private var batSprite: SKSpriteNode = SKSpriteNode()
+    private var spider: SKSpriteNode = SKSpriteNode()
+    private var golem: SKSpriteNode = SKSpriteNode()
+    private var rock: SKSpriteNode = SKSpriteNode()
+    private var coin: SKSpriteNode = SKSpriteNode()
+    private var chatBubble: SKSpriteNode = SKSpriteNode()
     
     var coinIcon: SKSpriteNode = SKSpriteNode()
     
-    var rain: SKEmitterNode = SKEmitterNode()
-    var snow: SKEmitterNode = SKEmitterNode()
+    private var rain: SKEmitterNode = SKEmitterNode()
+    private var snow: SKEmitterNode = SKEmitterNode()
     
-    var difficultyBox: SKShapeNode = SKShapeNode()
-    var difficultyText: SKLabelNode = SKLabelNode()
-    var difficultySubBox1: SKShapeNode = SKShapeNode()
-    var difficultySubText1: SKLabelNode = SKLabelNode()
-    var difficultySubBox2: SKShapeNode = SKShapeNode()
-    var difficultySubText2: SKLabelNode = SKLabelNode()
-    var difficultySubBox3: SKShapeNode = SKShapeNode()
-    var difficultySubText3: SKLabelNode = SKLabelNode()
-    var gameOverDisplay: SKShapeNode = SKShapeNode()
-    var levelAlert: SKLabelNode = SKLabelNode()
-    var levelStatusAlert: SKLabelNode = SKLabelNode()
-    var scoreBox: SKShapeNode = SKShapeNode()
-    var scoreLabel: SKLabelNode = SKLabelNode()
-    var levelPopup: SKShapeNode = SKShapeNode()
-    var levelText: SKLabelNode = SKLabelNode()
-    var miniHero: SKSpriteNode = SKSpriteNode()
-    var livesText: SKLabelNode = SKLabelNode()
-    var scoreBonus: SKLabelNode = SKLabelNode()
+    private var difficultyBox: SKShapeNode = SKShapeNode()
+    private var difficultyText: SKLabelNode = SKLabelNode()
+    private var difficultySubBox1: SKShapeNode = SKShapeNode()
+    private var difficultySubText1: SKLabelNode = SKLabelNode()
+    private var difficultySubBox2: SKShapeNode = SKShapeNode()
+    private var difficultySubText2: SKLabelNode = SKLabelNode()
+    private var difficultySubBox3: SKShapeNode = SKShapeNode()
+    private var difficultySubText3: SKLabelNode = SKLabelNode()
+    private var gameOverDisplay: SKShapeNode = SKShapeNode()
+    private var levelAlert: SKLabelNode = SKLabelNode()
+    private var levelStatusAlert: SKLabelNode = SKLabelNode()
+    private var scoreBox: SKShapeNode = SKShapeNode()
+    private var scoreLabel: SKLabelNode = SKLabelNode()
+    private var levelPopup: SKShapeNode = SKShapeNode()
+    private var levelText: SKLabelNode = SKLabelNode()
+    private var miniHero: SKSpriteNode = SKSpriteNode()
+    private var livesText: SKLabelNode = SKLabelNode()
+    private var scoreBonus: SKLabelNode = SKLabelNode()
     
-    var checkMark1: SKSpriteNode = SKSpriteNode()
-    var checkMark2: SKSpriteNode = SKSpriteNode()
-    var checkMark3: SKSpriteNode = SKSpriteNode()
+    private var checkMark1: SKSpriteNode = SKSpriteNode()
+    private  var checkMark2: SKSpriteNode = SKSpriteNode()
+    private var checkMark3: SKSpriteNode = SKSpriteNode()
     
-    var lock1: SKSpriteNode = SKSpriteNode()
-    var lock2: SKSpriteNode = SKSpriteNode()
-    var lock3: SKSpriteNode = SKSpriteNode()
+    private var lock1: SKSpriteNode = SKSpriteNode()
+    private var lock2: SKSpriteNode = SKSpriteNode()
+    private var lock3: SKSpriteNode = SKSpriteNode()
     
     
-    var oneStar: SKSpriteNode = SKSpriteNode()
-    var twoStar: SKSpriteNode = SKSpriteNode()
-    var threeStar: SKSpriteNode = SKSpriteNode()
+    private var oneStar: SKSpriteNode = SKSpriteNode()
+    private var twoStar: SKSpriteNode = SKSpriteNode()
+    private var threeStar: SKSpriteNode = SKSpriteNode()
     
-    var platName: String = String()
-    var backgName: String = String()
-    var levelNames: [String] = [String]()
+    private var platName: String = String()
+    private var backgName: String = String()
+    private var levelNames: [String] = [String]()
     
-    var backButton: SKSpriteNode = SKSpriteNode()
-    var nextButton: SKSpriteNode = SKSpriteNode()
-    var replayButton: SKSpriteNode = SKSpriteNode()
+    private var backButton: SKSpriteNode = SKSpriteNode()
+    private var nextButton: SKSpriteNode = SKSpriteNode()
+    private var replayButton: SKSpriteNode = SKSpriteNode()
     
-    var returnButton: SKSpriteNode = SKSpriteNode()
+    private var returnButton: SKSpriteNode = SKSpriteNode()
 
     var isLevelPassed: Bool = true
-    var bonusCoinAmount: Int = 0
-    var levelIdentifier: Int = 0
-    var oldCoinCount: Int = 0
+    private var bonusCoinAmount: Int = 0
+    private var levelIdentifier: Int = 0
+    private var oldCoinCount: Int = 0
     
     override func didMove(to view: SKView) {
         
@@ -179,10 +180,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         completedLabel = UILabel()
         completedLabel.text = "Completed"
-        completedLabel.font = UIFont(name: "NationalPark-Heavy", size: self.frame.size.width * 0.014);
+        completedLabel.font = UIFont(name: "NationalPark-Heavy", size: self.frame.size.width * 0.012);
         completedLabel.textColor = .black
         completedLabel.textAlignment = .center
-        
         
         physicsWorld.contactDelegate = self
         
@@ -338,10 +338,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func pauseProgressBar() {
         
-        pauseAnimation(layer: shapeLayer)
-        let fillerAnim = SKAction.resize(toWidth: coinIcon.size.width, duration: Double(levelSpeed) * 0.85)
-        let fillerRepeater = SKAction.repeat(fillerAnim, count: 1)
+        if(gameData.gameIsOver) {
+            
+            pauseAnimation(layer: shapeLayer)
+            return
+        }
         
+        pauseAnimation(layer: shapeLayer)
+        let fillerAnim = SKAction.resize(toWidth: coinIcon.size.width, duration: Double(levelSpeed) * 0.95)
+        let fillerRepeater = SKAction.repeat(fillerAnim, count: 1)
         
         coinIcon.run(fillerRepeater, completion: resumeLayerAnim)
     }
@@ -402,12 +407,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shapeLayer.zPosition = 6
         
         view?.layer.addSublayer(shapeLayer)
+        
+        initDisplayLink()
                 
         hideLocks()
         removeCheckMarks()
         showLevelPopup()
         drawCharacter()
         initObjects()
+    }
+    
+    func initDisplayLink() {
+        
+        if(!displayLinkIsValid) {
+            
+            print("new display link")
+            progressDisplayLink = CADisplayLink(target: self, selector: #selector(handleUpdate))
+            progressDisplayLink?.preferredFramesPerSecond = 60
+            displayLinkIsValid = true
+        }
     }
     
     func updateStatusPercentage() {
@@ -418,8 +436,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         animationDuration = levelDuration
-        progressDisplayLink = CADisplayLink(target: self, selector: #selector(handleUpdate))
+        initDisplayLink()
         progressDisplayLink?.add(to: .main, forMode: .default)
+        linkIsAdded = true
+        displayLinkIsValid = true
         
     }
     
@@ -427,7 +447,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let percentage = current / endValue
         self.percentageLabel.text = "\(percentage)" + "%"
-        current += Int(animationDuration / 5.05)
+        current += Int(animationDuration / 5.01)
         
         if(percentage >= endValue) {
             
@@ -714,6 +734,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         return arr ?? []
+    }
+    
+    func removeDisplayLink() {
+        
+        if(displayLinkIsValid) {
+            
+            print("invalidate!")
+            if(linkIsAdded) {
+                
+                progressDisplayLink?.remove(from: .main, forMode: .default)
+                linkIsAdded = false
+            }
+            progressDisplayLink?.invalidate()
+            displayLinkIsValid = false
+        }
     }
     
     func loadLevel(level: String) {
@@ -1465,7 +1500,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawThrownSnowball() {
         
-        let rand = Int.random(in: 1 ... 2)
+        let rand = Double.random(in: 1.25 ... 1.9)
         let randSpeed = Double.random(in: 1.1 ... 1.5)
         var extraAnim: [SKTexture]?
         
@@ -1520,7 +1555,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawFallenSnowball() {
         
-        let randSpeed = Double.random(in: 1.0 ... 1.3)
+        let randSpeed = 1.3
         
         fallenSnowball.position = CGPoint(x: gameData.startingHeroPos.x, y: self.frame.size.height)
         
@@ -1605,7 +1640,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawSnake() {
         
-        let randSpeed = Double.random(in: 1.55 ... 1.9)
+        let randSpeed = Double.random(in: 1.7 ... 1.9)
         
         let snakeFrames: [SKTexture] = [SKTexture(imageNamed: "snake-1"), SKTexture(imageNamed: "snake-2"), SKTexture(imageNamed: "snake-3"), SKTexture(imageNamed: "snake-4"), SKTexture(imageNamed: "snake-5"), SKTexture(imageNamed: "snake-6"), SKTexture(imageNamed: "snake-7"), SKTexture(imageNamed: "snake-8"), SKTexture(imageNamed: "snake-9"), SKTexture(imageNamed: "snake-10"), SKTexture(imageNamed: "snake-11")]//, SKTexture(imageNamed: "snake-12")]//, SKTexture(imageNamed: "snake-13"), SKTexture(imageNamed: "snake-14"), SKTexture(imageNamed: "snake-15")]
         
@@ -1626,7 +1661,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawBat() {
         
-        let randSpeed = Double.random(in: 1.5 ... 1.9)
+        let randSpeed = Double.random(in: 1.65 ... 1.9)
         
         let batFrames: [SKTexture] = [SKTexture(imageNamed: "bat-1"), SKTexture(imageNamed: "bat-2"), SKTexture(imageNamed: "bat-3"), SKTexture(imageNamed: "bat-4")]
         
@@ -2307,6 +2342,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(isLevelPassed)
         {
+            if(current < 10000) {
+                
+                percentageLabel.text = "100%"
+            }
+            
             updateCompletedLevel()
             confetti = SAConfettiView(frame: (self.view?.bounds)!)
             confetti.type = .Diamond
@@ -2327,6 +2367,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         basicAnimation = nil
         startedProgress = false
+        displayLinkIsValid = false
         resumedAngle = (-CGFloat.pi / 2)
         animationDuration = 0
         current = 0

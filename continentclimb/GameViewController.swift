@@ -14,8 +14,8 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
-    static var gameScene: GameScene?
-    static var serialQueue: DispatchQueue = DispatchQueue(label: "backfor")
+    private static var gameScene: GameScene?
+    private static var serialQueue: DispatchQueue = DispatchQueue(label: "backfor")
 
     let isDebug: Bool = {
         
@@ -187,6 +187,10 @@ class GameViewController: UIViewController {
         
         GameViewController.serialQueue.sync {
             
+            GameScene.defaults.set(savedData.completedLevels, forKey: "completedLevels")
+            GameScene.defaults.set(savedData.coinCount, forKey: "coins")
+
+            GameViewController.gameScene?.coinIcon.removeAllActions()
             print("background")
             
             if((GameViewController.gameScene?.levelLoader != nil) || ((GameViewController.gameScene?.levelLoader?.isValid) != nil)) {
@@ -194,10 +198,9 @@ class GameViewController: UIViewController {
                 GameViewController.gameScene?.levelLoader?.invalidate()
             }
             
-            if((GameViewController.gameScene?.progressDisplayLink != nil) || ((GameViewController.gameScene?.displayLinkIsValid) != nil)) {
+            if(GameViewController.gameScene?.progressDisplayLink != nil) {
                 
-                GameViewController.gameScene?.progressDisplayLink?.invalidate()
-                GameViewController.gameScene?.displayLinkIsValid = false
+                GameViewController.gameScene?.removeDisplayLink()
             }
             
             if((MusicHelper.sharedHelper.audioPlayer?.isPlaying) != nil) {
@@ -219,11 +222,9 @@ class GameViewController: UIViewController {
     
             if((GameViewController.gameScene?.progressDisplayLink != nil) || ((GameViewController.gameScene?.displayLinkIsValid) != nil)) {
                 
-                print("Heyo")
                 GameViewController.gameScene?.coinIcon.removeAllActions()
                 GameViewController.gameScene?.pauseProgressBar()
                 GameViewController.gameScene?.progressDisplayLink?.isPaused = false
-                GameViewController.gameScene?.displayLinkIsValid = true
             }
             
             if((!gameData.gameIsOver) && (!gameData.hasPopups))

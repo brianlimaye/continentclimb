@@ -14,28 +14,28 @@ import StoreKit
 
 class MenuScene: SKScene {
     
-    var scrollView: ScrollView!
-    let moveableNode = SKNode()
+    private var scrollView: ScrollView!
+    private let moveableNode = SKNode()
     
-    var returnButton: SKSpriteNode = SKSpriteNode()
+    private var returnButton: SKSpriteNode = SKSpriteNode()
     
     
-    var background: SKSpriteNode = SKSpriteNode()
-    var mainText: SKLabelNode = SKLabelNode()
-    var chapterOneShape: SKShapeNode = SKShapeNode()
-    var chapterOneText: SKLabelNode = SKLabelNode()
-    var chapterTwoShape: SKShapeNode = SKShapeNode()
-    var chapterTwoText: SKLabelNode = SKLabelNode()
-    var chapterThreeShape: SKShapeNode = SKShapeNode()
-    var chapterThreeText: SKLabelNode = SKLabelNode()
-    var chapterFourShape: SKShapeNode = SKShapeNode()
-    var chapterFourText: SKLabelNode = SKLabelNode()
-    var chapterFiveShape: SKShapeNode = SKShapeNode()
-    var chapterFiveText: SKLabelNode = SKLabelNode()
-    var chapterSixShape: SKShapeNode = SKShapeNode()
-    var chapterSixText: SKLabelNode = SKLabelNode()
-    var chapterSevenShape: SKShapeNode = SKShapeNode()
-    var chapterSevenText: SKLabelNode = SKLabelNode()
+    private var background: SKSpriteNode = SKSpriteNode()
+    private var mainText: SKLabelNode = SKLabelNode()
+    private var chapterOneShape: SKShapeNode = SKShapeNode()
+    private var chapterOneText: SKLabelNode = SKLabelNode()
+    private var chapterTwoShape: SKShapeNode = SKShapeNode()
+    private var chapterTwoText: SKLabelNode = SKLabelNode()
+    //var chapterThreeShape: SKShapeNode = SKShapeNode()
+    //var chapterThreeText: SKLabelNode = SKLabelNode()
+    //var chapterFourShape: SKShapeNode = SKShapeNode()
+    //var chapterFourText: SKLabelNode = SKLabelNode()
+    //var chapterFiveShape: SKShapeNode = SKShapeNode()
+    //var chapterFiveText: SKLabelNode = SKLabelNode()
+    //var chapterSixShape: SKShapeNode = SKShapeNode()
+    //var chapterSixText: SKLabelNode = SKLabelNode()
+    //var chapterSevenShape: SKShapeNode = SKShapeNode()
+    //var chapterSevenText: SKLabelNode = SKLabelNode()
     
     
     override func didMove(to view: SKView) {
