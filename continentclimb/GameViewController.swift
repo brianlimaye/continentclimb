@@ -15,6 +15,7 @@ import AVFoundation
 class GameViewController: UIViewController {
     
     static var gameScene: GameScene?
+    static var serialQueue: DispatchQueue = DispatchQueue(label: "backfor")
 
     let isDebug: Bool = {
         
@@ -47,8 +48,8 @@ class GameViewController: UIViewController {
             notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.didBecomeActiveNotification, object: nil)
             
             view.ignoresSiblingOrder = true
-            view.showsFPS = true
-            view.showsNodeCount = true
+            //view.showsFPS = true
+            //view.showsNodeCount = true
             //view.showsPhysics = true
         }
     }
@@ -184,43 +185,51 @@ class GameViewController: UIViewController {
     
     @objc func appMovedToBackground() {
         
-        if(GameViewController.gameScene?.levelLoader != nil) {
+        GameViewController.serialQueue.sync {
             
-            GameViewController.gameScene?.levelLoader?.invalidate()
-        }
-        
-        if(GameViewController.gameScene?.progressDisplayLink != nil) {
+            print("background")
             
-            GameViewController.gameScene?.progressDisplayLink?.invalidate()
-        }
-        
-        if((MusicHelper.sharedHelper.audioPlayer?.isPlaying) != nil) {
+            if((GameViewController.gameScene?.levelLoader != nil) || ((GameViewController.gameScene?.levelLoader?.isValid) != nil)) {
+                
+                GameViewController.gameScene?.levelLoader?.invalidate()
+            }
             
-            MusicHelper.sharedHelper.audioPlayer?.stop()
+            if((GameViewController.gameScene?.progressDisplayLink != nil) || ((GameViewController.gameScene?.displayLinkIsValid) != nil)) {
+                
+                GameViewController.gameScene?.progressDisplayLink?.invalidate()
+                GameViewController.gameScene?.displayLinkIsValid = false
+            }
+            
+            if((MusicHelper.sharedHelper.audioPlayer?.isPlaying) != nil) {
+                
+                MusicHelper.sharedHelper.audioPlayer?.stop()
+            }
+           
+            GameViewController.gameScene?.isPaused = true
         }
-        GameViewController.gameScene?.isPaused = true
     }
     
     @objc func appMovedToForeground() {
         
-        GameViewController.gameScene?.isPaused = false
-        MusicHelper.sharedHelper.audioPlayer?.play()
-        
-        if(GameViewController.gameScene?.levelLoader != nil) {
+        GameViewController.serialQueue.sync {
             
-            GameViewController.gameScene?.levelLoader?.invalidate()
-        }
-        
-        if(GameViewController.gameScene?.progressDisplayLink != nil) {
+            print("foreground")
+            GameViewController.gameScene?.isPaused = false
+            MusicHelper.sharedHelper.audioPlayer?.play()
+    
+            if((GameViewController.gameScene?.progressDisplayLink != nil) || ((GameViewController.gameScene?.displayLinkIsValid) != nil)) {
+                
+                print("Heyo")
+                GameViewController.gameScene?.coinIcon.removeAllActions()
+                GameViewController.gameScene?.pauseProgressBar()
+                GameViewController.gameScene?.progressDisplayLink?.isPaused = false
+                GameViewController.gameScene?.displayLinkIsValid = true
+            }
             
-            GameViewController.gameScene?.pauseProgressBar()
-        }
-        
-        if((!gameData.gameIsOver) && (!gameData.hasPopups))
-        {
-            GameViewController.gameScene?.startLevel()
+            if((!gameData.gameIsOver) && (!gameData.hasPopups))
+            {
+                GameViewController.gameScene?.startLevel()
+            }
         }
     }
-    
-    
 }

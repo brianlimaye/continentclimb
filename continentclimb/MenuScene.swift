@@ -38,29 +38,6 @@ class MenuScene: SKScene {
     var chapterSevenText: SKLabelNode = SKLabelNode()
     
     
-    
-    var worldMap: SKSpriteNode = SKSpriteNode()
-    var lockOn: SKSpriteNode = SKSpriteNode()
-    var matrices: SKSpriteNode = SKSpriteNode()
-    var charID: SKSpriteNode = SKSpriteNode()
-    var naTarget: SKSpriteNode = SKSpriteNode()
-    var saTarget: SKSpriteNode = SKSpriteNode()
-    var antTarget: SKSpriteNode = SKSpriteNode()
-    var afTarget: SKSpriteNode = SKSpriteNode()
-    var euroTarget: SKSpriteNode = SKSpriteNode()
-    var asiaTarget: SKSpriteNode = SKSpriteNode()
-    var austTarget: SKSpriteNode = SKSpriteNode()
-    var binary: SKSpriteNode = SKSpriteNode()
-    var idText: SKLabelNode = SKLabelNode()
-    var color: UIColor = UIColor()
-    var lock2: SKSpriteNode = SKSpriteNode()
-    var lock3: SKSpriteNode = SKSpriteNode()
-    var lock4: SKSpriteNode = SKSpriteNode()
-    var lock5: SKSpriteNode = SKSpriteNode()
-    var lock6: SKSpriteNode = SKSpriteNode()
-    var lock7: SKSpriteNode = SKSpriteNode()
-    
-    
     override func didMove(to view: SKView) {
         
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -163,7 +140,6 @@ class MenuScene: SKScene {
         
         moveableNode.addChild(chapterOneShape)
         
-        /*
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
             chapterTwoShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 8, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
@@ -173,23 +149,24 @@ class MenuScene: SKScene {
         {
             chapterTwoShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 8, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
         }
-        chapterTwoShape.fillTexture = SKTexture(imageNamed: "junglebackg.jpg")
+        //chapterTwoShape.fillTexture = SKTexture(imageNamed: "junglebackg.jpg")
         chapterTwoShape.fillColor = .white
         chapterTwoShape.name = "Southamericashape"
         
         chapterTwoText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         chapterTwoText.fontSize = chapterTwoShape.frame.size.width / 11
-        chapterTwoText.fontColor = .white
+        chapterTwoText.fontColor = .black
         chapterTwoText.name = "Southamerica"
-        chapterTwoText.text = "Chapter 2: South America"
+        chapterTwoText.text = "Chapter 2: Coming Soon"
         
         chapterTwoShape.zPosition = 3
         chapterTwoShape.addChild(chapterTwoText)
         chapterTwoShape.isUserInteractionEnabled = false
         
-        chapterTwoText.position = CGPoint(x: 8, y: -self.frame.size.height / 14)
+        chapterTwoText.position = CGPoint(x: -8, y: -self.frame.size.height / 14)
 
         moveableNode.addChild(chapterTwoShape)
+        /*
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {

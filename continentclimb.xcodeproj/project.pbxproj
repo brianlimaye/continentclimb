@@ -206,6 +206,7 @@
 		B4B1278324EA3001000EA6CF /* spider-8.png in Resources */ = {isa = PBXBuildFile; fileRef = B4B1277624EA3001000EA6CF /* spider-8.png */; };
 		B4B1278424EA3001000EA6CF /* spider-1.png in Resources */ = {isa = PBXBuildFile; fileRef = B4B1277724EA3001000EA6CF /* spider-1.png */; };
 		B4B1278524EA3001000EA6CF /* spider-13.png in Resources */ = {isa = PBXBuildFile; fileRef = B4B1277824EA3001000EA6CF /* spider-13.png */; };
+		B4B58231253D0944003C4496 /* Mutex.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4B58230253D0944003C4496 /* Mutex.swift */; };
 		B4BD1F5E24E739B7006C82FB /* GemunuLibre-ExtraBold.ps in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */; };
 		B4BD1F6224E73D6C006C82FB /* gradient.jpg in Resources */ = {isa = PBXBuildFile; fileRef = B4BD1F6124E73D6B006C82FB /* gradient.jpg */; };
 		B4C0517E24ED903B009E8B4D /* cavegrounds.png in Resources */ = {isa = PBXBuildFile; fileRef = B4C0517D24ED903B009E8B4D /* cavegrounds.png */; };
@@ -488,6 +489,7 @@
 		B4B1277624EA3001000EA6CF /* spider-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spider-8.png"; sourceTree = "<group>"; };
 		B4B1277724EA3001000EA6CF /* spider-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spider-1.png"; sourceTree = "<group>"; };
 		B4B1277824EA3001000EA6CF /* spider-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "spider-13.png"; sourceTree = "<group>"; };
+		B4B58230253D0944003C4496 /* Mutex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mutex.swift; sourceTree = "<group>"; };
 		B4BD1F5D24E739B7006C82FB /* GemunuLibre-ExtraBold.ps */ = {isa = PBXFileReference; lastKnownFileType = file; path = "GemunuLibre-ExtraBold.ps"; sourceTree = "<group>"; };
 		B4BD1F6124E73D6B006C82FB /* gradient.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gradient.jpg; sourceTree = "<group>"; };
 		B4C0517D24ED903B009E8B4D /* cavegrounds.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cavegrounds.png; sourceTree = "<group>"; };
@@ -588,6 +590,7 @@
 				B432F7C924BC269D0062EDB0 /* MenuScene.swift */,
 				B432F79924BC1F140062EDB0 /* GameScene.swift */,
 				B432F79B24BC1F140062EDB0 /* GameViewController.swift */,
+				B4B58230253D0944003C4496 /* Mutex.swift */,
 				B4C24D9324F375C9004F2A74 /* MusicHelper.swift */,
 				B432F79D24BC1F140062EDB0 /* Main.storyboard */,
 				B432F7A024BC1F160062EDB0 /* Assets.xcassets */,
@@ -923,7 +926,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Brian Limaye";
 				TargetAttributes = {
 					B432F78F24BC1F140062EDB0 = {
@@ -1291,6 +1294,7 @@
 				B432F7C824BC268D0062EDB0 /* HomeScene.swift in Sources */,
 				B432F7CA24BC269D0062EDB0 /* MenuScene.swift in Sources */,
 				B4C24D9424F375C9004F2A74 /* MusicHelper.swift in Sources */,
+				B4B58231253D0944003C4496 /* Mutex.swift in Sources */,
 				B45C7CD424D0B28D00B5A79E /* ScrollView.swift in Sources */,
 				B432F79C24BC1F140062EDB0 /* GameViewController.swift in Sources */,
 				B432F79424BC1F140062EDB0 /* AppDelegate.swift in Sources */,
@@ -1375,6 +1379,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1435,6 +1440,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1480,7 +1486,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
 				PRODUCT_NAME = "Continent Climb";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1501,7 +1507,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ishiba.continentclimb;
 				PRODUCT_NAME = "Continent Climb";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

@@ -42,7 +42,7 @@ class HomeScene: SKScene {
     override func didMove(to view: SKView) {
                 
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        //wipeData()
+        wipeData()
         drawMainText()
         initHero()
         initEarth()
@@ -60,9 +60,6 @@ class HomeScene: SKScene {
         
         let coins = GameScene.defaults.integer(forKey: "coins")
         let completedLevels = GameScene.defaults.array(forKey: "completedLevels") as? [Bool]
-        
-        print(coins)
-        print(completedLevels)
         
         if(coins > 0)
         {

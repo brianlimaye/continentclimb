@@ -48,23 +48,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let coin: UInt32 = 10
     }
     
-    let percentageLabel: UILabel = {
-        
-        let label = UILabel()
-        label.text = "0%"
-        label.font = UIFont(name: "Antapani-ExtraBold", size: 30)
-        label.textAlignment = .center
-        return label
-    }()
+    var percentageLabel: UILabel = UILabel()
     
-    let completedLabel: UILabel = {
-        
-        let label = UILabel()
-        label.text = "Completed"
-        label.font = UIFont(name: "NationalPark-Heavy", size: 12)
-        label.textAlignment = .center
-        return label
-    }()
+    var completedLabel: UILabel = UILabel()
     
     let startValue: Int = 0
     var current: Int = 0
@@ -75,6 +61,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     var basicAnimation2: CABasicAnimation?
     
     var startedProgress: Bool = false
+    var displayLinkIsValid: Bool = false
         
     var coinDisplayLink: CADisplayLink = CADisplayLink()
     var progressDisplayLink: CADisplayLink?
@@ -183,6 +170,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         
+        //Progress Labels
+        percentageLabel = UILabel()
+        percentageLabel.text = "0%"
+        percentageLabel.font = UIFont(name: "Antapani-ExtraBold", size: self.frame.size.width * 0.03)
+        percentageLabel.textColor = .black
+        percentageLabel.textAlignment = .center
+        
+        completedLabel = UILabel()
+        completedLabel.text = "Completed"
+        completedLabel.font = UIFont(name: "NationalPark-Heavy", size: self.frame.size.width * 0.014);
+        completedLabel.textColor = .black
+        completedLabel.textAlignment = .center
+        
+        
         physicsWorld.contactDelegate = self
         
         GameViewController.gameScene = self
@@ -196,7 +197,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 
         if(!self.children.contains(cameraNode)) {
             
-            print("Yes")
             self.addChild(cameraNode)
         }
     }
@@ -339,10 +339,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func pauseProgressBar() {
         
         pauseAnimation(layer: shapeLayer)
-        let fillerAnim = SKAction.resize(toWidth: hero.size.width, duration: Double(levelSpeed) * 0.5)
+        let fillerAnim = SKAction.resize(toWidth: coinIcon.size.width, duration: Double(levelSpeed) * 0.85)
         let fillerRepeater = SKAction.repeat(fillerAnim, count: 1)
         
-        hero.run(fillerRepeater, completion: resumeLayerAnim)
+        
+        coinIcon.run(fillerRepeater, completion: resumeLayerAnim)
     }
     
     private func resumeLayerAnim() {
@@ -743,7 +744,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             startProgressBar()
         }
-        
+                
         levelLoader = Timer.scheduledTimer(timeInterval: levelSpeed, target: self, selector: #selector(runCorrespondingAction), userInfo: nil, repeats: true)
     }
     
@@ -828,7 +829,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         difficultyText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         difficultyText.fontSize = self.frame.width / 24
-        difficultyText.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 7.5)
+        difficultyText.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 8.5)
         
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
