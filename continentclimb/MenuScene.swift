@@ -42,22 +42,22 @@ class MenuScene: SKScene {
         
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         scene?.backgroundColor = .black
-        addBackground()
+        addBackground(imageName: "starry.jpg")
         addMainText()
         initScrollView()
         initReturnButton()
         addChapters()
     }
     
-    func addBackground() {
+    private func addBackground(imageName: String) {
         
-        background = SKSpriteNode(imageNamed: "starry.jpg")
+        background = SKSpriteNode(imageNamed: imageName)
         background.size = (view?.bounds.size)!
         
         self.addChild(background)
     }
     
-    func initReturnButton() {
+    private func initReturnButton() {
         
         var buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
                 
@@ -76,7 +76,7 @@ class MenuScene: SKScene {
         self.addChild(returnButton)
     }
     
-    func addMainText() {
+    private func addMainText() {
         
         mainText = SKLabelNode(fontNamed: "MaassslicerItalic")
         mainText.fontColor = .white
@@ -98,7 +98,7 @@ class MenuScene: SKScene {
         moveableNode.addChild(mainText)
     }
     
-    func initScrollView() {
+    private func initScrollView() {
         
         moveableNode.isUserInteractionEnabled = false
         addChild(moveableNode)
@@ -108,7 +108,7 @@ class MenuScene: SKScene {
         view?.addSubview(scrollView)
     }
     
-    func addChapters() {
+    private func addChapters() {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {

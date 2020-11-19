@@ -71,6 +71,14 @@
 		<string>Havasu City</string>
 		<string>Death Valley</string>
 	</array>
+	<key>halloween</key>
+	<array>
+		<string>cavegrounds.png</string>
+		<string>hallownew.jpg</string>
+		<string>Scare is Born!</string>
+		<string>Creep It Real!</string>
+		<string>Feel Fright!</string>
+	</array>
 	<key>snow</key>
 	<array>
 		<string>snowgrounds.png</string>

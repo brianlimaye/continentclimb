@@ -11,6 +11,9 @@ import SpriteKit
 
 class ContinentLoader: SKScene {
     
+    private var scrollView: ScrollView!
+    private let moveableNode = SKNode()
+    
     var returnButton: SKSpriteNode = SKSpriteNode()
     
     var icyTerrainShape: SKShapeNode = SKShapeNode()
@@ -22,6 +25,9 @@ class ContinentLoader: SKScene {
     var caveTerrainShape: SKShapeNode = SKShapeNode()
     var caveTerrainText: SKLabelNode = SKLabelNode()
     
+    var hallowEventShape: SKShapeNode = SKShapeNode()
+    var hallowEventText: SKLabelNode = SKLabelNode()
+    
     var background: SKSpriteNode = SKSpriteNode()
     var mainText: SKLabelNode = SKLabelNode()
     
@@ -29,9 +35,20 @@ class ContinentLoader: SKScene {
         
         scene?.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         drawTitle()
-        drawBackground()
+        drawBackground(image: "starry.jpg")
         drawNorthAmerica()
         initReturnButton()
+        initScrollView()
+    }
+    
+    private func initScrollView() {
+        
+        moveableNode.isUserInteractionEnabled = false
+        addChild(moveableNode)
+        
+        scrollView = ScrollView(frame: CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height), moveableNode: moveableNode, direction: .vertical)
+        scrollView.contentSize = CGSize(width: self.frame.size.width, height: self.frame.size.height * 2)
+        view?.addSubview(scrollView)
     }
     
     func initReturnButton() {
@@ -72,12 +89,12 @@ class ContinentLoader: SKScene {
         }
         
         mainText.zPosition = 1
-        self.addChild(mainText)
+        moveableNode.addChild(mainText)
     }
     
-    func drawBackground() {
+    func drawBackground(image: String) {
         
-        background = SKSpriteNode(imageNamed: "starry.jpg")
+        background = SKSpriteNode(imageNamed: image)
         background.zPosition = 0
         background.size = (view?.bounds.size)!
         self.addChild(background)
@@ -113,7 +130,7 @@ class ContinentLoader: SKScene {
         
         icyTerrainText.position.y = self.frame.size.height / 6.5
         
-        self.addChild(icyTerrainShape)
+        moveableNode.addChild(icyTerrainShape)
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -143,7 +160,7 @@ class ContinentLoader: SKScene {
         
         sunnyTerrainText.position.y = -self.frame.size.height / 14
         
-        self.addChild(sunnyTerrainShape)
+        moveableNode.addChild(sunnyTerrainShape)
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
@@ -170,7 +187,38 @@ class ContinentLoader: SKScene {
         
         caveTerrainText.position.y = -self.frame.size.height / 3.65
 
-        self.addChild(caveTerrainShape)
+        moveableNode.addChild(caveTerrainShape)
+        
+        //Halloween Event
+        
+        /*
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            hallowEventShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 1.85, width: 2 * (self.frame.size.width / 3), height: 75), cornerRadius: 30)
+        }
+        
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            hallowEventShape = SKShapeNode(rect: CGRect(x: -self.frame.size.width / 3, y: -self.frame.size.height / 2.5, width: 2 * (self.frame.size.width / 3), height: 150), cornerRadius: 30)
+        }
+        hallowEventShape.fillTexture = SKTexture(imageNamed: "hallowbackg.jpg")
+        hallowEventShape.fillColor = .white
+        hallowEventShape.name = "Hallowshape"
+        hallowEventShape.zPosition = 7
+        
+        hallowEventText = SKLabelNode(fontNamed: "NationalPark-Heavy")
+        hallowEventText.fontSize = hallowEventShape.frame.size.width / 11
+        hallowEventText.fontColor = .white
+        hallowEventText.name = "Hallow"
+        hallowEventText.text = "Halloween Event"
+        
+        hallowEventText.zPosition = 7
+        hallowEventShape.addChild(hallowEventText)
+        hallowEventShape.isUserInteractionEnabled = false
+        
+        hallowEventText.position.y = -self.frame.size.height / 2.05
+
+        moveableNode.addChild(hallowEventShape)*/
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -184,6 +232,7 @@ class ContinentLoader: SKScene {
             if(node?.name == "return")
             {
                 let menuScene = MenuScene(size: (view?.bounds.size)!)
+                scrollView.removeFromSuperview()
                 menuScene.scaleMode = .aspectFill
                 view?.presentScene(menuScene)
             }
@@ -204,15 +253,24 @@ class ContinentLoader: SKScene {
                terrainKeyword = "cave"
                doesExist = true
           }
+          else if((node?.name == "Hallowshape") || (node?.name == "Hallow")) {
+            
+                terrainKeyword = "halloween"
+                doesExist = true
+          }
             
           if(doesExist)
           {
-              MusicHelper.sharedHelper.stopPlaying()
-              MusicHelper.sharedHelper.prepareToPlay()
-              MusicHelper.sharedHelper.audioPlayer?.play()
+              if(terrainKeyword != "halloween") {
+                  
+                  MusicHelper.sharedHelper.stopPlaying()
+                  MusicHelper.sharedHelper.prepareToPlay()
+                  MusicHelper.sharedHelper.audioPlayer?.play()
+              }
             
               let gameScene = GameScene(size: view!.bounds.size)
               gameScene.scaleMode = .aspectFill
+              scrollView.removeFromSuperview()
               view?.presentScene(gameScene)
           }
       }

@@ -29,6 +29,13 @@ struct gameData {
     static var caveLevelOne: [Int] = [7, 8, 9, 0, 7, 9, 7, 7, 8, 7]
     static var caveLevelTwo: [Int] = [8, 0, 7, 9, 7, 7, 8, 9, 9, 8, 0, 9]
     static var caveLevelThree: [Int] = [8, 8, 0, 9, 8, 9, 8, 7, 7, 8, 9, 7, 8, 8, 9]
+    
+    /*
+    static var hallowLevelOne: [Int] = [11, 10, 11, 10, 11, 8, 11, 10, 8, 10, 11, 10, 12]
+    static var hallowLevelTwo: [Int] = [10, 10, 10, 11, 10, 11, 11, 11, 10, 11, 11, 10, 12]
+    static var hallowLevelThree: [Int] = [11, 10, 8, 11, 11, 10, 10, 8, 10, 11, 11, 10, 8, 10, 11, 12]
+ */
+    
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
@@ -46,11 +53,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         static let spider: UInt32 = 8
         static let rock: UInt32 = 9
         static let coin: UInt32 = 10
+        static let redZombie: UInt32 = 11
+        static let blondeZombie: UInt32 = 12
+        static let thrownPumpkin: UInt32 = 13
+        static let thrownBone: UInt32 = 14
     }
+        
+    var hasLevelStarted: Bool = false
+    var needsOffset: Bool = false
     
     private var percentageLabel: UILabel = UILabel()
     
     private var completedLabel: UILabel = UILabel()
+    
+    private var currentTime: Date?
     
     private let startValue: Int = 0
     private var current: Int = 0
@@ -59,16 +75,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var animationDuration: TimeInterval = TimeInterval()
     private var basicAnimation: CABasicAnimation?
     private var basicAnimation2: CABasicAnimation?
+    private var animationStartDate: Date?
     
-    private var startedProgress: Bool = false
+    var startedProgress: Bool = false
     var displayLinkIsValid: Bool = false
     private var linkIsAdded: Bool = false
         
     private var coinDisplayLink: CADisplayLink = CADisplayLink()
     var progressDisplayLink: CADisplayLink?
     
-    private var shapeLayer: CAShapeLayer = CAShapeLayer()
-    private var trackLayer: CAShapeLayer = CAShapeLayer()
+    var shapeLayer: CAShapeLayer = CAShapeLayer()
+    var trackLayer: CAShapeLayer = CAShapeLayer()
     
     private var swipeUp: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
     private var swipeDown: UISwipeGestureRecognizer = UISwipeGestureRecognizer()
@@ -86,7 +103,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var levelLiteral: String = ""
     
     private let characterSpeed: TimeInterval = 0.25
-    private let realCharSpeed: TimeInterval = 0.1
+    private let realCharSpeed: TimeInterval = 0.25
     private var levelSpeed: TimeInterval = 0
     
     private var recordedTime: Int = 0
@@ -106,6 +123,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var evilSnowman: SKSpriteNode = SKSpriteNode()
     private var snowYeti: SKSpriteNode = SKSpriteNode()
     private var thrownSnowball: SKSpriteNode = SKSpriteNode()
+    private var thrownPumpkin: SKSpriteNode = SKSpriteNode()
+    private var thrownPumpkin2: SKSpriteNode = SKSpriteNode()
+    private var thrownBone: SKSpriteNode = SKSpriteNode()
+    private var thrownBone2: SKSpriteNode = SKSpriteNode()
     private var fallenSnowball: SKSpriteNode = SKSpriteNode()
     private var coyote: SKSpriteNode = SKSpriteNode()
     private var snake: SKSpriteNode = SKSpriteNode()
@@ -113,9 +134,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var batSprite: SKSpriteNode = SKSpriteNode()
     private var spider: SKSpriteNode = SKSpriteNode()
     private var golem: SKSpriteNode = SKSpriteNode()
+    private var redZombie: SKSpriteNode = SKSpriteNode()
+    private var blondeZombie: SKSpriteNode = SKSpriteNode()
     private var rock: SKSpriteNode = SKSpriteNode()
     private var coin: SKSpriteNode = SKSpriteNode()
     private var chatBubble: SKSpriteNode = SKSpriteNode()
+    
+    private var pumpkinLiteral: String = ""
+    
+    private var isRedZombie: Bool = true
+    
+    var rewardLabel: SKLabelNode = SKLabelNode()
+    var countdownLabel: SKLabelNode = SKLabelNode()
+    var miniPumpkin: SKSpriteNode = SKSpriteNode()
+    var tapToEquip: SKLabelNode = SKLabelNode()
     
     var coinIcon: SKSpriteNode = SKSpriteNode()
     
@@ -200,6 +232,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.addChild(cameraNode)
         }
     }
+    /*
+    func daysUntilHalloweenEnd() -> Int {
+        
+        var dateComponents = DateComponents()
+        dateComponents.year = 2020
+        dateComponents.month = 11
+        dateComponents.day = 11
+        dateComponents.timeZone = TimeZone(abbreviation: "EST")
+        dateComponents.hour = 0
+        dateComponents.minute = 00
+        
+        let currentDateTime = Date()
+        guard let projectedDate = NSCalendar.current.date(from: dateComponents) else { return -1 }
+        
+        return (projectedDate.days(from: currentDateTime))
+    }
+ */
     
     func updateStars() {
         
@@ -219,15 +268,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultyText.fontColor = .white
         
         var startIndex: Int = 0
-        var endIndex: Int = 0
+        var endIndex: Int = 2
         var completedLevels: Int = 0
+        
+        var completedTerrainLevels: [Bool] = savedData.completedLevels
         
         switch(terrainKeyword) {
             
             case "snow":
                 lock1.isHidden = true
-                startIndex = 0
-                endIndex = 2
                 break;
             case "desert":
                 if(savedData.completedLevels[2]) {
@@ -245,14 +294,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 startIndex = 6
                 endIndex = 8
                 break;
+            /*
+            case "halloween":
+                lock1.isHidden = true
+                break;*/
             default:
                 print("keyword not detected")
                 break;
           }
-        
+                
+        /*if(terrainKeyword == "halloween") {
+            
+            completedTerrainLevels = savedData.completedHallowEvent
+        }*/
+            
         for i in startIndex ... endIndex
         {
-            if(savedData.completedLevels[i])
+            if(completedTerrainLevels[i])
             {
                 completedLevels += 1
                 
@@ -271,6 +329,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if(i % 3 == 2)
                 {
                     threeStar.alpha = 1.0
+                    /*
+                    if((terrainKeyword == "halloween") && (savedData.completedHallowEvent[2] == true)) {
+                        
+                        print("rrr")
+                        savedData.hasCompletedHallow = true
+                        GameScene.defaults.setValue(savedData.hasCompletedHallow, forKey: "finishedHallow")
+                    }*/
                 }
             }
         }
@@ -337,15 +402,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func pauseProgressBar() {
-        
+                
         if(gameData.gameIsOver) {
             
             pauseAnimation(layer: shapeLayer)
             return
         }
         
+        print("paused")
         pauseAnimation(layer: shapeLayer)
-        let fillerAnim = SKAction.resize(toWidth: coinIcon.size.width, duration: Double(levelSpeed) * 0.95)
+        let fillerAnim = SKAction.resize(toWidth: coinIcon.size.width, duration: Double(levelSpeed) / 2)
         let fillerRepeater = SKAction.repeat(fillerAnim, count: 1)
         
         coinIcon.run(fillerRepeater, completion: resumeLayerAnim)
@@ -357,6 +423,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func initializeGame() {
+        
+        savedData.hasPumpkinEquipped = GameScene.defaults.bool(forKey: "hasPumpkin")
+        
+        /*if(savedData.hasPumpkinEquipped) {
+            
+            pumpkinLiteral = "pumpkin"
+        }*/
         
         percentageLabel.text = "0%"
         
@@ -420,22 +493,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func initDisplayLink() {
         
         if(!displayLinkIsValid) {
-            
-            print("new display link")
+    
             progressDisplayLink = CADisplayLink(target: self, selector: #selector(handleUpdate))
-            progressDisplayLink?.preferredFramesPerSecond = 60
             displayLinkIsValid = true
         }
     }
     
     func updateStatusPercentage() {
         
-        if(gameData.levelNumeral == 2) {
-            
-            current = 200
-        }
-        
-        animationDuration = levelDuration
+        animationDuration = levelDuration + 3
         initDisplayLink()
         progressDisplayLink?.add(to: .main, forMode: .default)
         linkIsAdded = true
@@ -444,7 +510,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     @objc func handleUpdate() {
+                        
+        let currentTime = Date()
+        var elapsedTime = currentTime.timeIntervalSince(animationStartDate!) - (abs(GameViewController.timeInBackground))
         
+        if(abs(GameViewController.prevTimeInBackground - GameViewController.newTimeInBackground) > 0) {
+            
+            if(needsOffset) {
+                
+                elapsedTime -= 3
+            }
+        }
+                
+        if (current >= 100) {
+            
+            percentageLabel.text = "\(endValue)" + "%"
+        }
+        else {
+        
+            let percentage = elapsedTime / animationDuration
+            current = (Int) (percentage * Double((endValue - startValue)))
+            
+            if(current < 0) {
+            
+                return
+            }
+            
+            self.percentageLabel.text = "\(current)" + "%"
+        }
+    }
+        
+        /*
         let percentage = current / endValue
         self.percentageLabel.text = "\(percentage)" + "%"
         current += Int(animationDuration / 5.01)
@@ -453,7 +549,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             self.percentageLabel.text = "\(endValue)" + "%"
         }
-    }
+ */
     
     func pauseAnimation(layer: CAShapeLayer){
         
@@ -471,57 +567,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
       layer.beginTime = timeSincePause
     }
     
-    func redrawLayers() {
-        
-        shapeLayer.removeFromSuperlayer()
-        trackLayer.removeFromSuperlayer()
-        
-        shapeLayer = CAShapeLayer()
-        
-        //Track Layer
-        
-        let center = CGPoint(x: (view?.bounds.width)! / 2, y: (view?.bounds.height)! / 8)
-
-        trackLayer = CAShapeLayer()
-        let circularPath = UIBezierPath(arcCenter: center, radius: self.frame.size.width * 0.05, startAngle: -CGFloat.pi / 2, endAngle: (3 * CGFloat.pi) / 2, clockwise: true)
-        trackLayer.path = circularPath.cgPath
-        
-        trackLayer.strokeColor = UIColor.lightGray.cgColor
-        trackLayer.lineWidth = 10
-        trackLayer.fillColor = UIColor.clear.cgColor
-        trackLayer.lineCap = CAShapeLayerLineCap.round
-        trackLayer.zPosition = 6
-        
-        view?.layer.addSublayer(trackLayer)
-        
-        shapeLayer.path = circularPath.cgPath
-        shapeLayer.strokeColor = UIColor.red.cgColor
-        shapeLayer.lineWidth = 10
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeEnd = 0
-        shapeLayer.lineCap = CAShapeLayerLineCap.round
-        shapeLayer.zPosition = 6
-        
-        view?.layer.addSublayer(shapeLayer)
-    }
-    
     private func startProgressBar() {
         
         startedProgress = true
         
-        let percentageCompleted = CGFloat(current) / 10000
+        let percentageCompleted = CGFloat(current) / 100.0
         
         basicAnimation = CABasicAnimation(keyPath: "strokeEnd")
         basicAnimation2 = CABasicAnimation(keyPath: "strokeEnd")
         
-        basicAnimation2?.toValue = CGFloat(CGFloat(current) / 10000)
+        basicAnimation2?.toValue = CGFloat(CGFloat(current) / 100)
         basicAnimation2?.duration = 0
         basicAnimation2?.fillMode = CAMediaTimingFillMode.forwards
         basicAnimation2?.isRemovedOnCompletion = true
         
         shapeLayer.add(basicAnimation2!, forKey: "basic2")
                         
-        basicAnimation?.fromValue = CGFloat(CGFloat(current) / 10000)
+        basicAnimation?.fromValue = CGFloat(CGFloat(current) / 100)
         basicAnimation?.toValue = percentageCompleted + 1
         basicAnimation?.duration = (levelDuration * 1.14)
         basicAnimation?.fillMode = CAMediaTimingFillMode.forwards
@@ -530,22 +592,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shapeLayer.add(basicAnimation!, forKey: "basic1")
         
         updateStatusPercentage()
-
     }
     
     func addBubbleMessage() {
     
+        percentageLabel.textColor = .black
+        completedLabel.textColor = .black
+        
         switch (terrainKeyword) {
             case "snow":
-                addSnow()
+                //addSnow()
                 chatBubble = SKSpriteNode(imageNamed: "snowmessage")
                 break
             case "desert":
                 chatBubble = SKSpriteNode(imageNamed: "desertmessage")
                 break
             case "cave":
+                percentageLabel.textColor = .white
+                completedLabel.textColor = .white
                 chatBubble = SKSpriteNode(imageNamed: "cavemessage")
                 break
+            /*case "halloween":
+                percentageLabel.textColor = .white
+                completedLabel.textColor = .white
+                break*/
             default:
                 break
         }
@@ -568,6 +638,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         let fadeRepeater = SKAction.repeat(fadeOut, count: 1)
         
+        animationStartDate = Date()
+        GameViewController.timeInBackground = 0
+        
         chatBubble.run(fadeRepeater, completion: startLevel)
     }
     func startLevel() {
@@ -578,14 +651,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func showLevelPopup() {
         
-        var menuHeight: CGFloat = self.frame.size.height / 3.5
-        var fontSize: CGFloat = self.frame.size.width * 0.05
-        
+        let menuHeight: CGFloat = self.frame.size.height / 3.5
+        let fontSize: CGFloat = self.frame.size.width * 0.05
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             menuHeight = self.frame.height / 4.15
             fontSize = self.frame.size.width * 0.05
-        }
+        }*/
         
         levelPopup = SKShapeNode(rect: CGRect(x: -self.frame.size.width, y: self.frame.midY - 20, width: self.frame.size.width * 2, height: menuHeight))
         levelPopup.fillColor = .black
@@ -597,7 +670,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         levelText.position = CGPoint(x: 0, y: self.frame.size.height / 8)
         levelText.text = levelNames[gameData.levelNumeral] + ":"
         
-        miniHero = SKSpriteNode(imageNamed: "idle-1")
+        miniHero = SKSpriteNode(imageNamed: String("idle") + pumpkinLiteral + String("-1"))
         miniHero.size = CGSize(width: miniHero.size.width * (self.frame.size.width * 0.00025), height: miniHero.size.height * (self.frame.size.width * 0.00025))
         miniHero.position = CGPoint(x: -self.frame.size.width / 24, y: self.frame.midY + 15)
         
@@ -606,12 +679,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         livesText.fontSize = fontSize
         livesText.position = CGPoint(x: 15, y: 0)
         livesText.text = "x 1"
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             miniHero.position.y = self.frame.midY + 60
             livesText.position.y = 30
-        }
+        }*/
         
         self.addChild(livesText)
         self.addChild(miniHero)
@@ -639,14 +712,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func initButtons() {
         
-        var buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
+        let buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
         
         backButton = SKSpriteNode(imageNamed: "bluehome")
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             buttonMultiplier = self.frame.size.width * 0.0007
-        }
+        }*/
         
         backButton.size = CGSize(width: backButton.size.width * buttonMultiplier, height: backButton.size.height * buttonMultiplier)
         backButton.position = CGPoint(x: -self.frame.size.width / 8, y: self.frame.size.height / 32)
@@ -681,7 +754,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func getCorrespondingSchedule(levelLiteral: String) -> [Int] {
         
         var arr: [Int]?
-        
+                
         switch(levelLiteral) {
             
             case "snowlevel1":
@@ -728,6 +801,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 bonusCoinAmount = 30
                 levelIdentifier = 8
                 break
+           /* case "halloweenlevel1":
+                arr = gameData.hallowLevelOne
+                bonusCoinAmount = 5
+                break
+            case "halloweenlevel2":
+                arr = gameData.hallowLevelTwo
+                bonusCoinAmount = 10
+                break
+            case "halloweenlevel3":
+                arr = gameData.hallowLevelThree
+                bonusCoinAmount = 15
+                break*/
             default:
                 print("uh oh")
                 break
@@ -740,7 +825,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(displayLinkIsValid) {
             
-            print("invalidate!")
             if(linkIsAdded) {
                 
                 progressDisplayLink?.remove(from: .main, forMode: .default)
@@ -769,7 +853,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         levelSpeed = TimeInterval((-0.5 * Double(levelNo)) + 3.5)
+        
+       /* if(terrainKeyword == "halloween") {
+            
+            levelSpeed = 1.75
+        }*/
+        
         levelDuration = (levelSpeed * Double(schedule.count))
+        
+        print(startedProgress)
         
         if(startedProgress) {
             
@@ -779,19 +871,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             startProgressBar()
         }
-                
+        
         levelLoader = Timer.scheduledTimer(timeInterval: levelSpeed, target: self, selector: #selector(runCorrespondingAction), userInfo: nil, repeats: true)
     }
     
     func performProgressPause() {
         
-        let filler = SKAction.resize(toWidth: hero.size.width, duration: levelSpeed * 0.5)
+        let filler = SKAction.resize(toWidth: hero.size.width, duration: levelSpeed)
         let fillerRepeater = SKAction.repeat(filler, count: 1)
         
         hero.run(fillerRepeater, completion: startProgressBar)
     }
     
     @objc func runCorrespondingAction() {
+    
+        hasLevelStarted = true
         
         if(objNum >= schedule.count)
         {
@@ -834,19 +928,54 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             case 9:
                 drawSpider()
                 break
+            case 10:
+                drawZombie(zombieType: redZombie, color: "red")
+                break
+            case 11:
+                drawZombie(zombieType: blondeZombie, color: "blonde")
+                break
             default:
+                objNum += 1
                 break
         }
     }
     
     func selectDifficulty() {
         
-        var difficultyHeight: CGFloat = self.frame.size.width / 5
-        
+        let difficultyHeight: CGFloat = self.frame.size.width / 5
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             difficultyHeight = self.frame.size.width / 4
+        }*/
+        
+        /*
+        if(terrainKeyword == "halloween") {
+            
+            rewardLabel = SKLabelNode(fontNamed: "MaassslicerItalic")
+            rewardLabel.fontColor = .orange
+            rewardLabel.fontSize = self.frame.size.width * 0.035
+            rewardLabel.text = "Reward: Jack O' Lantern Hat"
+            rewardLabel.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 3)
+            
+            countdownLabel = SKLabelNode(fontNamed: "MaassslicerItalic")
+            countdownLabel.fontSize = self.frame.size.width * 0.025
+            countdownLabel.text = String(daysUntilHalloweenEnd()) + " days left!"
+            countdownLabel.fontColor = .red
+    
+            countdownLabel.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 4.1)
+            
+            miniPumpkin = SKSpriteNode(imageNamed: "jack-o-head")
+            miniPumpkin.size = CGSize(width: miniPumpkin.size.width * (self.frame.size.width * 0.0003), height: miniPumpkin.size.height * (self.frame.size.width * 0.0003))
+            miniPumpkin.position = CGPoint(x: self.frame.width / 3, y: self.frame.size.height / 2.75)
+            miniPumpkin.name = "minipumpkin"
+            miniPumpkin.isUserInteractionEnabled = false
+            
+            self.addChild(rewardLabel)
+            self.addChild(countdownLabel)
+            self.addChild(miniPumpkin)
         }
+ */
         
         removeCheckMarks()
         initChecks()
@@ -865,11 +994,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         difficultyText = SKLabelNode(fontNamed: "NationalPark-Heavy")
         difficultyText.fontSize = self.frame.width / 24
         difficultyText.position = CGPoint(x: self.frame.midX, y: self.frame.size.height / 8.5)
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             difficultyText.position.y = self.frame.size.height / 14
-        }
+        }*/
         
         difficultyBox.addChild(difficultyText)
         
@@ -982,23 +1111,51 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.addChild(lock3)
         
         updateStars()
+        /*
+        if((savedData.hasCompletedHallow) && (terrainKeyword == "halloween")) {
+            
+            countdownLabel.text = "Reward Claimed!"
+            countdownLabel.fontColor = .green
+            
+            tapToEquip = SKLabelNode(fontNamed: "NationalPark-Heavy")
+            tapToEquip.fontColor = .white
+            tapToEquip.position = CGPoint(x: self.frame.width / 3, y: self.frame.size.height / 4.15)
+            
+            if(!savedData.hasPumpkinEquipped) {
+                
+                tapToEquip.text = "Unequipped."
+                tapToEquip.fontColor = .red
+            }
+            else {
+                tapToEquip.text = "Equipped."
+                tapToEquip.fontColor = .green
+            }
+            tapToEquip.fontSize = self.frame.size.width * 0.02
+            
+            self.addChild(tapToEquip)
+        }
+ */
         
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             oneStar.position.y = -self.frame.size.height / 9.75
             twoStar.position.y = -self.frame.size.height / 10
             threeStar.position.y = -self.frame.size.height / 9.5
         }
+ */
         
         difficultyBox.addChild(threeStar)
         
         
-        var buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
+        let buttonMultiplier: CGFloat = self.frame.size.width * 0.0006
                 
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             buttonMultiplier = self.frame.size.width * 0.0007
         }
+ */
         
         returnButton = SKSpriteNode(imageNamed: "redback")
         returnButton.size = CGSize(width: returnButton.size.width * buttonMultiplier, height: returnButton.size.height * buttonMultiplier)
@@ -1048,11 +1205,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             sandstormShift = SKAction.moveTo(x: self.size.width / 3, duration: speed)
         }
         
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             sandstormAnim = SKAction.animate(with: sandstormFrames, timePerFrame: characterSpeed / 3.4)
             sandstormShift = SKAction.moveTo(x: self.size.width / 2.5, duration: speed - 0.1)
         }
+ */
         
         let sandstormRepeater = SKAction.repeatForever(sandstormAnim)
         let shiftRepeater = SKAction.repeat(sandstormShift, count: 1)
@@ -1064,7 +1223,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func determineSandstormDirection() {
         
         let rand = Int.random(in: 1 ... 2)
-        let speed: Double = 1.5
+        let speed: Double = 1.3
         var riseAction: SKAction = SKAction()
         var riseRepeater: SKAction = SKAction()
         
@@ -1092,10 +1251,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             sandstorm.position.y = -self.frame.size.height / 4
         }
         
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             sandstorm.position.y = -self.frame.size.height / 4
         }
+ */
         
         objNum += 1
     }
@@ -1131,12 +1292,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             upperBound = 2
         }
         
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             platAnimation = SKAction.move(by: CGVector(dx: -platTexture.size().width, dy: 0), duration: 2)
             lowerBound = -1
             upperBound = 3
         }
+ */
         
         let platShift = SKAction.move(by: CGVector(dx: platTexture.size().width, dy: 0), duration: 0)
         let pAnimation = SKAction.sequence([platAnimation, platShift])
@@ -1153,12 +1316,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 icePlatform.size.width = icePlatform.size.width * 1.01
                 icePlatform.size.height = 50
             }
-            
+            /*
             if(UIDevice.current.userInterfaceIdiom == .pad)
             {
                 icePlatform.size.width = icePlatform.size.width * 1.01
                 icePlatform.size.height = 200
             }
+ */
             icePlatform.run(infinitePlat)
 
             icePlatform.name = "platform" + lowerBound.description
@@ -1192,7 +1356,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             lowerBound = -1
             upperBound = 3
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             backgAnimation = SKAction.move(by: CGVector(dx: round(-backgTexture.size().width), dy: 0), duration: 2.67)
@@ -1201,6 +1365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             lowerBound = 0
             upperBound = 2
         }
+ */
         
         let bgAnimation = SKAction.sequence([backgAnimation, backgShift])
         let infiniteBackg = SKAction.repeatForever(bgAnimation)
@@ -1208,12 +1373,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         while lowerBound < upperBound {
             
             icyBackground = SKSpriteNode(texture: backgTexture)
-            
+            /*
             if(UIDevice.current.userInterfaceIdiom == .pad)
             {
                 icyBackground.position = CGPoint(x: round((backgTexture.size().width * lowerBound) / 1.001), y: self.frame.midY)
                 icyBackground.size.height = round(self.frame.size.height)
             }
+ */
             
             if(UIDevice.current.userInterfaceIdiom == .phone)
             {
@@ -1233,13 +1399,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawCharacter() {
         
-        let runningFrames: [SKTexture] = [SKTexture(imageNamed: "bobby-6"), SKTexture(imageNamed: "bobby-7"), SKTexture(imageNamed: "bobby-8"), SKTexture(imageNamed: "bobby-9"), SKTexture(imageNamed: "bobby-10"), SKTexture(imageNamed: "bobby-11")]
+        let runningFrames: [SKTexture] = [SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-6"), SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-7"), SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-8"), SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-9"), SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-10"), SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-11")]
         
         let animate = SKAction.animate(with: runningFrames, timePerFrame: realCharSpeed)
         
         let runForever = SKAction.repeatForever(animate)
         
-        hero = SKSpriteNode(imageNamed: "bobby-6")
+        hero = SKSpriteNode(imageNamed: String("bobby") + pumpkinLiteral + "-6")
         
         hero.size = CGSize(width: hero.size.width * (self.frame.size.width * 0.00035), height: hero.size.height * (self.frame.size.width * 0.00035))
         
@@ -1301,7 +1467,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         hero.removeAllActions()
-        hero.texture = SKTexture(imageNamed: "bobby-5")
+        hero.texture = SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-5")
         
         var duckAnim: SKAction = SKAction()
         
@@ -1309,11 +1475,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             duckAnim = SKAction.moveBy(x: 250, y: -30, duration: 0.3)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             duckAnim = SKAction.moveBy(x: 300, y: -30, duration: 0.3)
         }
+ */
                 
         let duckRepeater = SKAction.repeat(duckAnim, count: 1)
         
@@ -1369,7 +1536,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         
         hero.removeAllActions()
-        hero.texture = SKTexture(imageNamed: "bobby-12")
+        hero.texture = SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-12")
         
         var jumpAnim: SKAction = SKAction()
         
@@ -1377,11 +1544,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             jumpAnim = SKAction.moveTo(y: self.frame.size.height / 6, duration: 0.3)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             jumpAnim = SKAction.moveTo(y: self.frame.size.height / 24, duration: 0.3)
         }
+ */
         
         let jumpRepeater = SKAction.repeat(jumpAnim, count: 1)
         
@@ -1390,7 +1558,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func jumpLanding() {
         
-        hero.texture = SKTexture(imageNamed: "bobby-13")
+        hero.texture = SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-13")
         
         var landAnim: SKAction = SKAction()
         
@@ -1440,6 +1608,89 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         snowYeti.run(animateRepeater, completion: yetiAttackAnimation)
         snowYeti.run(shiftRepeater)
+    }
+    
+    func drawZombie(zombieType: SKSpriteNode, color: String) {
+                
+        var zombieFrames: [SKTexture] = []
+        
+        if(color == "red") {
+            
+            zombieFrames = [SKTexture(imageNamed: "redzombie-1"), SKTexture(imageNamed: "redzombie-2"), SKTexture(imageNamed: "redzombie-3"), SKTexture(imageNamed: "redzombie-4"), SKTexture(imageNamed: "redzombie-5"), SKTexture(imageNamed: "redzombie-6"), SKTexture(imageNamed: "redzombie-7"), SKTexture(imageNamed: "redzombie-8")]
+            isRedZombie = true
+        }
+        else {
+            
+            zombieFrames = [SKTexture(imageNamed: "blondezombie-1"), SKTexture(imageNamed: "blondezombie-2"), SKTexture(imageNamed: "blondezombie-3"), SKTexture(imageNamed: "blondezombie-4"), SKTexture(imageNamed: "blondezombie-5"), SKTexture(imageNamed: "blondezombie-6"), SKTexture(imageNamed: "blondezombie-7"), SKTexture(imageNamed: "blondezombie-8")]
+            isRedZombie = false
+        }
+    
+        let zombieAnimate = SKAction.animate(with: zombieFrames, timePerFrame: characterSpeed / 2.5)
+        let zombieShift = SKAction.moveTo(x: self.frame.size.width / 3, duration: 1)
+        let zombieRevert = SKAction.moveTo(x: self.frame.size.width / 1.5, duration: 0)
+        
+        let shiftSeq = SKAction.sequence([zombieShift, zombieRevert])
+        
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
+        let zombieRepeater = SKAction.repeat(zombieAnimate, count: 1)
+        
+        zombieType.run(zombieRepeater, completion: drawThrownObject)
+        zombieType.run(shiftRepeater)
+    }
+    
+    func drawThrownObject() {
+        
+        let randInt = Int.random(in: 1 ... 2)
+        
+        let zombieType: SKSpriteNode = (isRedZombie) ? redZombie: blondeZombie
+        var objectType: SKSpriteNode = (zombieType.isEqual(redZombie)) && (randInt == 1) ? thrownPumpkin: thrownPumpkin2
+        
+        if((zombieType.isEqual(blondeZombie)) || (randInt == 2)) {
+            
+            if(randInt == 2) {
+                
+                objectType = thrownBone2
+            }
+            
+            if(!zombieType.isEqual(blondeZombie) && (randInt == 2)) {
+                
+                objectType = thrownBone
+            }
+        }
+                
+        let rand = Int.random(in: 1 ... 2)
+        let randSpeed = Double.random(in: 1.3 ... 1.65)
+        
+        let zombieShift = SKAction.moveTo(x: self.frame.size.width, duration: characterSpeed * 4)
+        let zombieShiftRepeater = SKAction.repeat(zombieShift, count: 1)
+        
+        zombieType.run(zombieShiftRepeater)
+        
+        let pumpkinShift = SKAction.moveTo(x: -self.frame.size.width, duration: randSpeed)
+        let pumpkinRevert = SKAction.moveTo(x: self.frame.size.width, duration: 0)
+        let pumpkinRotation = SKAction.rotate(byAngle: 2 * CGFloat.pi, duration: randSpeed / 2)
+        
+        let shiftSeq = SKAction.sequence([pumpkinShift, pumpkinRevert])
+        
+        let shiftRepeater = SKAction.repeat(shiftSeq, count: 1)
+        let rotationRepeater = SKAction.repeat(pumpkinRotation, count: 4)
+        
+        objectType.position.x = zombieType.position.x
+
+        if(rand == 1)
+        {
+            objectType.position.y = gameData.startingHeroPos.y + 70
+        }
+        
+        if(rand == 2)
+        {
+            objectType.position.y = gameData.startingHeroPos.y
+        }
+
+        objectType.run(shiftRepeater)
+        objectType.run(rotationRepeater)
+        
+        objNum += 1
     }
     
     func yetiAttackAnimation() {
@@ -1661,7 +1912,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func drawBat() {
         
-        let randSpeed = Double.random(in: 1.65 ... 1.9)
+        let randSpeed = Double.random(in: 1.75 ... 1.9)
         
         let batFrames: [SKTexture] = [SKTexture(imageNamed: "bat-1"), SKTexture(imageNamed: "bat-2"), SKTexture(imageNamed: "bat-3"), SKTexture(imageNamed: "bat-4")]
         
@@ -1828,14 +2079,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         scoreLabel = SKLabelNode(fontNamed: "Antapani-ExtraBold")
         scoreLabel.fontColor = .white
-        scoreLabel.fontSize = self.frame.size.width * 0.05
+        scoreLabel.fontSize = self.frame.size.width * 0.045
         scoreLabel.text = String(savedData.coinCount)
         scoreLabel.position = CGPoint(x: self.frame.size.width / 2.5, y: self.frame.size.height / 2.76)
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             scoreLabel.position.y = self.frame.size.height / 2.68
         }
+ */
         scoreLabel.zPosition = 5
         scoreBox.addChild(scoreLabel)
         
@@ -1849,11 +2101,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 4.6)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             evilSnowman.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.9)
-         }
+         } */
         evilSnowman.xScale = -1
         self.addChild(evilSnowman)
         
@@ -1866,11 +2118,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             snowYeti.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.8)// self.frame.width, y: -self.frame.size.height / 4.15)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             snowYeti.position = CGPoint(x: self.frame.width, y: -self.frame.size.height / 3.65)
-        }
+        }*/
         
         snowYeti.xScale = -1
         
@@ -1923,11 +2175,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.5)//-self.frame.size.height / 4.15)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             coyote.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)
-        }
+        } */
         
         coyote.xScale = -1
         
@@ -1950,11 +2202,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.6)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             snake.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 2.75)
-        }
+        }*/
         snake.xScale = -1
         
         snake.physicsBody = SKPhysicsBody(circleOfRadius: snake.size.width / 3.25, center: CGPoint(x: -10, y: 10))
@@ -1991,13 +2243,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if(UIDevice.current.userInterfaceIdiom == .phone)
         {
-            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.82)
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 5.9)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
-            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4.75)
-        }
+            batSprite.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4.87)
+        }*/
         
         batSprite.xScale = -1
         
@@ -2020,11 +2272,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             spider.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.65)
-        }
+        }*/
         
         spider.xScale = -1
         
@@ -2046,11 +2298,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         {
             golem.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 4.3)
         }
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             golem.position = CGPoint(x: self.frame.size.width, y: -self.frame.size.height / 3.9)
-        }
+        }*/
     
         golem.xScale = -1
         self.addChild(golem)
@@ -2087,6 +2339,127 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         coin.physicsBody?.isDynamic = false
         
         self.addChild(coin)
+        
+        //Red Zombie
+        
+        redZombie = SKSpriteNode(imageNamed: "redzombie-1")
+        redZombie.size = CGSize(width: redZombie.size.width * (self.frame.size.width * 0.001), height: redZombie.size.height * (self.frame.size.width * 0.001))
+        redZombie.name = "redzombie"
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            redZombie.position = CGPoint(x: self.frame.size.width / 1.5, y: -self.frame.size.height / 3.8)// self.frame.width, y: -self.frame.size.height / 4.15)
+        }
+        /*
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            redZombie.position = CGPoint(x: self.frame.width / 1.5, y: -self.frame.size.height / 3.65)
+        }*/
+        
+        redZombie.xScale = -1
+        
+        redZombie.physicsBody = SKPhysicsBody(circleOfRadius: redZombie.size.width / 3)
+        redZombie.physicsBody?.affectedByGravity = false
+        redZombie.physicsBody?.categoryBitMask = ColliderType.redZombie
+        redZombie.physicsBody?.collisionBitMask = ColliderType.hero
+        redZombie.physicsBody?.contactTestBitMask = ColliderType.hero
+        redZombie.physicsBody?.isDynamic = false
+        
+        self.addChild(redZombie)
+        
+        //Blonde Zombie
+        
+        blondeZombie = SKSpriteNode(imageNamed: "blondezombie-1")
+        blondeZombie.size = CGSize(width: blondeZombie.size.width * (self.frame.size.width * 0.001), height: blondeZombie.size.height * (self.frame.size.width * 0.001))
+        blondeZombie.name = "blondezombie"
+        
+        if(UIDevice.current.userInterfaceIdiom == .phone)
+        {
+            blondeZombie.position = CGPoint(x: self.frame.size.width / 1.5, y: -self.frame.size.height / 3.8)// self.frame.width, y: -self.frame.size.height / 4.15)
+        }
+        /*
+        if(UIDevice.current.userInterfaceIdiom == .pad)
+        {
+            blondeZombie.position = CGPoint(x: self.frame.width / 1.5, y: -self.frame.size.height / 3.65)
+        }*/
+        
+        blondeZombie.xScale = -1
+        
+        blondeZombie.physicsBody = SKPhysicsBody(circleOfRadius: blondeZombie.size.width / 3)
+        blondeZombie.physicsBody?.affectedByGravity = false
+        blondeZombie.physicsBody?.categoryBitMask = ColliderType.blondeZombie
+        blondeZombie.physicsBody?.collisionBitMask = ColliderType.hero
+        blondeZombie.physicsBody?.contactTestBitMask = ColliderType.hero
+        blondeZombie.physicsBody?.isDynamic = false
+        
+        self.addChild(blondeZombie)
+        
+        //Thrown Pumpkin
+        
+        thrownPumpkin = SKSpriteNode(imageNamed: "jack-o-head")
+        thrownPumpkin.position = CGPoint(x: redZombie.position.x, y: -self.frame.size.height / 4.75)
+        thrownPumpkin.name = "thrownpumpkin"
+        
+        thrownPumpkin.size = CGSize(width: thrownPumpkin.size.width * (self.frame.size.width * 0.0003), height: thrownPumpkin.size.height * (self.frame.size.width * 0.0003))
+        
+        thrownPumpkin.physicsBody = SKPhysicsBody(circleOfRadius: thrownPumpkin.size.width / 3)
+        thrownPumpkin.physicsBody?.affectedByGravity = false
+        thrownPumpkin.physicsBody?.categoryBitMask = ColliderType.thrownPumpkin
+        thrownPumpkin.physicsBody?.collisionBitMask = ColliderType.hero
+        thrownPumpkin.physicsBody?.contactTestBitMask = ColliderType.hero
+        thrownPumpkin.physicsBody?.isDynamic = false
+        
+        self.addChild(thrownPumpkin)
+        
+        //Thrown Pumpkin 2
+        
+        thrownPumpkin2 = SKSpriteNode(imageNamed: "jack-o-head")
+        thrownPumpkin2.position = CGPoint(x: redZombie.position.x, y: -self.frame.size.height / 4.75)
+        thrownPumpkin2.name = "thrownpumpkin"
+        
+        thrownPumpkin2.size = CGSize(width: thrownPumpkin2.size.width * (self.frame.size.width * 0.0003), height: thrownPumpkin2.size.height * (self.frame.size.width * 0.0003))
+        
+        thrownPumpkin2.physicsBody = SKPhysicsBody(circleOfRadius: thrownPumpkin2.size.width / 3)
+        thrownPumpkin2.physicsBody?.affectedByGravity = false
+        thrownPumpkin2.physicsBody?.categoryBitMask = ColliderType.thrownPumpkin
+        thrownPumpkin2.physicsBody?.collisionBitMask = ColliderType.hero
+        thrownPumpkin2.physicsBody?.contactTestBitMask = ColliderType.hero
+        thrownPumpkin2.physicsBody?.isDynamic = false
+        
+        self.addChild(thrownPumpkin2)
+        
+        //Bones 1 and 2
+        
+        thrownBone = SKSpriteNode(imageNamed: "bone")
+        thrownBone.position = CGPoint(x: redZombie.position.x, y: -self.frame.size.height / 4.75)
+        thrownBone.name = "thrownbone"
+        
+        thrownBone.size = CGSize(width: thrownBone.size.width * (self.frame.size.width * 0.000125), height: thrownBone.size.height * (self.frame.size.width * 0.000125))
+        
+        thrownBone.physicsBody = SKPhysicsBody(circleOfRadius: thrownBone.size.width / 3)
+        thrownBone.physicsBody?.affectedByGravity = false
+        thrownBone.physicsBody?.categoryBitMask = ColliderType.thrownBone
+        thrownBone.physicsBody?.collisionBitMask = ColliderType.hero
+        thrownBone.physicsBody?.contactTestBitMask = ColliderType.hero
+        thrownBone.physicsBody?.isDynamic = false
+        
+        self.addChild(thrownBone)
+        
+        
+        thrownBone2 = SKSpriteNode(imageNamed: "bone")
+        thrownBone2.position = CGPoint(x: redZombie.position.x, y: -self.frame.size.height / 4.75)
+        thrownBone2.name = "thrownbone"
+        
+        thrownBone2.size = CGSize(width: thrownBone2.size.width * (self.frame.size.width * 0.000125), height: thrownBone2.size.height * (self.frame.size.width * 0.000125))
+        
+        thrownBone2.physicsBody = SKPhysicsBody(circleOfRadius: thrownBone2.size.width / 3)
+        thrownBone2.physicsBody?.affectedByGravity = false
+        thrownBone2.physicsBody?.categoryBitMask = ColliderType.thrownBone
+        thrownBone2.physicsBody?.collisionBitMask = ColliderType.hero
+        thrownBone2.physicsBody?.contactTestBitMask = ColliderType.hero
+        thrownBone2.physicsBody?.isDynamic = false
+        
+        self.addChild(thrownBone2)
     }
     
     func performDieAnimation() {
@@ -2111,7 +2484,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let rotationBackAnim = SKAction.repeat(rotationBack, count: 1)
         let fallAnim = SKAction.repeat(fall, count: 1)
         
-        hero.texture = SKTexture(imageNamed: "bobby-16.png")
+        hero.texture = SKTexture(imageNamed: String("bobby") + pumpkinLiteral + "-16")
         hero.run(rotationBackAnim)
         hero.run(fallAnim, completion: endGame)
     }
@@ -2168,7 +2541,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func makeCharIdle() {
         
-        let idleFrames: [SKTexture] = [SKTexture(imageNamed: "idle-1"), SKTexture(imageNamed: "idle-2"), SKTexture(imageNamed: "idle-3"), SKTexture(imageNamed: "idle-4")]
+        let idleFrames: [SKTexture] = [SKTexture(imageNamed: String("idle") + pumpkinLiteral + "-1")]
         
         hero.removeAllActions()
         
@@ -2184,7 +2557,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         var one: Bool = true
         var two: Bool = true
         var three: Bool = true
-        
+                
         switch(terrainKeyword) {
             
             case "snow":
@@ -2202,6 +2575,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 two = savedData.completedLevels[7]
                 three = savedData.completedLevels[8]
                 break
+                /*
+            case "halloween":
+                one = savedData.completedHallowEvent[0]
+                two = savedData.completedHallowEvent[1]
+                three = savedData.completedHallowEvent[2]
+                break*/
             default:
                 break
         }
@@ -2276,14 +2655,36 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     savedData.completedLevels[8] = true
                 }
                 break
+            /*
+            case "halloween":
+                if(levelLiteral.contains("1"))
+                {
+                    savedData.completedHallowEvent[0] = true
+                }
+            
+                if(levelLiteral.contains("2"))
+                {
+                    savedData.completedHallowEvent[1] = true
+                }
+            
+                if(levelLiteral.contains("3"))
+                {
+                    savedData.completedHallowEvent[2] = true
+                }*/
             default:
                 break
         }
         
         GameScene.defaults.set(savedData.completedLevels, forKey: "completedLevels")
+        GameScene.defaults.set(savedData.completedHallowEvent, forKey: "completedHallow")
     }
     
     func addCoinBonus() {
+        
+        if(terrainKeyword == "halloween") {
+            
+            return
+        }
     
         if(!savedData.completedLevels[levelIdentifier]) {
             
@@ -2292,11 +2693,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             scoreBonus.fontSize = self.frame.size.width * 0.03
             scoreBonus.text = "+" + String(bonusCoinAmount)
             scoreBonus.position = CGPoint(x: self.frame.size.width / 2.165, y: self.frame.size.height / 2.76)
-            
+            /*
             if(UIDevice.current.userInterfaceIdiom == .pad)
             {
                 scoreBonus.position.y = self.frame.size.height / 2.68
-            }
+            }*/
             
             scoreBonus.zPosition = 5
             scoreBonus.alpha = 0.0
@@ -2334,7 +2735,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func endGame() {
     
+        GameViewController.timeInBackground = 0
         progressDisplayLink?.invalidate()
+        levelLoader?.invalidate()
         pauseAnimation(layer: trackLayer)
         pauseAnimation(layer: shapeLayer)
         
@@ -2345,6 +2748,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if(current < 10000) {
                 
                 percentageLabel.text = "100%"
+                
             }
             
             updateCompletedLevel()
@@ -2360,7 +2764,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         resetModifiers()
         pauseBackgAndPlatform()
         showEndingMenu()
-        
     }
     
     func resetModifiers() {
@@ -2368,6 +2771,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         basicAnimation = nil
         startedProgress = false
         displayLinkIsValid = false
+        hasLevelStarted = false
+        needsOffset = false
         resumedAngle = (-CGFloat.pi / 2)
         animationDuration = 0
         current = 0
@@ -2385,6 +2790,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 return index + 3;
             case "cave":
                 return index + 6;
+                /*
+            case "halloween":
+                return index;*/
             default:
                 print("Other terrain keyword...");
                 return index;
@@ -2395,6 +2803,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                             
         if let touch = touches.first {
+            
+            var terrainCompletedLevels: [Bool] = savedData.completedLevels
+            
+            /*
+            if(terrainKeyword == "halloween") {
+                
+                terrainCompletedLevels = savedData.completedHallowEvent
+            }*/
             
             let location = touch.previousLocation(in: self)
             let node = self.nodes(at: location).first
@@ -2412,6 +2828,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             else if(node?.name == "return")
             {
                 terrainKeyword = ""
+                
                 MusicHelper.sharedHelper.stopPlaying()
                 MusicHelper.sharedHelper.prepareToPlay()
                 MusicHelper.sharedHelper.audioPlayer?.play()
@@ -2455,13 +2872,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     
                     if(levelIndex != 0) {
                         
-                        if(!savedData.completedLevels[levelIndex - 1]) {
+                        if(!terrainCompletedLevels[levelIndex - 1]) {
                             
                             return
                         }
                     }
                     
                     returnButton.removeFromParent()
+                    miniPumpkin.removeFromParent()
+                    countdownLabel.removeFromParent()
+                    rewardLabel.removeFromParent()
+                    tapToEquip.removeFromParent()
                     levelLiteral = terrainKeyword + "level1"
                     gameData.levelNumeral = 0
                     initializeGame()
@@ -2472,12 +2893,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 {
                     let levelIndex = getLevelIndex(index: 1)
                     
-                    if(!savedData.completedLevels[levelIndex - 1]) {
+                    if(!terrainCompletedLevels[levelIndex - 1]) {
                         
                         return
                     }
                     
                     returnButton.removeFromParent()
+                    miniPumpkin.removeFromParent()
+                    countdownLabel.removeFromParent()
+                    rewardLabel.removeFromParent()
+                    tapToEquip.removeFromParent()
                     levelLiteral = terrainKeyword + "level2"
                     gameData.levelNumeral = 1
                     initializeGame()
@@ -2488,20 +2913,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 {
                     let levelIndex = getLevelIndex(index: 2)
                     
-                    if(!savedData.completedLevels[levelIndex - 1]) {
+                    if(!terrainCompletedLevels[levelIndex - 1]) {
                         
                         return
                     }
                     
                     returnButton.removeFromParent()
+                    miniPumpkin.removeFromParent()
+                    countdownLabel.removeFromParent()
+                    rewardLabel.removeFromParent()
+                    tapToEquip.removeFromParent()
                     levelLiteral = terrainKeyword + "level3"
                     gameData.levelNumeral = 2
                     initializeGame()
                     difficultyBox.isHidden = true
                 }
             }
+                /*
+                else if(node?.name == "minipumpkin") {
+                                        
+                    if(savedData.hasCompletedHallow) {
+                        
+                        if(!savedData.hasPumpkinEquipped) {
+                            
+                            savedData.hasPumpkinEquipped = true
+                            pumpkinLiteral = "pumpkin"
+                            tapToEquip.text = "Equipped."
+                            tapToEquip.fontColor = .green
+                        }
+                        else {
+                            
+                            savedData.hasPumpkinEquipped = false
+                            pumpkinLiteral = ""
+                            tapToEquip.text = "Unequipped"
+                            tapToEquip.fontColor = .red
+                        }
+                        GameScene.defaults.setValue(savedData.hasPumpkinEquipped, forKey: "hasPumpkin")
+                    }
+                }
+ */
+            }
        }
-    }
     
     func getUIColor(literal: String) -> UIColor {
         
@@ -2522,17 +2974,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         levelLoader?.invalidate()
         
-        var menuHeight: CGFloat = self.frame.size.height / 3.5
-        var statusSize: CGFloat = self.frame.size.width * 0.05
+        let menuHeight: CGFloat = self.frame.size.height / 3.5
+        let statusSize: CGFloat = self.frame.size.width * 0.05
         var statusText: String = ""
         var statusColor: String = ""
         let currentLevelName: String = levelNames[gameData.levelNumeral]
-        
+        /*
         if(UIDevice.current.userInterfaceIdiom == .pad)
         {
             menuHeight = self.frame.height / 4.15
             statusSize = self.frame.size.width * 0.06
-        }
+        }*/
         
         gameOverDisplay = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.midY - 20, width: self.frame.width * 2, height: menuHeight))
         gameOverDisplay.fillColor = .black
@@ -2588,6 +3040,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         else
         {
+            gameData.gameIsOver = true
             hero.physicsBody?.isDynamic = false
             performDieAnimation()
         }

@@ -14,9 +14,13 @@ import AVFoundation
 
 class GameViewController: UIViewController {
     
-    private static var gameScene: GameScene?
+    static var gameScene: GameScene?
     private static var serialQueue: DispatchQueue = DispatchQueue(label: "backfor")
-
+    static var dateInBackground: Date?
+    static var timeInBackground: TimeInterval = 0
+    static var prevTimeInBackground: TimeInterval = 0
+    static var newTimeInBackground: TimeInterval = 0
+    
     let isDebug: Bool = {
         
         var isDebug = false
@@ -187,20 +191,35 @@ class GameViewController: UIViewController {
         
         GameViewController.serialQueue.sync {
             
+            GameViewController.gameScene?.needsOffset = true
+            GameViewController.gameScene?.pauseAnimation(layer: GameViewController.gameScene?.shapeLayer ?? CAShapeLayer())
+            //GameViewController.gameScene?.pauseAnimation(layer: GameViewController.gameScene?.trackLayer ?? CAShapeLayer())
+
+            GameViewController.dateInBackground = Date()
+            
             GameScene.defaults.set(savedData.completedLevels, forKey: "completedLevels")
             GameScene.defaults.set(savedData.coinCount, forKey: "coins")
+            GameScene.defaults.set(savedData.hasCompletedHallow, forKey: "finishedHallow")
+            GameScene.defaults.set(savedData.completedHallowEvent, forKey: "completedHallow")
+            GameScene.defaults.set(savedData.hasPumpkinEquipped, forKey: "hasPumpkin")
 
             GameViewController.gameScene?.coinIcon.removeAllActions()
-            print("background")
             
             if((GameViewController.gameScene?.levelLoader != nil) || ((GameViewController.gameScene?.levelLoader?.isValid) != nil)) {
                 
-                GameViewController.gameScene?.levelLoader?.invalidate()
+                if(GameViewController.gameScene?.hasLevelStarted == true) {
+                    
+                    GameViewController.gameScene?.levelLoader?.invalidate()
+                }
             }
             
             if(GameViewController.gameScene?.progressDisplayLink != nil) {
                 
-                GameViewController.gameScene?.removeDisplayLink()
+                if(GameViewController.gameScene?.hasLevelStarted == true) {
+                    
+                    print("removed display link.")
+                    GameViewController.gameScene?.removeDisplayLink()
+                }
             }
             
             if((MusicHelper.sharedHelper.audioPlayer?.isPlaying) != nil) {
@@ -214,22 +233,44 @@ class GameViewController: UIViewController {
     
     @objc func appMovedToForeground() {
         
+        GameViewController.gameScene?.levelLoader?.invalidate()
+        
         GameViewController.serialQueue.sync {
             
-            print("foreground")
             GameViewController.gameScene?.isPaused = false
             MusicHelper.sharedHelper.audioPlayer?.play()
     
-            if((GameViewController.gameScene?.progressDisplayLink != nil) || ((GameViewController.gameScene?.displayLinkIsValid) != nil)) {
+            if((GameViewController.gameScene?.progressDisplayLink != nil) || ((GameViewController.gameScene?.displayLinkIsValid == true))) {
                 
-                GameViewController.gameScene?.coinIcon.removeAllActions()
-                GameViewController.gameScene?.pauseProgressBar()
-                GameViewController.gameScene?.progressDisplayLink?.isPaused = false
+                if(GameViewController.gameScene?.hasLevelStarted == true) {
+                    
+                    GameViewController.gameScene?.coinIcon.removeAllActions()
+                    GameViewController.gameScene?.pauseProgressBar()
+                }
             }
             
-            if((!gameData.gameIsOver) && (!gameData.hasPopups))
+            if(!gameData.gameIsOver)
             {
-                GameViewController.gameScene?.startLevel()
+                if(GameViewController.gameScene?.hasLevelStarted == true) {
+        
+                    GameViewController.gameScene?.startLevel()
+                }
+            }
+            
+            if(GameViewController.dateInBackground != nil) {
+                
+                GameViewController.prevTimeInBackground = GameViewController.newTimeInBackground
+                
+                if(GameViewController.prevTimeInBackground == 0.0) {
+                    
+                    GameViewController.prevTimeInBackground = 0.001
+                }
+                
+                let now: Date = Date()
+                
+                GameViewController.newTimeInBackground = (GameViewController.dateInBackground?.timeIntervalSince(now))!
+                
+                GameViewController.timeInBackground += GameViewController.newTimeInBackground
             }
         }
     }

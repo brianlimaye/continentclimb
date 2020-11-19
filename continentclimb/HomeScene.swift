@@ -17,11 +17,16 @@ struct savedData {
     
     static var coinCount: Int = 0
     static var completedLevels: [Bool] = [false, false, false, false, false, false, false, false, false]
+    static var completedHallowEvent: [Bool] = [false, false, false]
+    static var hasCompletedHallow: Bool = false
+    static var hasPumpkinEquipped: Bool = false
 }
 
 class HomeScene: SKScene {
     
     private let heroSpeed = 0.25
+    
+    private var touchedHero: Bool = false
     
     private var clickToStart: SKLabelNode = SKLabelNode()
     private var clickToStart2: SKLabelNode = SKLabelNode()
@@ -36,6 +41,7 @@ class HomeScene: SKScene {
     private var menuButtonShape: SKShapeNode = SKShapeNode()
     private var mainTitleScreen: SKLabelNode = SKLabelNode()
     private var galaxy: SKSpriteNode = SKSpriteNode()
+    private var spookyBackg: SKSpriteNode = SKSpriteNode()
     private var hero: SKSpriteNode = SKSpriteNode()
     private var earth: SKSpriteNode = SKSpriteNode()
     
@@ -47,6 +53,7 @@ class HomeScene: SKScene {
         initHero()
         initEarth()
         initGalaxy()
+        //initSpooky()
         initClickToStart()
     }
     
@@ -60,6 +67,7 @@ class HomeScene: SKScene {
         
         let coins = GameScene.defaults.integer(forKey: "coins")
         let completedLevels = GameScene.defaults.array(forKey: "completedLevels") as? [Bool]
+        let completedHallow = GameScene.defaults.array(forKey: "completedHallow") as? [Bool]
         
         if(coins > 0)
         {
@@ -70,9 +78,17 @@ class HomeScene: SKScene {
         {
             savedData.completedLevels = completedLevels ?? [false, false, false, false, false, false, false, false, false]
         }
+        
+        if(completedHallow != nil)
+        {
+            savedData.completedHallowEvent = completedHallow ?? [false, false, false]
+        }
+        
+        savedData.hasCompletedHallow = GameScene.defaults.bool(forKey: "finishedHallow")
+        savedData.hasPumpkinEquipped = GameScene.defaults.bool(forKey: "hasPumpkin")
     }
     
-    func initClickToStart() {
+    private func initClickToStart() {
         
         let fadeOut = SKAction.fadeOut(withDuration: 1)
         let fadeIn = SKAction.fadeIn(withDuration: 1)
@@ -86,12 +102,22 @@ class HomeScene: SKScene {
         clickToStart.fontColor = .white
         clickToStart.fontSize = self.frame.size.width * 0.05
         clickToStart.position = CGPoint(x: 0, y: -self.frame.size.height / 2.5)
+        clickToStart.zPosition = 1
         
         clickToStart.run(fadeRepeater)
         self.addChild(clickToStart)
     }
     
-    func initGalaxy() {
+    private func initSpooky() {
+        
+        spookyBackg = SKSpriteNode(imageNamed: "spooky.jpg")
+        spookyBackg.size.width = CGFloat((scene?.view?.bounds.width)!)
+        spookyBackg.size.height = CGFloat((scene?.view?.bounds.height)!)
+        spookyBackg.zPosition = -1
+        self.addChild(spookyBackg)
+    }
+    
+    private func initGalaxy() {
         
         galaxy = SKSpriteNode(imageNamed: "starry.jpg")
         galaxy.size.width = CGFloat((scene?.view?.bounds.width)!)
@@ -100,7 +126,7 @@ class HomeScene: SKScene {
         self.addChild(galaxy)
     }
     
-    func initEarth() {
+    private func initEarth() {
         
         earth = SKSpriteNode(imageNamed: "globe")
         earth.size = CGSize(width: earth.size.width * (self.frame.size.width * 0.0004), height: earth.size.height * (self.frame.size.width * 0.0004))
@@ -109,7 +135,7 @@ class HomeScene: SKScene {
         self.addChild(earth)
     }
     
-    func initHero() {
+    private func initHero() {
         
         let runFrames: [SKTexture] = [SKTexture(imageNamed: "idle-1"), SKTexture(imageNamed: "idle-1"), SKTexture(imageNamed: "idle-2"), SKTexture(imageNamed: "idle-4")]
         
@@ -134,7 +160,7 @@ class HomeScene: SKScene {
         self.addChild(hero)
     }
     
-    func drawMainText() {
+    private func drawMainText() {
         
         mainTitleScreen = SKLabelNode(fontNamed: "MaassslicerItalic")
         mainTitleScreen.position = CGPoint(x: self.frame.midX, y: self.frame.height / 2.9)
@@ -146,7 +172,7 @@ class HomeScene: SKScene {
         self.addChild(mainTitleScreen)
     }
     
-    func drawIconRect() {
+    private func drawIconRect() {
         
         iconHolder = SKShapeNode(rect: CGRect(x: -self.frame.width, y: self.frame.minY, width: (2 * self.frame.width), height: 2 * (self.frame.height / 13)))
         
@@ -158,7 +184,7 @@ class HomeScene: SKScene {
         self.addChild(iconHolder)
     }
     
-    func drawLikeButton() {
+    private func drawLikeButton() {
         
         rateButton = SKSpriteNode(imageNamed: "like-icon.png")
         rateButton.name = "ratebutton"
@@ -183,7 +209,7 @@ class HomeScene: SKScene {
         rateButtonShape.position.y = -self.frame.height / 2.5
     }
     
-    func drawTutorialButton() {
+    private func drawTutorialButton() {
         
         tutorialButton = SKSpriteNode(imageNamed: "question-mark.png")
         tutorialButton.name = "tutorialbutton"
@@ -215,7 +241,7 @@ class HomeScene: SKScene {
         tutorialButtonShape.position.y = -self.frame.height / 2.5
     }
     
-    func drawSoundButton() {
+    private func drawSoundButton() {
         
         soundButton = SKSpriteNode(imageNamed: "volume-off.png")
         soundButton.name = "soundbutton"
@@ -246,7 +272,7 @@ class HomeScene: SKScene {
         soundButtonShape.position.y = -self.frame.height / 2.5
     }
     
-    func drawMenuButton() {
+    private func drawMenuButton() {
         
         menuButton = SKSpriteNode(imageNamed: "menu-icon.png")
         if(UIDevice.current.userInterfaceIdiom == .phone)
@@ -287,7 +313,7 @@ class HomeScene: SKScene {
         }
     }
     
-    func sinkHero() {
+    private func sinkHero() {
         
         iconHolder.isHidden = true
         mainTitleScreen.isHidden = true
@@ -310,7 +336,7 @@ class HomeScene: SKScene {
         hero.run(moveRepeater, completion: goToMenuScene)
     }
     
-    func fadeBlack() {
+    private func fadeBlack() {
         
         scene?.backgroundColor = .black
         let fadeOut = SKAction.fadeOut(withDuration: 0.3)
@@ -320,14 +346,14 @@ class HomeScene: SKScene {
         self.run(fadeRepeater, completion: goToMenuScene)
     }
     
-    func goToMenuScene() {
+    private func goToMenuScene() {
         
         let menuScene = MenuScene(size: (view?.bounds.size)!)
         menuScene.scaleMode = .aspectFill
         view?.presentScene(menuScene)
     }
     
-    func rateApp() {
+    private func rateApp() {
         if #available(iOS 10.3, *) {
             SKStoreReviewController.requestReview()
 
@@ -342,7 +368,7 @@ class HomeScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
+                
         if let touch = touches.first {
         
         let location = touch.previousLocation(in: self)
@@ -354,7 +380,11 @@ class HomeScene: SKScene {
         }
         else
         {
-            sinkHero()
+            if(!touchedHero) {
+                
+                sinkHero()
+                touchedHero = true
+            }
         }
     }
   }
